@@ -15,50 +15,77 @@
 #include <unistd.h>
 #include <stdarg.h>
 
+#include <string.h> // remove
+
 /*
 *	The prototype for the standard printf is:
 *			int	printf(const char * restrict format, ...);
 *	Should restrict be omitted like in libft?
 */
 
-size_t	get_argc(char *format)
+char	*ptoa(unsigned long p)
 {
-	size_t	argc;
+	char			*a;
+	size_t			i;
+	unsigned long	rem;
 
-	argc = 0;
-	while (*format)
+	a = (char *) malloc(15);
+	if (!a)
+		return (NULL);
+	i = 14;
+	a[i--] = '\0';
+	while (p > 0)
 	{
-		if (*format == '%')
-			argc++;
-		format++;
+		rem = p % 16;
+		if (rem > 9)
+			a[i] = 'a' + rem - 10;
+		else
+			a[i] = '0' + rem;
+		p = p / 16;
+		i--;
 	}
-	return (argc);
+	while (i < 1)
+		a[i--] = '0';
+	a[0] = '0';
+	a[1] = 'x';
+	return (a);
+}
+
+char	*convert(const char *format, char *arg)
+{
+	if (*(format + 1) == 's')
+		return (arg);
+	if (*(format + 1) == 'p')
+		return (ptoa((unsigned long) arg));
+	return (NULL);
 }
 
 int	ft_printf(const char *format, ...)
 {
-	size_t	len;
-	char	*out;
+	char	*arg;
 	va_list	ap;
-	char	**args;
-	size_t	argc;
-	size_t	i;
+	int		ret;
 
-	len = 0;
-	i = 0;
-	out = NULL;
-	args = NULL;
-	argc = get_argc(format);
-	args = (char **) malloc(argc * sizeof (char *));
-	if (!args)
-		return (-1);
+	ret = 0;
 	va_start(ap, format);
-	while (i < argc)
+	while (*format)
 	{
-		args[i] = va_arg(ap, char *);
-		i++;
+		if (*format == '%')
+		{
+			if (*(format + 1) == '%')
+			{
+				format++;
+				write(1, "%", 1);
+				continue ;
+			}
+			arg = convert(format, va_arg(ap, char *));
+			write(1, arg, strlen(arg));
+			format = format + 2;
+			continue ;
+		}
+		write(1, format, 1);
+		format++;
 	}
 	va_end(ap);
-	write(1, out, len);
 	return (ret);
 }
