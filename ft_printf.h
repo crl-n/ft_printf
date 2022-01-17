@@ -6,11 +6,13 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/03 15:49:58 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/17 17:29:20 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+
+int	ft_printf(const char *format, ...);
 
 #endif
