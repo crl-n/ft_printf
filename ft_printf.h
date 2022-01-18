@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/17 17:29:20 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/18 16:00:32 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 # define FT_PRINTF_H
 
 int	ft_printf(const char *format, ...);
+char	*ptoa(unsigned long p);
 
 #endif
