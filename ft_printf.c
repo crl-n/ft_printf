@@ -15,57 +15,103 @@
 #include <stdarg.h>
 #include <string.h> // remove
 
+int	is_flag(const char c)
+{
+	if (c == '#' || c == '0' || c == '-' || c == ' ' || c == '+' || c == '\'')
+		return (1);
+	return (0);
+}
+
 /*
  * There can be zero or more of the flags: #0- +'
  */
 
-void	set_flag(const char *format)
+void	set_flag(const char c, t_directive *dir)
 {
-	if (*format == '#')
-		
+	if (c == '#')
+		dir->flags = dir->flags | ALT;
+	if (c == '0')
+		dir->flags = dir->flags | ZERO;
+	if (c == '-')
+		dir->flags = dir->flags | MINUS;
+	if (c == ' ')
+		dir->flags = dir->flags | SPACE;
+	if (c == '+')
+		dir->flags = dir->flags | PLUS;
+	if (c == '\'')
+		dir->flags = dir->flags | SEP;
+}
+
+int	is_conversion(const char c)
+{
+	if (c == 'c' || c == 's' || c == 'p'
+		|| c == 'd' || c == 'i' || c == 'o' || c == 'u'
+		|| c == 'x' || c == 'X' || c == 'f')
+		return (1);
+	return (0);
 }
 
 /*
  * Valid conversion specifiers: diouxX, csp, f
  */
 
-void	set_conversion(const char *format)
+void	set_conversion(const char format, t_directive *dir)
 {
-	if (*format == 'c')
-		return (NULL);
-	if (*format == 's')
-		return (arg);
-	if (*format == 'p')
-		return (ptoa((unsigned long) arg));
-	if (*format == 'c')
-		return (NULL);
-	return (NULL);
+	if (format == 'c')
+		dir->conversion = CHAR;
+	if (format == 's')
+		dir->conversion = STRING;
+	if (format == 'p')
+		dir->conversion = POINTER;
+	if (format == 'd')
+		dir->conversion = DIGIT;
+	if (format == 'i')
+		dir->conversion = INTEGER;
+	if (format == 'o')
+		dir->conversion = OCTAL;
+	if (format == 'u')
+		dir->conversion = UNSIGNED;
+	if (format == 'x')
+		dir->conversion = HEX_LOWER;
+	if (format == 'X')
+		dir->conversion = HEX_UPPER;
+	if (format == 'f')
+		dir->conversion = HEX_UPPER;
 }
 
 /*
  * The format string follows this formula:
  *
  * 		%[flag][width][.precision][length]specifier
+ *
+ * parse_format() parses the format string and extracts the contained directive.
  */
 
-char	*parse_format(const char *format, char *arg)
+void	parse_format(const char *format, char *arg, t_directive *dir)
 {
+	(void) arg;
 	format++;
 	while (is_flag(*format))
-		set_flag(*format++);
+		set_flag(*format++, dir);
+	/*
 	if (is_numeric(*format))
-		set_width(*format); // format needs to be forwarded as many steps as there are digits
+		set_width(*format, dir); // format needs to be forwarded as many steps as there are digits
 	if (is_precision(*format))
-		set_precision(*format); // format nees to be forwarded as many steps as there are digits + 1
+		set_precision(*format, dir); // format nees to be forwarded as many steps as there are digits + 1
 	while (is_length)
-		set_length(*format++);
-	set_conversion(*format);
+		set_length(*format++, dir);
+	*/
+	if (is_conversion(*format))
+		set_conversion(*format, dir);
 }
-
 
 char	*convert(const char *format, char *arg)
 {
-	return (parse_format(format, arg));
+	t_directive	dir;
+
+	bzero(&dir, sizeof (t_directive));
+	parse_format(format, arg, &dir);
+	return ("missing string");
 }
 
 /*
@@ -84,7 +130,7 @@ int	ft_printf(const char *format, ...)
 	ret = 0;
 	start = format;
 	va_start(ap, format);
-	while (*format)
+	while (*format) // If there is an invalid format printf doesn't print anything --> parse format before any write
 	{
 		if (*format == '%')
 		{
