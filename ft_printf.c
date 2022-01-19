@@ -13,7 +13,9 @@
 #include "ft_printf.h"
 #include <unistd.h>
 #include <stdarg.h>
+#include <stdlib.h>
 #include <string.h> // remove
+#include "../libft/libft.h"
 
 int	is_flag(const char c) // bonus flags missing
 {
@@ -95,7 +97,7 @@ int	is_precision(const char c)
 
 void	set_precision(const char *format, t_directive *dir)
 {
-	dir->precision = ft_atoi(*(format + 1));
+	dir->precision = ft_atoi(format + 1);
 }
 
 int	is_length(const char c)
@@ -152,15 +154,16 @@ void	parse_format(const char *format, t_list **dir_list)
 				if (is_flag(*format))
 					set_flag(*format, dir);
 				if (ft_isdigit(*format)) // RIGHTERNMOST number is used unless it is 0
-					set_width(*format, dir); // format needs to be forwarded as many steps as there are digits
+					set_width(format, dir); // format needs to be forwarded as many steps as there are digits
 				if (is_precision(*format))
-					set_precision(*format, dir); // format needs to be forwarded as many steps as there are digits + 1
-				if (is_length(*format, dir))
-					set_length(*format, dir);
+					set_precision(format, dir); // format needs to be forwarded as many steps as there are digits + 1
+				if (is_length(*format))
+					set_length(format, dir);
 				if (is_conversion(*format))
 					set_conversion(*format, dir);
+				format++;
 			}
-			ft_lstadd_back(dir_list, ft_lstnew((void *)dir, sizeof (t_directive *));
+			ft_lstadd_back(dir_list, ft_lstnew((void *)dir, sizeof (t_directive *)));
 		}
 		format++;
 	}
@@ -192,7 +195,7 @@ int	ft_printf(const char *format, ...)
 	t_list		*dir_list;
 
 	ret = 0;
-	start = format;
+	//start = format;
 	dir_list = NULL;
 	parse_format(format, &dir_list);
 	va_start(ap, format);

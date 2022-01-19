@@ -14,7 +14,7 @@
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -c -g # REMOVE -g
+FLAGS = -Wall -Wextra -Werror -g # REMOVE -g, add -c
 
 NAME = libftprintf.a
 
@@ -22,12 +22,20 @@ SRCS = ft_printf.c ptoa.c
 
 OBJS = $(SRCS:%.c=%.o)
 
+LIB = ../libft/libft.a
+
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(SRCS)
+$(LIB):
+	make -C ../libft all
+
+$(NAME): $(OBJS) $(LIB)
+	$(CC) $(FLAGS) -c -I../libft/ $(SRCS)
 	ar rc $(NAME) $(OBJS)
 	ranlib $(NAME)
+
+debug: $(OBJS) $(LIB)
+	$(CC) $(FLAGS) -I../libft/ -L../libft/ -lft main.c $(SRCS)
 
 clean:
 	rm -f $(OBJS)
