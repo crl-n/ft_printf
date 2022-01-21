@@ -18,7 +18,7 @@ FLAGS = -Wall -Wextra -Werror -g # REMOVE -g, add -c
 
 NAME = libftprintf.a
 
-SRCS = ft_printf.c ptoa.c
+SRCS = ft_printf.c wrapper.c parser.c boolean.c setters.c ptoa.c
 
 OBJS = $(SRCS:%.c=%.o)
 
@@ -42,6 +42,8 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f a.out
+	rm -rf a.out.dSYM
 
 re: fclean all
 

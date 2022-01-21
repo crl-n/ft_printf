@@ -13,6 +13,9 @@
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+/* Includes */
+#include "../libft/libft.h"
+
 /* Mandatory flags */
 # define ALT    0b10000000
 # define ZERO   0b01000000
@@ -29,15 +32,15 @@
 # define CHAR      0b0000 // Can NONE be used for flag, conv and length?
 # define STRING    0b0001
 # define POINTER   0b0010
-# define DIGIT     0b0011
+# define DECIMAL   0b0011
 # define INTEGER   0b0100
 # define OCTAL     0b0101
-# define UNSIGNED  0b0111
-# define HEX_LOWER 0b1000
-# define HEX_UPPER 0b1001
-# define FLOAT     0b1010
-# define BIT       0b1011
-# define NONE      0b1100 // Can NONE be used for flag, conv and length?
+# define UNSIGNED  0b0110
+# define HEX_LOWER 0b0111
+# define HEX_UPPER 0b1000
+# define FLOAT     0b1001
+# define BIT       0b1010
+# define NONE      0b1111 // Can NONE be used for flag, conv and length?
 
 /* Lengths */
 # define L  0b001
@@ -46,8 +49,6 @@
 # define HH 0b100
 
 /* Typedefs and structs */
-typedef char	*t_converter(t_directive *dir, void *arg);
-
 typedef struct s_directive
 {
 	unsigned int	flags : 8;
@@ -57,17 +58,30 @@ typedef struct s_directive
 	int				precision; // Maximum precision seems to be 2147483645
 }	t_directive;
 
-int		ft_printf(const char *format, ...);
-void	parse_format(const char *format, t_list **dir_list);
-int		is_flag(const char c);
-int		is_conversion(const char c);
-int		is_precision(const char c);
-int		is_length(const char c);
-void	set_flag(const char c, t_directive *dir);
-void	set_conversion(const char format, t_directive *dir);
-void	set_width(const char *format, t_directive *dir);
-void	set_precision(const char *format, t_directive *dir);
-void	set_length(const char *format, t_directive *dir);
+typedef char	*t_converter(t_directive *dir, void *arg);
+
+int			ft_printf(const char *format, ...);
+int			parse_format(const char *format, t_list **dir_list);
+int			is_flag(const char c);
+int			is_conversion(const char c);
+int			is_precision(const char c);
+int			is_length(const char c);
+void		set_flag(const char c, t_directive *dir);
+void		set_conversion(const char format, t_directive *dir);
+void		set_width(const char *format, t_directive *dir);
+void		set_precision(const char *format, t_directive *dir);
+void		set_length(const char *format, t_directive *dir);
+char		*as_char(t_directive *dir, void *arg);
+char		*as_string(t_directive *dir, void *arg);
+char		*as_pointer(t_directive *dir, void *arg);
+char		*as_decimal(t_directive *dir, void *arg);
+char		*as_octal(t_directive *dir, void *arg);
+char		*as_unsigned(t_directive *dir, void *arg);
+char		*as_hex_lower(t_directive *dir, void *arg);
+char		*as_hex_upper(t_directive *dir, void *arg);
+char		*as_float(t_directive *dir, void *arg);
+char		*as_bit(t_directive *dir, void *arg);
+t_directive	*new_directive(void);
 
 char	*ptoa(unsigned long p);
 

@@ -1,3 +1,5 @@
+#include "ft_printf.h"
+
 /*
  * There can be zero or more of the flags: #0- +'
  */
@@ -31,7 +33,7 @@ void	set_conversion(const char format, t_directive *dir)
 	if (format == 'p')
 		dir->conversion = POINTER;
 	if (format == 'd')
-		dir->conversion = DIGIT;
+		dir->conversion = DECIMAL;
 	if (format == 'i')
 		dir->conversion = INTEGER;
 	if (format == 'o')
