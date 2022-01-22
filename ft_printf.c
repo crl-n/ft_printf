@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/22 22:42:42 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/22 23:25:50 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,19 @@ char	*convert(t_directive *dir, void *arg)
 static void	justify(t_directive *dir, size_t n)
 {
 	char	c;
+	char	*str;
 
+	str = ft_strnew(n);
+	if (!str)
+		exit(1);
+	if ((dir->flags & ZERO) == ZERO)
+		c = '0';
+	else
+		c = ' ';
+	ft_memset((void *)str, c, n);
+	write(1, str, n);
+	free(str);
+	/*
 	if ((dir->flags & ZERO) == ZERO)
 		c = '0';
 	else
@@ -64,6 +76,7 @@ static void	justify(t_directive *dir, size_t n)
 		n--;
 	while (n--)
 		write(1, &c, 1);
+	*/
 }
 
 static void	put_arg(t_directive *dir, void *arg)
@@ -73,8 +86,10 @@ static void	put_arg(t_directive *dir, void *arg)
 
 	str = convert(dir, arg);
 	len = ft_strlen(str);
+	/*
 	if ((dir->flags & SPACE) == SPACE)
 		write(1, " ", 1);
+	*/
 	if (dir->width > (int)len && (dir->flags & MINUS) != MINUS)
 		justify(dir, dir->width - len);
 	write(1, str, len);
