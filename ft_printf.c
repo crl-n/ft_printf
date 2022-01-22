@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/19 19:20:40 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/22 22:42:42 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,34 @@ char	*convert(t_directive *dir, void *arg)
 	return (str);
 }
 
+static void	justify(t_directive *dir, size_t n)
+{
+	char	c;
+
+	if ((dir->flags & ZERO) == ZERO)
+		c = '0';
+	else
+		c = ' ';
+	if ((dir->flags & SPACE) == SPACE)
+		n--;
+	while (n--)
+		write(1, &c, 1);
+}
+
 static void	put_arg(t_directive *dir, void *arg)
 {
 	char	*str;
+	size_t	len;
 
 	str = convert(dir, arg);
-	write(1, str, ft_strlen(str));
+	len = ft_strlen(str);
+	if ((dir->flags & SPACE) == SPACE)
+		write(1, " ", 1);
+	if (dir->width > (int)len && (dir->flags & MINUS) != MINUS)
+		justify(dir, dir->width - len);
+	write(1, str, len);
+	if (dir->width > (int)len && (dir->flags & MINUS) == MINUS)
+		justify(dir, dir->width - len);
 	free(str);
 }
 

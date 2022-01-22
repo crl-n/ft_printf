@@ -4,20 +4,25 @@
  * There can be zero or more of the flags: #0- +'
  */
 
-void	set_flag(const char c, t_directive *dir) // bonus flags missing
+void	set_flag(const char **format, t_directive *dir, t_parser_stage *stage) // bonus flags missing
 {
+	char	c;
+
+	c = **format;
 	if (c == '#')
 		dir->flags = dir->flags | ALT;
-	if (c == '0')
+	else if (c == '0')
 		dir->flags = dir->flags | ZERO;
-	if (c == '-')
+	else if (c == '-')
 		dir->flags = dir->flags | MINUS;
-	if (c == ' ')
+	else if (c == ' ')
 		dir->flags = dir->flags | SPACE;
-	if (c == '+')
+	else if (c == '+')
 		dir->flags = dir->flags | PLUS;
-	if (c == '\'')
+	else if (c == '\'')
 		dir->flags = dir->flags | SEP;
+	*format = *format + 1;
+	*stage = FLAG;
 }
 
 /*
@@ -28,31 +33,33 @@ void	set_conversion(const char format, t_directive *dir)
 {
 	if (format == 'c')
 		dir->conversion = CHAR;
-	if (format == 's')
+	else if (format == 's')
 		dir->conversion = STRING;
-	if (format == 'p')
+	else if (format == 'p')
 		dir->conversion = POINTER;
-	if (format == 'd')
+	else if (format == 'd')
 		dir->conversion = DECIMAL;
-	if (format == 'i')
+	else if (format == 'i')
 		dir->conversion = INTEGER;
-	if (format == 'o')
+	else if (format == 'o')
 		dir->conversion = OCTAL;
-	if (format == 'u')
+	else if (format == 'u')
 		dir->conversion = UNSIGNED;
-	if (format == 'x')
+	else if (format == 'x')
 		dir->conversion = HEX_LOWER;
-	if (format == 'X')
+	else if (format == 'X')
 		dir->conversion = HEX_UPPER;
-	if (format == 'f')
+	else if (format == 'f')
 		dir->conversion = FLOAT;
-	if (format == 'b')
+	else if (format == 'b')
 		dir->conversion = BIT;
 }
 
-void	set_width(const char *format, t_directive *dir)
+void	set_width(const char **format, t_directive *dir, t_parser_stage *stage)
 {
-	dir->width = ft_atoi(format);
+	dir->width = ft_atoi(*format);
+	*format = *format + ft_intlen(dir->width);
+	*stage = WIDTH;
 }
 
 void	set_precision(const char *format, t_directive *dir)

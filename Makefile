@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/01/18 16:29:23 by cnysten          ###   ########.fr        #
+#    Updated: 2022/01/22 17:13:48 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ FLAGS = -Wall -Wextra -Werror -g # REMOVE -g, add -c
 
 NAME = libftprintf.a
 
-SRCS = ft_printf.c wrapper.c parser.c boolean.c setters.c ptoa.c
+SRCS = ft_printf.c wrapper.c parser.c boolean.c setters.c ptoa.c itohex.c
 
 OBJS = $(SRCS:%.c=%.o)
 

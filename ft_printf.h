@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/19 14:17:13 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/22 21:18:45 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define DOLLAR 0b00000001
 
 /* Conversions */
-# define CHAR      0b0000 // Can NONE be used for flag, conv and length?
+# define CHAR      0b0000
 # define STRING    0b0001
 # define POINTER   0b0010
 # define DECIMAL   0b0011
@@ -48,6 +48,17 @@
 # define H  0b011
 # define HH 0b100
 
+/* Parser stage */
+# define FLAG       0
+# define WIDTH      1
+# define PRECISION  2
+# define LENGTH     3
+# define CONVERSION 4
+
+/* Other */
+# define LOWERCASE 0
+# define UPPERCASE 1
+
 /* Typedefs and structs */
 typedef struct s_directive
 {
@@ -59,6 +70,7 @@ typedef struct s_directive
 }	t_directive;
 
 typedef char	*t_converter(t_directive *dir, void *arg);
+typedef int		t_parser_stage;
 
 int			ft_printf(const char *format, ...);
 int			parse_format(const char *format, t_list **dir_list);
@@ -66,9 +78,10 @@ int			is_flag(const char c);
 int			is_conversion(const char c);
 int			is_precision(const char c);
 int			is_length(const char c);
-void		set_flag(const char c, t_directive *dir);
+char		*itohex(int n, int letter_case);
+void		set_flag(const char **format, t_directive *dir, t_parser_stage *stage);
 void		set_conversion(const char format, t_directive *dir);
-void		set_width(const char *format, t_directive *dir);
+void		set_width(const char **format, t_directive *dir, t_parser_stage *stage);
 void		set_precision(const char *format, t_directive *dir);
 void		set_length(const char *format, t_directive *dir);
 char		*as_char(t_directive *dir, void *arg);
