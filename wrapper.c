@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:16:09 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/22 19:11:10 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/23 18:30:21 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,13 @@ char	*as_decimal(t_directive *dir, void *arg)
 char	*as_octal(t_directive *dir, void *arg)
 {
 	char	*str;
-
-	(void) dir;
-	str = utoa_base((long) arg, 8);
+	int		prefix;
+	
+	if ((dir->flags & ALT) == ALT)
+		prefix = TRUE;
+	else
+		prefix = FALSE;
+	str = itooctal((long) arg, prefix);
 	if (!str)
 		exit(1);
 	return (str);
@@ -82,23 +86,21 @@ char	*as_unsigned(t_directive *dir, void *arg)
 	return (str);
 }
 
-char	*as_hex_lower(t_directive *dir, void *arg)
+char	*as_hex(t_directive *dir, void *arg)
 {
 	char	*str;
+	int		letter_case;
+	int		prefix;
 
-	(void) dir;
-	str = itohex((long) arg, LOWERCASE);
-	if (!str)
-		exit(1);
-	return (str);
-}
-
-char	*as_hex_upper(t_directive *dir, void *arg)
-{
-	char	*str;
-
-	(void) dir;
-	str = itohex((long) arg, UPPERCASE);
+	if (dir->conversion == HEX_LOWER)
+		letter_case = LOWERCASE;
+	else
+		letter_case = UPPERCASE;
+	if ((dir->flags & ALT) == ALT)
+		prefix = TRUE;
+	else
+		prefix = FALSE;
+	str = itohex((long) arg, letter_case, prefix);
 	if (!str)
 		exit(1);
 	return (str);

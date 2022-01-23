@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:35:02 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/22 16:47:41 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/23 18:01:36 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 /* get_char() converts an int into a corresponding digit of its base */
 
-static char	get_hex_char(int n, int letter_case)
+static char	get_hex_char(int n, const int letter_case)
 {
 	char	c;
 
@@ -32,12 +32,28 @@ static char	get_hex_char(int n, int letter_case)
 	return (c);
 }
 
-char	*itohex(int value, int letter_case)
+static void	add_prefix(char	*str, const int letter_case)
+{
+	if (letter_case == LOWERCASE)
+	{
+		str[0] = '0';
+		str[1] = 'x';
+	}
+	else
+	{
+		str[0] = '0';
+		str[1] = 'X';
+	}
+}
+
+char	*itohex(int value, const int letter_case, const int prefix)
 {
 	char	*str;
 	size_t	size;
 
 	size = ft_intlen_base(value, 16) + 1;
+	if (prefix == TRUE)
+		size += 2;
 	str = (char *) malloc(size * sizeof (char));
 	if (!str)
 		return (NULL);
@@ -48,5 +64,7 @@ char	*itohex(int value, int letter_case)
 		value = value / 16;
 	}
 	str[--size] = value + '0';
+	if (prefix == TRUE)
+		add_prefix(str, letter_case);
 	return (str);
 }

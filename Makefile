@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/01/23 13:50:11 by cnysten          ###   ########.fr        #
+#    Updated: 2022/01/23 18:30:35 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ FLAGS = -Wall -Wextra -g # FIX THIS
 
 NAME = libftprintf.a
 
-SRCS = ft_printf.c wrapper.c parser.c boolean.c setters.c ptoa.c itohex.c
+SRCS = ft_printf.c wrapper.c parser.c boolean.c setters.c ptoa.c itohex.c itooctal.c
 
 OBJS = $(SRCS:%.c=%.o)
 

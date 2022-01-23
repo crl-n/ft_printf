@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/23 14:17:13 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/23 18:16:53 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ char	*convert(t_directive *dir, void *arg)
 		dispatch_table[INTEGER] = as_decimal;
 		dispatch_table[OCTAL] = as_octal;
 		dispatch_table[UNSIGNED] = as_unsigned;
-		dispatch_table[HEX_LOWER] = as_hex_lower;
-		dispatch_table[HEX_UPPER] = as_hex_upper;
+		dispatch_table[HEX_LOWER] = as_hex;
+		dispatch_table[HEX_UPPER] = as_hex;
 		dispatch_table[FLOAT] = as_float;
 		dispatch_table[BIT] = as_bit;
 	}
@@ -79,9 +79,7 @@ static void	put_arg(t_directive *dir, void *arg)
 	len = ft_strlen(str);
 	if ((dir->conversion == DECIMAL || dir->conversion == INTEGER) && str[0] == '-')
 		dir->negative = 1;
-	if ((dir->flags & SPACE) == SPACE && (dir->flags & PLUS) == 0)
-		write(1, " ", 1);
-	else if ((dir->flags & SPACE) == SPACE && dir->negative == 1)
+	if ((dir->flags & SPACE) == SPACE && ((dir->flags & PLUS) == 0 || dir->negative == 1))
 		write(1, " ", 1);
 	if (dir->width > (int)len && (dir->flags & MINUS) != MINUS)
 		justify(dir, dir->width - len);

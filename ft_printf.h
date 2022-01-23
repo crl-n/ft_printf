@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/23 14:11:13 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/23 18:29:43 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@
 # define LOWERCASE 0
 # define UPPERCASE 1
 
+# define FALSE 0
+# define TRUE 1
+
 /* Typedefs and structs */
 typedef struct s_directive
 {
@@ -79,7 +82,8 @@ int			is_flag(const char c);
 int			is_conversion(const char c);
 int			is_precision(const char c);
 int			is_length(const char c);
-char		*itohex(int n, int letter_case);
+char		*itohex(int n, const int letter_case, const int prefix);
+char		*itooctal(int n,const  int prefix);
 void		set_flag(const char **format, t_directive *dir, t_parser_stage *stage);
 void		set_conversion(const char format, t_directive *dir);
 void		set_width(const char **format, t_directive *dir, t_parser_stage *stage);
@@ -91,8 +95,7 @@ char		*as_pointer(t_directive *dir, void *arg);
 char		*as_decimal(t_directive *dir, void *arg);
 char		*as_octal(t_directive *dir, void *arg);
 char		*as_unsigned(t_directive *dir, void *arg);
-char		*as_hex_lower(t_directive *dir, void *arg);
-char		*as_hex_upper(t_directive *dir, void *arg);
+char		*as_hex(t_directive *dir, void *arg);
 char		*as_float(t_directive *dir, void *arg);
 char		*as_bit(t_directive *dir, void *arg);
 t_directive	*new_directive(void);

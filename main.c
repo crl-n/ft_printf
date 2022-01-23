@@ -32,6 +32,10 @@ int	main(void)
 	printf("%o\n", -5);
 	puts("\n");
 
+	ft_printf("%#15x\n", 5);
+	printf("%#15x\n", 5);
+	puts("\n");
+
 	ft_printf("% 15i\n", 5);
 	printf("% 15i\n", 5);
 	puts("\n");
