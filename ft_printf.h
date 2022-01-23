@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/23 18:29:43 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/23 20:40:45 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@
 # define PRECISION  2
 # define LENGTH     3
 # define CONVERSION 4
+
+/* Floating point */
+# define MANTISSA_32 0x7fffff;
+# define MANTISSA_32 0x7f800000;
+# define SIGN_32 0x80000000;
 
 /* Other */
 # define LOWERCASE 0

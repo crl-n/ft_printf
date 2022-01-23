@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   itohex.c                                           :+:      :+:    :+:   */
+/*   ltohex.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/22 16:35:02 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/23 18:39:05 by cnysten          ###   ########.fr       */
+/*   Created: 2022/01/23 18:54:50 by cnysten           #+#    #+#             */
+/*   Updated: 2022/01/23 18:56:41 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	add_prefix(char	*str, const int letter_case)
 	}
 }
 
-char	*itohex(int value, const int letter_case, const int prefix)
+char	*ltohex(long value, const int letter_case, const int prefix)
 {
 	char	*str;
 	size_t	size;

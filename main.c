@@ -32,6 +32,14 @@ int	main(void)
 	printf("%o\n", -5);
 	puts("\n");
 
+	ft_printf("%p\n", 0);
+	ft_printf("%#x\n", 1);
+	ft_printf("%#x\n", 0);
+	printf("%p\n", 0);
+	printf("%#x\n", 1);
+	printf("%#x\n", 0);
+	puts("\n");
+
 	ft_printf("%#15x\n", 5);
 	printf("%#15x\n", 5);
 	puts("\n");
