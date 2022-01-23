@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/23 13:34:33 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/23 14:17:13 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include <stdio.h> // remove
 #include "../libft/libft.h"
 
 t_directive	*new_directive(void)
@@ -78,10 +77,16 @@ static void	put_arg(t_directive *dir, void *arg)
 
 	str = convert(dir, arg);
 	len = ft_strlen(str);
-	if ((dir->flags & SPACE) == SPACE)
+	if ((dir->conversion == DECIMAL || dir->conversion == INTEGER) && str[0] == '-')
+		dir->negative = 1;
+	if ((dir->flags & SPACE) == SPACE && (dir->flags & PLUS) == 0)
+		write(1, " ", 1);
+	else if ((dir->flags & SPACE) == SPACE && dir->negative == 1)
 		write(1, " ", 1);
 	if (dir->width > (int)len && (dir->flags & MINUS) != MINUS)
 		justify(dir, dir->width - len);
+	if (dir->negative == 0 && (dir->flags & PLUS) == PLUS)
+		write(1, "+", 1);
 	write(1, str, len);
 	if (dir->width > (int)len && (dir->flags & MINUS) == MINUS)
 		justify(dir, dir->width - len);

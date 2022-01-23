@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/22 21:18:45 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/23 14:11:13 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct s_directive
 	unsigned int	flags : 8;
 	unsigned int	conversion : 4;
 	unsigned int	length : 3;
+	unsigned int	negative : 1;
 	int				width; // Maximum width seems to be 2147483646
 	int				precision; // Maximum precision seems to be 2147483645
 }	t_directive;

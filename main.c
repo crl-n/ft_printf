@@ -36,6 +36,14 @@ int	main(void)
 	printf("% 15i\n", 5);
 	puts("\n");
 
+	ft_printf("%+ 15i\n", 5);
+	printf("%+ 15i\n", 5);
+	puts("\n");
+
+	ft_printf("%+ 15i\n", -5);
+	printf("%+ 15i\n", -5);
+	puts("\n");
+
 	ft_printf("% 015i\n", 5);
 	printf("% 015i\n", 5);
 	puts("\n");

@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/01/22 17:13:48 by cnysten          ###   ########.fr        #
+#    Updated: 2022/01/23 13:50:11 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -g # REMOVE -g, add -c
+FLAGS = -Wall -Wextra -g # FIX THIS
 
 NAME = libftprintf.a
 
