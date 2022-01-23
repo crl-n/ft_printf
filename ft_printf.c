@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/22 23:25:50 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/23 13:34:33 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <stdio.h> // remove
 #include "../libft/libft.h"
 
 t_directive	*new_directive(void)
@@ -48,7 +49,6 @@ char	*convert(t_directive *dir, void *arg)
 		dispatch_table[BIT] = as_bit;
 	}
 	str = dispatch_table[dir->conversion](dir, arg);
-	free(dir);
 	return (str);
 }
 
@@ -64,19 +64,11 @@ static void	justify(t_directive *dir, size_t n)
 		c = '0';
 	else
 		c = ' ';
+	if ((dir->flags & SPACE) == SPACE)
+		n--;
 	ft_memset((void *)str, c, n);
 	write(1, str, n);
 	free(str);
-	/*
-	if ((dir->flags & ZERO) == ZERO)
-		c = '0';
-	else
-		c = ' ';
-	if ((dir->flags & SPACE) == SPACE)
-		n--;
-	while (n--)
-		write(1, &c, 1);
-	*/
 }
 
 static void	put_arg(t_directive *dir, void *arg)
@@ -86,16 +78,15 @@ static void	put_arg(t_directive *dir, void *arg)
 
 	str = convert(dir, arg);
 	len = ft_strlen(str);
-	/*
 	if ((dir->flags & SPACE) == SPACE)
 		write(1, " ", 1);
-	*/
 	if (dir->width > (int)len && (dir->flags & MINUS) != MINUS)
 		justify(dir, dir->width - len);
 	write(1, str, len);
 	if (dir->width > (int)len && (dir->flags & MINUS) == MINUS)
 		justify(dir, dir->width - len);
 	free(str);
+	free(dir);
 }
 
 /*

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/23 09:50:19 by cnysten           #+#    #+#             */
+/*   Updated: 2022/01/23 09:51:50 by cnysten          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../libft/libft.h"
 #include "ft_printf.h"
 
@@ -32,7 +44,7 @@ static void	parse_directions(const char **format_adr, t_directive *dir, t_parser
 /*
  * The format string follows this formula:
  *
- * 		%[flag][width][.precision][length]specifier
+ * 		%[flag][width][.precision][length]conversion specifier
  *
  * parse_format() parses the format string and extracts the contained directive.
  */
