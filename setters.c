@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   setters.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/24 20:57:05 by cnysten           #+#    #+#             */
+/*   Updated: 2022/01/24 21:43:56 by cnysten          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 /*
@@ -62,9 +74,11 @@ void	set_width(const char **format, t_directive *dir, t_parser_stage *stage)
 	*stage = WIDTH;
 }
 
-void	set_precision(const char *format, t_directive *dir)
+void	set_precision(const char **format, t_directive *dir)
 {
-	dir->precision = ft_atoi(format + 1);
+	
+	dir->precision = ft_atoi(*format + 1);
+	*format = *format + ft_intlen(dir->precision);
 }
 
 void	set_length(const char *format, t_directive *dir)

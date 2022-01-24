@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/23 18:16:53 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/24 21:00:54 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_directive	*new_directive(void)
 	if (!dir)
 		return (NULL);
 	ft_bzero(dir, sizeof (t_directive));
+	dir->precision = 6;
 	return (dir);
 }
 

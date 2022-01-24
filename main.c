@@ -8,6 +8,10 @@ int	main(void)
 {
 	char	str[] = "abc";
 
+	ft_printf("%f\n", 1234.56789);
+	printf("%f\n", 1234.56789);
+	puts("\n");
+
 	ft_printf("%s\n", str);
 	printf("%s\n", str);
 	puts("\n");

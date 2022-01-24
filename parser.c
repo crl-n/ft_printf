@@ -6,12 +6,13 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 09:50:19 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/23 09:51:50 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/24 22:15:37 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "ft_printf.h"
+#include <stdlib.h>
 
 static void	parse_directions(const char **format_adr, t_directive *dir, t_parser_stage *stage)
 {
@@ -28,7 +29,7 @@ static void	parse_directions(const char **format_adr, t_directive *dir, t_parser
 		if (*stage <= WIDTH && ft_isdigit(*format)) // RIGHTERNMOST number is used unless it is 0
 			set_width(&format, dir, stage);
 		if (*stage <= PRECISION && is_precision(*format))
-			set_precision(format, dir); // format needs to be forwarded as many steps as there are digits + 1
+			set_precision(&format, dir); // format needs to be forwarded as many steps as there are digits + 1
 		if (*stage <= LENGTH && is_length(*format))
 			set_length(format, dir);
 		if (is_conversion(*format))
@@ -71,7 +72,8 @@ int	parse_format(const char *format, t_list **dir_list)
 			}
 			dir = new_directive();
 			parse_directions(&format, dir, &stage);
-			ft_lstadd_back(dir_list, ft_lstnew((void *)dir, sizeof (t_directive *)));
+			ft_lstadd_back(dir_list, ft_lstnew((void *)dir, sizeof (t_directive)));
+			free(dir);
 		}
 		if (*format == '\0')
 			break ;

@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/01/23 18:30:35 by cnysten          ###   ########.fr        #
+#    Updated: 2022/01/24 22:21:42 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,27 +18,33 @@ FLAGS = -Wall -Wextra -g # FIX THIS
 
 NAME = libftprintf.a
 
-SRCS = ft_printf.c wrapper.c parser.c boolean.c setters.c ptoa.c itohex.c itooctal.c
+SRCS = ft_printf.c wrapper.c parser.c boolean.c setters.c ptoa.c itohex.c \
+	   itooctal.c ftoa.c utoa.c
+
+LIBSRCS = libft/ft_atoi.c libft/ft_bzero.c \
+		  libft/ft_intlen.c libft/ft_intlen_base.c \
+		  libft/ft_isdigit.c \
+		  libft/ft_itoa.c libft/ft_itoa_base.c \
+		  libft/ft_memcpy.c libft/ft_memset.c \
+		  libft/ft_lstnew.c libft/ft_lstadd_back.c libft/ft_lstpop_left.c \
+		  libft/ft_strdup.c libft/ft_strlen.c libft/ft_strnew.c
 
 OBJS = $(SRCS:%.c=%.o)
 
-LIB = ../libft/libft.a
+LIBOBJS = $(LIBSRCS:%.c=%.o)
 
 all: $(NAME)
 
-$(LIB):
-	make -C ../libft all
-
-$(NAME): $(OBJS) $(LIB)
+$(NAME): $(SRCS) $(LIBSRCS)
 	$(CC) $(FLAGS) -c -I../libft/ $(SRCS)
-	ar rc $(NAME) $(OBJS)
+	ar rc $(NAME) $(OBJS) $(LIBOBJS)
 	ranlib $(NAME)
 
-debug: $(OBJS) $(LIB)
-	$(CC) $(FLAGS) -I../libft/ -L../libft/ -lft main.c $(SRCS)
+debug: $(SRCS)
+	$(CC) $(FLAGS) -I./libft/ main.c $(SRCS) $(LIBSRCS)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(LIBOBJS)
 
 fclean: clean
 	rm -f $(NAME)

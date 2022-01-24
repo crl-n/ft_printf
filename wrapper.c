@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:16:09 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/23 18:30:21 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/24 20:55:36 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,12 @@ char	*as_hex(t_directive *dir, void *arg)
 
 char	*as_float(t_directive *dir, void *arg)
 {
-	(void) dir;
-	(void) arg;
-	return (NULL);
+	char	*str;
+
+	str = ftoa(12345.6789, dir->precision);
+	if (!str)
+		exit(1);
+	return (str);
 }
 
 char	*as_bit(t_directive *dir, void *arg)

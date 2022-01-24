@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/23 20:40:45 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/24 22:04:47 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@
 # define CONVERSION 4
 
 /* Floating point */
-# define MANTISSA_32 0x7fffff;
-# define MANTISSA_32 0x7f800000;
-# define SIGN_32 0x80000000;
+# define SIGN_32 0x80000000
 
 /* Other */
 # define LOWERCASE 0
@@ -74,26 +72,33 @@ typedef struct s_directive
 	unsigned int	conversion : 4;
 	unsigned int	length : 3;
 	unsigned int	negative : 1;
-	int				width; // Maximum width seems to be 2147483646
-	int				precision; // Maximum precision seems to be 2147483645
+	int				width : 32; // Maximum width seems to be 2147483646
+	int				precision : 32; // Maximum precision seems to be 2147483645
 }	t_directive;
 
 typedef char	*t_converter(t_directive *dir, void *arg);
 typedef int		t_parser_stage;
 
+/* Prototypes */
 int			ft_printf(const char *format, ...);
 int			parse_format(const char *format, t_list **dir_list);
+
 int			is_flag(const char c);
 int			is_conversion(const char c);
 int			is_precision(const char c);
 int			is_length(const char c);
+
+char		*ftoa(float value, int precision);
 char		*itohex(int n, const int letter_case, const int prefix);
 char		*itooctal(int n,const  int prefix);
+char		*ptoa(unsigned long p);
+
 void		set_flag(const char **format, t_directive *dir, t_parser_stage *stage);
 void		set_conversion(const char format, t_directive *dir);
 void		set_width(const char **format, t_directive *dir, t_parser_stage *stage);
-void		set_precision(const char *format, t_directive *dir);
+void		set_precision(const char **format, t_directive *dir);
 void		set_length(const char *format, t_directive *dir);
+
 char		*as_char(t_directive *dir, void *arg);
 char		*as_string(t_directive *dir, void *arg);
 char		*as_pointer(t_directive *dir, void *arg);
@@ -104,7 +109,5 @@ char		*as_hex(t_directive *dir, void *arg);
 char		*as_float(t_directive *dir, void *arg);
 char		*as_bit(t_directive *dir, void *arg);
 t_directive	*new_directive(void);
-
-char	*ptoa(unsigned long p);
 
 #endif
