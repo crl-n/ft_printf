@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:16:09 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/24 20:55:36 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/25 14:33:57 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "ft_printf.h"
 #include "../libft/libft.h"
 
-char	*as_char(t_directive *dir, void *arg)
+char	*as_char(t_directive *dir, va_list *ap)
 {
 	char	*str;
 
@@ -23,44 +23,44 @@ char	*as_char(t_directive *dir, void *arg)
 	str = ft_strnew(1);
 	if (!str)
 		exit(1);
-	str[0] = *(char *)arg;
+	str[0] = va_arg(*ap, char);
 	return (str);
 }
 
-char	*as_string(t_directive *dir, void *arg)
+char	*as_string(t_directive *dir, va_list *ap)
 {
 	char	*str;
 
 	(void) dir;
-	str = ft_strdup((char *) arg);
+	str = ft_strdup(va_arg(*ap, char *));
 	if (!str)
 		exit(1);
 	return (str);
 }
 
-char	*as_pointer(t_directive *dir, void *arg)
+char	*as_pointer(t_directive *dir, va_list *ap)
 {
 	char	*str;
 
 	(void) dir;
-	str = ptoa((unsigned long) arg);
+	str = ptoa(va_arg(*ap, void *));
 	if (!str)
 		exit(1);
 	return (str);
 }
 
-char	*as_decimal(t_directive *dir, void *arg)
+char	*as_decimal(t_directive *dir, va_list *ap)
 {
 	char	*str;
 
 	(void) dir;
-	str = ft_itoa((long) arg);
+	str = ft_itoa(va_arg(*ap, long));
 	if (!str)
 		exit(1);
 	return (str);
 }
 
-char	*as_octal(t_directive *dir, void *arg)
+char	*as_octal(t_directive *dir, va_list *ap)
 {
 	char	*str;
 	int		prefix;
@@ -69,24 +69,24 @@ char	*as_octal(t_directive *dir, void *arg)
 		prefix = TRUE;
 	else
 		prefix = FALSE;
-	str = itooctal((long) arg, prefix);
+	str = itooctal(va_arg(*ap, unsigned long), prefix);
 	if (!str)
 		exit(1);
 	return (str);
 }
 
-char	*as_unsigned(t_directive *dir, void *arg)
+char	*as_unsigned(t_directive *dir, va_list *ap)
 {
 	char	*str;
 
 	(void) dir;
-	str = utoa((long) arg);
+	str = utoa(va_arg(*ap, long));
 	if (!str)
 		exit(1);
 	return (str);
 }
 
-char	*as_hex(t_directive *dir, void *arg)
+char	*as_hex(t_directive *dir, va_list *ap)
 {
 	char	*str;
 	int		letter_case;
@@ -100,28 +100,28 @@ char	*as_hex(t_directive *dir, void *arg)
 		prefix = TRUE;
 	else
 		prefix = FALSE;
-	str = itohex((long) arg, letter_case, prefix);
+	str = itohex(va_arg(*ap, unsigned long), letter_case, prefix);
 	if (!str)
 		exit(1);
 	return (str);
 }
 
-char	*as_float(t_directive *dir, void *arg)
+char	*as_float(t_directive *dir, va_list *ap)
 {
 	char	*str;
 
-	str = ftoa(12345.6789, dir->precision);
+	str = ftoa(va_arg(*ap, double), dir->precision);
 	if (!str)
 		exit(1);
 	return (str);
 }
 
-char	*as_bit(t_directive *dir, void *arg)
+char	*as_bit(t_directive *dir, va_list *ap)
 {
 	char	*str;
 
 	(void) dir;
-	str = ft_itoa_base((long) arg, 2);
+	str = ft_itoa_base(va_arg(*ap, long), 2);
 	if (!str)
 		exit(1);
 	return (str);

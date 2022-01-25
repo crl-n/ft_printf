@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/24 21:00:54 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/25 14:22:02 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_directive	*new_directive(void)
 	return (dir);
 }
 
-char	*convert(t_directive *dir, void *arg)
+char	*convert(t_directive *dir, va_list *ap)
 {
 	static t_converter	*dispatch_table[11];
 	char	*str;
@@ -48,7 +48,7 @@ char	*convert(t_directive *dir, void *arg)
 		dispatch_table[FLOAT] = as_float;
 		dispatch_table[BIT] = as_bit;
 	}
-	str = dispatch_table[dir->conversion](dir, arg);
+	str = dispatch_table[dir->conversion](dir, ap);
 	return (str);
 }
 
@@ -71,12 +71,12 @@ static void	justify(t_directive *dir, size_t n)
 	free(str);
 }
 
-static void	put_arg(t_directive *dir, void *arg)
+static void	put_arg(t_directive *dir, va_list *ap)
 {
 	char	*str;
 	size_t	len;
 
-	str = convert(dir, arg);
+	str = convert(dir, ap);
 	len = ft_strlen(str);
 	if ((dir->conversion == DECIMAL || dir->conversion == INTEGER) && str[0] == '-')
 		dir->negative = 1;
@@ -124,7 +124,7 @@ int	ft_printf(const char *format, ...)
 				continue ;
 			}
 			write(1, start, (size_t)(format - start - 1));
-			put_arg(ft_lstpop_left(&dir_list), va_arg(ap, void *));
+			put_arg(ft_lstpop_left(&dir_list), &ap);
 			while (!is_conversion(*format))
 				format++;
 			start = format + 1;

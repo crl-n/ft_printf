@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/24 22:04:47 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/25 14:30:49 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 /* Includes */
 #include "../libft/libft.h"
+#include <stdarg.h>
 
 /* Mandatory flags */
 # define ALT    0b10000000
@@ -76,7 +77,7 @@ typedef struct s_directive
 	int				precision : 32; // Maximum precision seems to be 2147483645
 }	t_directive;
 
-typedef char	*t_converter(t_directive *dir, void *arg);
+typedef char	*t_converter(t_directive *dir, va_list *ap);
 typedef int		t_parser_stage;
 
 /* Prototypes */
@@ -99,15 +100,15 @@ void		set_width(const char **format, t_directive *dir, t_parser_stage *stage);
 void		set_precision(const char **format, t_directive *dir);
 void		set_length(const char *format, t_directive *dir);
 
-char		*as_char(t_directive *dir, void *arg);
-char		*as_string(t_directive *dir, void *arg);
-char		*as_pointer(t_directive *dir, void *arg);
-char		*as_decimal(t_directive *dir, void *arg);
-char		*as_octal(t_directive *dir, void *arg);
-char		*as_unsigned(t_directive *dir, void *arg);
-char		*as_hex(t_directive *dir, void *arg);
-char		*as_float(t_directive *dir, void *arg);
-char		*as_bit(t_directive *dir, void *arg);
+char		*as_char(t_directive *dir, va_list *ap);
+char		*as_string(t_directive *dir, va_list *ap);
+char		*as_pointer(t_directive *dir, va_list *ap);
+char		*as_decimal(t_directive *dir, va_list *ap);
+char		*as_octal(t_directive *dir, va_list *ap);
+char		*as_unsigned(t_directive *dir, va_list *ap);
+char		*as_hex(t_directive *dir, va_list *ap);
+char		*as_float(t_directive *dir, va_list *ap);
+char		*as_bit(t_directive *dir, va_list *ap);
 t_directive	*new_directive(void);
 
 #endif
