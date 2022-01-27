@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/01/24 22:21:42 by cnysten          ###   ########.fr        #
+#    Updated: 2022/01/27 10:56:58 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,13 @@ LIBOBJS = $(LIBSRCS:%.c=%.o)
 
 all: $(NAME)
 
-$(NAME): $(SRCS) $(LIBSRCS)
+$(OBJS): $(SRCS)
 	$(CC) $(FLAGS) -c -I../libft/ $(SRCS)
+
+$(LIBOBJS): $(LIBSRCS)
+	make -C ./libft/
+
+$(NAME): $(OBJS) $(LIBOBJS)
 	ar rc $(NAME) $(OBJS) $(LIBOBJS)
 	ranlib $(NAME)
 
