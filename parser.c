@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 09:50:19 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/24 22:15:37 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/27 10:02:05 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,21 @@
 #include "ft_printf.h"
 #include <stdlib.h>
 
-static void	parse_directions(const char **format_adr, t_directive *dir, t_parser_stage *stage)
+static t_dir	*new_directive(void)
+{
+	t_dir	*dir;
+
+	dir = (t_dir *) malloc(sizeof (t_dir));
+	if (!dir)
+		return (NULL);
+	ft_bzero(dir, sizeof (t_dir));
+	dir->precision = 6;
+	return (dir);
+}
+
+static void	parse_directions(const char **format_adr,
+								t_dir *dir,
+								t_stage *stage)
 {
 	const char	*format;
 
@@ -26,10 +40,10 @@ static void	parse_directions(const char **format_adr, t_directive *dir, t_parser
 			set_flag(&format, dir, stage);
 			continue ;
 		}
-		if (*stage <= WIDTH && ft_isdigit(*format)) // RIGHTERNMOST number is used unless it is 0
+		if (*stage <= WIDTH && ft_isdigit(*format))
 			set_width(&format, dir, stage);
 		if (*stage <= PRECISION && is_precision(*format))
-			set_precision(&format, dir); // format needs to be forwarded as many steps as there are digits + 1
+			set_precision(&format, dir);
 		if (*stage <= LENGTH && is_length(*format))
 			set_length(format, dir);
 		if (is_conversion(*format))
@@ -53,12 +67,9 @@ static void	parse_directions(const char **format_adr, t_directive *dir, t_parser
 //TODO: test with width AND precision
 int	parse_format(const char *format, t_list **dir_list)
 {
-	t_directive		*dir;
-	t_parser_stage	stage;
-	int				ret; // return amount of chars that will not be written?
+	t_dir	*dir;
+	t_stage	stage;
 
-	dir = NULL;
-	ret = 0;
 	stage = 0;
 	while (*format)
 	{
@@ -72,12 +83,12 @@ int	parse_format(const char *format, t_list **dir_list)
 			}
 			dir = new_directive();
 			parse_directions(&format, dir, &stage);
-			ft_lstadd_back(dir_list, ft_lstnew((void *)dir, sizeof (t_directive)));
+			ft_lstadd_back(dir_list, ft_lstnew((void *)dir, sizeof (t_dir)));
 			free(dir);
 		}
 		if (*format == '\0')
 			break ;
 		format++;
 	}
-	return (ret);
+	return (0);
 }

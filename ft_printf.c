@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/25 14:22:02 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/27 10:03:34 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,29 @@
 #include <stdlib.h>
 #include "../libft/libft.h"
 
-t_directive	*new_directive(void)
+static void	justify(t_dir *dir, size_t n)
 {
-	t_directive	*dir;
+	char	c;
+	char	*str;
 
-	dir = (t_directive *) malloc(sizeof (t_directive));
-	if (!dir)
-		return (NULL);
-	ft_bzero(dir, sizeof (t_directive));
-	dir->precision = 6;
-	return (dir);
+	str = ft_strnew(n);
+	if (!str)
+		exit(1);
+	if ((dir->flags & ZERO) == ZERO)
+		c = '0';
+	else
+		c = ' ';
+	if ((dir->flags & SPACE) == SPACE)
+		n--;
+	ft_memset((void *)str, c, n);
+	write(1, str, n);
+	free(str);
 }
 
-char	*convert(t_directive *dir, va_list *ap)
+char	*convert(t_dir *dir, va_list *ap)
 {
 	static t_converter	*dispatch_table[11];
-	char	*str;
+	char				*str;
 
 	str = NULL;
 	if (!dispatch_table[0])
@@ -52,26 +59,7 @@ char	*convert(t_directive *dir, va_list *ap)
 	return (str);
 }
 
-static void	justify(t_directive *dir, size_t n)
-{
-	char	c;
-	char	*str;
-
-	str = ft_strnew(n);
-	if (!str)
-		exit(1);
-	if ((dir->flags & ZERO) == ZERO)
-		c = '0';
-	else
-		c = ' ';
-	if ((dir->flags & SPACE) == SPACE)
-		n--;
-	ft_memset((void *)str, c, n);
-	write(1, str, n);
-	free(str);
-}
-
-static void	put_arg(t_directive *dir, va_list *ap)
+static void	put_arg(t_dir *dir, va_list *ap)
 {
 	char	*str;
 	size_t	len;
@@ -96,7 +84,6 @@ static void	put_arg(t_directive *dir, va_list *ap)
 /*
 *	The prototype for the standard printf is:
 *			int	printf(const char * restrict format, ...);
-*	Should restrict be omitted like in libft?
 */
 
 int	ft_printf(const char *format, ...)

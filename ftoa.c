@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:46:53 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/24 21:43:06 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/26 20:07:32 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	integer_part(int value, char *str, int negative, int int_len)
 	str[int_len] = '0' + value;
 }
 
-static void	fraction_part(float fraction, char *str, int start, int precision)
+static void	fraction_part(double fraction, char *str, int start, int precision)
 {
 	int	i;
 
@@ -36,10 +36,11 @@ static void	fraction_part(float fraction, char *str, int start, int precision)
 	{
 		fraction *= 10;
 		str[start + i++] = '0' + ((int) fraction % 10);
+		fraction -= (int) fraction;
 	}
 }
 
-char	*ftoa(float value, int precision)
+char	*ftoa(double value, int precision)
 {
 	char	*str;
 	int		int_len;

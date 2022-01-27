@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   boolean.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/27 09:53:56 by cnysten           #+#    #+#             */
+/*   Updated: 2022/01/27 09:54:18 by cnysten          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /* Boolean functions used in parsing the format string */
 
 int	is_flag(const char c) // bonus flags missing
@@ -16,7 +28,6 @@ int	is_conversion(const char c)
 	return (0);
 }
 
-/* Should is_precision() check that a number follows the dot? */
 int	is_precision(const char c)
 {
 	if (c == '.')

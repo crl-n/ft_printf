@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/25 14:30:49 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/27 10:02:33 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define FT_PRINTF_H
 
 /* Includes */
-#include "../libft/libft.h"
-#include <stdarg.h>
+# include "../libft/libft.h"
+# include <stdarg.h>
 
 /* Mandatory flags */
 # define ALT    0b10000000
@@ -41,7 +41,7 @@
 # define HEX_UPPER 0b1000
 # define FLOAT     0b1001
 # define BIT       0b1010
-# define NONE      0b1111 // Can NONE be used for flag, conv and length?
+# define NONE      0b1111
 
 /* Lengths */
 # define L  0b001
@@ -67,48 +67,51 @@
 # define TRUE 1
 
 /* Typedefs and structs */
-typedef struct s_directive
+/* t_dir/s_dir: Struct for directives contained in the format string */
+/* t_converter: Function typedef for the dispatch table. */
+/* t_stage: Parser stage typedef */
+
+typedef struct s_dir
 {
 	unsigned int	flags : 8;
 	unsigned int	conversion : 4;
 	unsigned int	length : 3;
 	unsigned int	negative : 1;
-	int				width : 32; // Maximum width seems to be 2147483646
-	int				precision : 32; // Maximum precision seems to be 2147483645
-}	t_directive;
+	int				width; // Maximum width seems to be 2147483646
+	int				precision; // Maximum precision seems to be 2147483645
+}	t_dir;
 
-typedef char	*t_converter(t_directive *dir, va_list *ap);
-typedef int		t_parser_stage;
+typedef char	*t_converter(t_dir *dir, va_list *ap);
+typedef int		t_stage;
 
 /* Prototypes */
-int			ft_printf(const char *format, ...);
-int			parse_format(const char *format, t_list **dir_list);
+int		ft_printf(const char *format, ...);
+int		parse_format(const char *format, t_list **dir_list);
 
-int			is_flag(const char c);
-int			is_conversion(const char c);
-int			is_precision(const char c);
-int			is_length(const char c);
+int		is_flag(const char c);
+int		is_conversion(const char c);
+int		is_precision(const char c);
+int		is_length(const char c);
 
-char		*ftoa(float value, int precision);
-char		*itohex(int n, const int letter_case, const int prefix);
-char		*itooctal(int n,const  int prefix);
-char		*ptoa(unsigned long p);
+char	*ftoa(double value, int precision);
+char	*itohex(int n, const int letter_case, const int prefix);
+char	*itooctal(int n, const int prefix);
+char	*ptoa(unsigned long p);
 
-void		set_flag(const char **format, t_directive *dir, t_parser_stage *stage);
-void		set_conversion(const char format, t_directive *dir);
-void		set_width(const char **format, t_directive *dir, t_parser_stage *stage);
-void		set_precision(const char **format, t_directive *dir);
-void		set_length(const char *format, t_directive *dir);
+void	set_flag(const char **format, t_dir *dir, t_stage *stage);
+void	set_conversion(const char format, t_dir *dir);
+void	set_width(const char **format, t_dir *dir, t_stage *stage);
+void	set_precision(const char **format, t_dir *dir);
+void	set_length(const char *format, t_dir *dir);
 
-char		*as_char(t_directive *dir, va_list *ap);
-char		*as_string(t_directive *dir, va_list *ap);
-char		*as_pointer(t_directive *dir, va_list *ap);
-char		*as_decimal(t_directive *dir, va_list *ap);
-char		*as_octal(t_directive *dir, va_list *ap);
-char		*as_unsigned(t_directive *dir, va_list *ap);
-char		*as_hex(t_directive *dir, va_list *ap);
-char		*as_float(t_directive *dir, va_list *ap);
-char		*as_bit(t_directive *dir, va_list *ap);
-t_directive	*new_directive(void);
+char	*as_char(t_dir *dir, va_list *ap);
+char	*as_string(t_dir *dir, va_list *ap);
+char	*as_pointer(t_dir *dir, va_list *ap);
+char	*as_decimal(t_dir *dir, va_list *ap);
+char	*as_octal(t_dir *dir, va_list *ap);
+char	*as_unsigned(t_dir *dir, va_list *ap);
+char	*as_hex(t_dir *dir, va_list *ap);
+char	*as_float(t_dir *dir, va_list *ap);
+char	*as_bit(t_dir *dir, va_list *ap);
 
 #endif

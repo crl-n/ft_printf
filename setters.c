@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:57:05 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/24 21:43:56 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/27 10:01:30 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * There can be zero or more of the flags: #0- +'
  */
 
-void	set_flag(const char **format, t_directive *dir, t_parser_stage *stage) // bonus flags missing
+void	set_flag(const char **format, t_dir *dir, t_stage *stage)
 {
 	char	c;
 
@@ -41,7 +41,7 @@ void	set_flag(const char **format, t_directive *dir, t_parser_stage *stage) // b
  * Valid conversion specifiers: diouxX, csp, f (and b as a bonus)
  */
 
-void	set_conversion(const char format, t_directive *dir)
+void	set_conversion(const char format, t_dir *dir)
 {
 	if (format == 'c')
 		dir->conversion = CHAR;
@@ -67,21 +67,25 @@ void	set_conversion(const char format, t_directive *dir)
 		dir->conversion = BIT;
 }
 
-void	set_width(const char **format, t_directive *dir, t_parser_stage *stage)
+void	set_width(const char **format, t_dir *dir, t_stage *stage)
 {
-	dir->width = ft_atoi(*format);
+	int	width;
+
+	width = ft_atoi(*format);
+	if (width == 0)
+		return ;
+	dir->width = width;
 	*format = *format + ft_intlen(dir->width);
 	*stage = WIDTH;
 }
 
-void	set_precision(const char **format, t_directive *dir)
+void	set_precision(const char **format, t_dir *dir)
 {
-	
 	dir->precision = ft_atoi(*format + 1);
 	*format = *format + ft_intlen(dir->precision);
 }
 
-void	set_length(const char *format, t_directive *dir)
+void	set_length(const char *format, t_dir *dir)
 {
 	if (*format == 'l' && *(format + 1) == 'l')
 		dir->length = LL;
