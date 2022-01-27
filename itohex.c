@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:35:02 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/23 18:39:05 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/27 21:28:39 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,21 @@
 #include <stdlib.h>
 
 /* get_char() converts an int into a corresponding digit of its base */
+
+static size_t	uintlen_hex(unsigned long n)
+{
+	size_t	len;
+
+	len = 0;
+	if (n == 0)
+		return (1);
+	while (n > 0)
+	{
+		n = n / 16;
+		len++;
+	}
+	return (len);
+}
 
 static char	get_hex_char(int n, const int letter_case)
 {
@@ -46,12 +61,12 @@ static void	add_prefix(char	*str, const int letter_case)
 	}
 }
 
-char	*itohex(int value, const int letter_case, const int prefix)
+char	*itohex(unsigned long value, const int letter_case, const int prefix)
 {
 	char	*str;
 	size_t	size;
 
-	size = ft_intlen_base(value, 16) + 1;
+	size = uintlen_hex(value) + 1;
 	if (prefix == TRUE)
 		size += 2;
 	str = (char *) malloc(size * sizeof (char));
