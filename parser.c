@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 09:50:19 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/27 10:02:05 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/27 23:23:07 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	parse_format(const char *format, t_list **dir_list)
 	t_dir	*dir;
 	t_stage	stage;
 
-	stage = 0;
 	while (*format)
 	{
+		stage = 0;
 		if (*format == '%')
 		{
 			format++;

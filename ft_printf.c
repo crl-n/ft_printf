@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/27 10:03:34 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/01/27 23:50:01 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ int	ft_printf(const char *format, ...)
 			format++;
 			if (*format == '%')
 			{
-				write(1, "%", 1);
+				write(1, start, (size_t)(format - start - 1));
+				start = format;
 				format++;
 				continue ;
 			}
