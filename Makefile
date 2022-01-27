@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/01/27 10:56:58 by cnysten          ###   ########.fr        #
+#    Updated: 2022/01/27 21:54:32 by carlnysten       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,8 @@ FLAGS = -Wall -Wextra -g # FIX THIS
 
 NAME = libftprintf.a
 
-SRCS = ft_printf.c wrapper.c parser.c boolean.c setters.c ptoa.c itohex.c \
-	   itooctal.c ftoa.c utoa.c
+SRCS = ft_printf.c wrapper.c parser.c boolean.c setters.c \
+	   itooctal.c ftoa.c utoa.c itohex.c
 
 LIBSRCS = libft/ft_atoi.c libft/ft_bzero.c \
 		  libft/ft_intlen.c libft/ft_intlen_base.c \
