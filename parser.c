@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 09:50:19 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/27 23:23:07 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 17:21:02 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,6 @@ int	parse_format(const char *format, t_list **dir_list)
 		if (*format == '%')
 		{
 			format++;
-			if (*format == '%')
-			{
-				format++;
-				continue ;
-			}
 			dir = new_directive();
 			parse_directions(&format, dir, &stage);
 			ft_lstadd_back(dir_list, ft_lstnew((void *)dir, sizeof (t_dir)));

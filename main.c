@@ -8,9 +8,9 @@ int	main(void)
 {
 	//char	str[] = "abc";
 
-	ft_printf("%x", -42);
+	ft_printf("%s", NULL);
+	ft_printf("%   %", "test");
 	puts("\n");
-	ft_printf("1234");
 
 	/*
 	ft_printf("%s\n", str);

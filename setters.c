@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:57:05 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/27 10:01:30 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/01 17:16:41 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	set_conversion(const char format, t_dir *dir)
 		dir->conversion = FLOAT;
 	else if (format == 'b')
 		dir->conversion = BIT;
+	else if (format == '%')
+		dir->conversion = PERCENTAGE;
 }
 
 void	set_width(const char **format, t_dir *dir, t_stage *stage)

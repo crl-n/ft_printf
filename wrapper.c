@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:16:09 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 14:08:15 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/01 17:41:03 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,14 @@ char	*as_char(t_dir *dir, va_list *ap)
 char	*as_string(t_dir *dir, va_list *ap)
 {
 	char	*str;
+	char	*arg;
 
 	(void) dir;
-	str = ft_strdup(va_arg(*ap, char *));
+	arg = va_arg(*ap, char *);
+	if (arg == NULL)
+		str = ft_strdup("(null)");
+	else
+		str = ft_strdup(arg);
 	if (!str)
 		exit(1);
 	return (str);
