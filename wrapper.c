@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:16:09 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/27 21:49:55 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 14:08:15 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,16 @@ char	*as_decimal(t_dir *dir, va_list *ap)
 {
 	char	*str;
 
-	(void) dir;
-	str = ft_itoa(va_arg(*ap, int));
+	if (dir->length == H)
+		str = ft_itoa(va_arg(*ap, short int));
+	else if (dir->length == HH)
+		str = ft_itoa(va_arg(*ap, signed char));
+	else if (dir->length == L)
+		str = ft_itoa(va_arg(*ap, long int));
+	else if (dir->length == LL)
+		str = ft_itoa(va_arg(*ap, long long int));
+	else
+		str = ft_itoa(va_arg(*ap, int));
 	if (!str)
 		exit(1);
 	return (str);
@@ -69,7 +77,16 @@ char	*as_octal(t_dir *dir, va_list *ap)
 		prefix = TRUE;
 	else
 		prefix = FALSE;
-	str = itooctal(va_arg(*ap, unsigned long), prefix);
+	if (dir->length == H)
+		str = itooctal(va_arg(*ap, unsigned short int), prefix);
+	else if (dir->length == HH)
+		str = itooctal(va_arg(*ap, unsigned char), prefix);
+	else if (dir->length == L)
+		str = itooctal(va_arg(*ap, unsigned long int), prefix);
+	else if (dir->length == LL)
+		str = itooctal(va_arg(*ap, unsigned long long int), prefix);
+	else
+		str = itooctal(va_arg(*ap, unsigned int), prefix);
 	if (!str)
 		exit(1);
 	return (str);
@@ -80,7 +97,16 @@ char	*as_unsigned(t_dir *dir, va_list *ap)
 	char	*str;
 
 	(void) dir;
-	str = utoa(va_arg(*ap, unsigned long));
+	if (dir->length == H)
+		str = utoa(va_arg(*ap, unsigned short int));
+	else if (dir->length == HH)
+		str = utoa(va_arg(*ap, unsigned char));
+	else if (dir->length == L)
+		str = utoa(va_arg(*ap, unsigned long int));
+	else if (dir->length == LL)
+		str = utoa(va_arg(*ap, unsigned long long int));
+	else
+		str = utoa(va_arg(*ap, unsigned int));
 	if (!str)
 		exit(1);
 	return (str);
@@ -93,7 +119,16 @@ char	*as_hex(t_dir *dir, va_list *ap)
 	int		prefix;
 	unsigned long	arg;
 
-	arg = va_arg(*ap, unsigned long);
+	if (dir->length == H)
+		arg = va_arg(*ap, unsigned short int);
+	else if (dir->length == HH)
+		arg = va_arg(*ap, unsigned char);
+	else if (dir->length == L)
+		arg = va_arg(*ap, unsigned long int);
+	else if (dir->length == LL)
+		arg = va_arg(*ap, unsigned long long int);
+	else
+		arg = va_arg(*ap, unsigned int);
 	if (dir->conversion == HEX_LOWER)
 		letter_case = LOWERCASE;
 	else

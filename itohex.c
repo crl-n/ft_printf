@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:35:02 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/27 21:28:39 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 14:53:51 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*itohex(unsigned long value, const int letter_case, const int prefix)
 		str[--size] = get_hex_char(value % 16, letter_case);
 		value = value / 16;
 	}
-	str[--size] = value + '0';
+	str[--size] = get_hex_char(value, letter_case);
 	if (prefix == TRUE)
 		add_prefix(str, letter_case);
 	return (str);

@@ -6,12 +6,13 @@ int	ft_printf(const char *format, ...);
 
 int	main(void)
 {
-	char	str[] = "abc";
+	//char	str[] = "abc";
 
-	ft_printf("%f\n", 1234.56789);
-	printf("%f\n", 1234.56789);
+	ft_printf("%x", -42);
 	puts("\n");
+	ft_printf("1234");
 
+	/*
 	ft_printf("%s\n", str);
 	printf("%s\n", str);
 	puts("\n");
@@ -71,6 +72,7 @@ int	main(void)
 	ft_printf("%#o\n", 5);
 	printf("%#o\n", 5);
 	puts("\n");
+	*/
 
 	return (0);
 }
