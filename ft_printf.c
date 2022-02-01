@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 17:35:02 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 19:34:48 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,27 +98,22 @@ static void	put_arg(t_dir *dir, va_list *ap, int *ret)
 
 /* TODO Make width work with % */
 
-int	ft_printf(const char *format, ...)
+static void	print_formatted(const char *format,
+								t_list **dir_list,
+								va_list *ap,
+								int *ret)
 {
 	const char	*start;
-	va_list		ap;
-	int			ret;
-	t_list		*dir_list;
 
-	ret = 0;
 	start = format;
-	dir_list = NULL;
-	if (parse_format(format, &dir_list) < 0)
-		return (-1);
-	va_start(ap, format);
 	while (*format)
 	{
 		if (*format == '%')
 		{
 			format++;
 			write(1, start, (size_t)(format - start - 1));
-			ret += (format - start - 1);
-			put_arg(ft_lstpop_left(&dir_list), &ap, &ret);
+			*ret += (format - start - 1);
+			put_arg(ft_lstpop_left(dir_list), ap, ret);
 			while (!is_conversion(*format))
 				format++;
 			start = format + 1;
@@ -126,7 +121,21 @@ int	ft_printf(const char *format, ...)
 		format++;
 	}
 	write(1, start, (size_t)(format - start));
-	ret += (format - start);
+	*ret += (format - start);
+}
+
+int	ft_printf(const char *format, ...)
+{
+	va_list	ap;
+	int		ret;
+	t_list	*dir_list;
+
+	ret = 0;
+	dir_list = NULL;
+	if (parse_format(format, &dir_list) < 0)
+		return (-1);
+	va_start(ap, format);
+	print_formatted(format, &dir_list, &ap, &ret);
 	va_end(ap);
 	return (ret);
 }

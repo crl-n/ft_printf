@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 17:14:24 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 19:29:58 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,11 @@
 # include <stdarg.h>
 
 /* Mandatory flags */
-# define ALT    0b10000000
-# define ZERO   0b01000000
-# define PLUS   0b00100000
-# define MINUS  0b00010000
-# define SPACE  0b00001000
-
-/* Bonus flags */
-# define SEP    0b00000100
-# define ASTR   0b00000010
-# define DOLLAR 0b00000001
+# define ALT    0b00001
+# define ZERO   0b00010
+# define PLUS   0b00100
+# define MINUS  0b01000
+# define SPACE  0b10000
 
 /* Conversions */
 # define CHAR       0b0000
@@ -63,7 +58,6 @@
 /* Other */
 # define LOWERCASE 0
 # define UPPERCASE 1
-
 # define FALSE 0
 # define TRUE 1
 
@@ -80,6 +74,8 @@ typedef struct s_dir
 	unsigned int	negative : 1;
 	int				width; // Maximum width seems to be 2147483646
 	int				precision; // Maximum precision seems to be 2147483645
+	int				start_i;
+	int				end_i;
 }	t_dir;
 
 typedef char	*t_converter(t_dir *dir, va_list *ap);

@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:57:05 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 17:16:41 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 19:31:17 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	set_flag(const char **format, t_dir *dir, t_stage *stage)
 		dir->flags = dir->flags | SPACE;
 	else if (c == '+')
 		dir->flags = dir->flags | PLUS;
-	else if (c == '\'')
-		dir->flags = dir->flags | SEP;
 	*format = *format + 1;
 	*stage = FLAG;
 }

@@ -6,13 +6,13 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 09:53:56 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 17:15:28 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 19:03:13 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* Boolean functions used in parsing the format string */
 
-int	is_flag(const char c) // bonus flags missing
+int	is_flag(const char c)
 {
 	if (c == '#' || c == '0' || c == '-' || c == ' ' || c == '+' || c == '\'')
 		return (1);

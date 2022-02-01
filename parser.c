@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 09:50:19 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 17:21:02 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 19:32:47 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ static t_dir	*new_directive(void)
 		return (NULL);
 	ft_bzero(dir, sizeof (t_dir));
 	dir->precision = 6;
+	dir->start_i = -1;
+	dir->end_i = -1;
 	return (dir);
 }
 
 static void	parse_directions(const char **format_adr,
+								const char *start,
 								t_dir *dir,
 								t_stage *stage)
 {
@@ -49,6 +52,7 @@ static void	parse_directions(const char **format_adr,
 		if (is_conversion(*format))
 		{
 			set_conversion(*format, dir);
+			dir->end_i = (int)(format - start);
 			break ;
 		}
 		format++;
@@ -67,17 +71,20 @@ static void	parse_directions(const char **format_adr,
 //TODO: test with width AND precision
 int	parse_format(const char *format, t_list **dir_list)
 {
-	t_dir	*dir;
-	t_stage	stage;
+	t_dir		*dir;
+	t_stage		stage;
+	const char	*start;
 
+	start = format;
 	while (*format)
 	{
 		stage = 0;
 		if (*format == '%')
 		{
-			format++;
 			dir = new_directive();
-			parse_directions(&format, dir, &stage);
+			dir->start_i = (int)(format - start);
+			format++;
+			parse_directions(&format, start, dir, &stage);
 			ft_lstadd_back(dir_list, ft_lstnew((void *)dir, sizeof (t_dir)));
 			free(dir);
 		}
