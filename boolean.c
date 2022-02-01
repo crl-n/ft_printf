@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 09:53:56 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 19:03:13 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 21:31:07 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	is_precision(const char c)
 
 int	is_length(const char c)
 {
-	if (c == 'l' || c == 'h')
+	if (c == 'l' || c == 'h' || c == 'L')
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 19:29:58 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 23:11:46 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@
 # define NONE       0b1111
 
 /* Lengths */
-# define L  0b001
-# define LL 0b010
-# define H  0b011
-# define HH 0b100
+# define L         0b001
+# define LL        0b010
+# define H         0b011
+# define HH        0b100
+# define CAPITAL_L 0b101
 
 /* Parser stage */
 # define FLAG       0
@@ -72,6 +73,7 @@ typedef struct s_dir
 	unsigned int	conversion : 4;
 	unsigned int	length : 3;
 	unsigned int	negative : 1;
+	unsigned int	null_char : 1;
 	int				width; // Maximum width seems to be 2147483646
 	int				precision; // Maximum precision seems to be 2147483645
 	int				start_i;
@@ -84,6 +86,8 @@ typedef int		t_stage;
 /* Prototypes */
 int		ft_printf(const char *format, ...);
 int		parse_format(const char *format, t_list **dir_list);
+void	put_arg(t_dir *dir, va_list *ap, int *ret);
+char	*convert(t_dir *dir, va_list *ap);
 
 int		is_flag(const char c);
 int		is_conversion(const char c);
@@ -91,7 +95,7 @@ int		is_precision(const char c);
 int		is_length(const char c);
 
 char	*ftoa(double value, int precision);
-char	*itohex(unsigned long n, const int letter_case, const int prefix);
+char	*itohex(unsigned long n, const int letter_case, const int prefix, t_dir *dir);
 char	*itooctal(unsigned long n, const int prefix);
 char	*ptoa(unsigned long p);
 
@@ -99,7 +103,7 @@ void	set_flag(const char **format, t_dir *dir, t_stage *stage);
 void	set_conversion(const char format, t_dir *dir);
 void	set_width(const char **format, t_dir *dir, t_stage *stage);
 void	set_precision(const char **format, t_dir *dir);
-void	set_length(const char *format, t_dir *dir);
+void	set_length(const char **format, t_dir *dir);
 
 char	*as_char(t_dir *dir, va_list *ap);
 char	*as_string(t_dir *dir, va_list *ap);

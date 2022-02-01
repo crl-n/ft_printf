@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 09:50:19 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 19:32:47 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 21:47:45 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_dir	*new_directive(void)
 	if (!dir)
 		return (NULL);
 	ft_bzero(dir, sizeof (t_dir));
-	dir->precision = 6;
+	dir->precision = -1;
 	dir->start_i = -1;
 	dir->end_i = -1;
 	return (dir);
@@ -48,7 +48,7 @@ static void	parse_directions(const char **format_adr,
 		if (*stage <= PRECISION && is_precision(*format))
 			set_precision(&format, dir);
 		if (*stage <= LENGTH && is_length(*format))
-			set_length(format, dir);
+			set_length(&format, dir);
 		if (is_conversion(*format))
 		{
 			set_conversion(*format, dir);

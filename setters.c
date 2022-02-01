@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:57:05 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 19:31:17 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 23:45:56 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,14 @@ void	set_flag(const char **format, t_dir *dir, t_stage *stage)
 	c = **format;
 	if (c == '#')
 		dir->flags = dir->flags | ALT;
-	else if (c == '0')
+	else if (c == '0' && !(dir->flags & MINUS))
 		dir->flags = dir->flags | ZERO;
 	else if (c == '-')
+	{
 		dir->flags = dir->flags | MINUS;
+		if ((dir->flags & ZERO) == ZERO)
+			dir->flags = dir->flags ^ ZERO;
+	}
 	else if (c == ' ')
 		dir->flags = dir->flags | SPACE;
 	else if (c == '+')
@@ -85,14 +89,31 @@ void	set_precision(const char **format, t_dir *dir)
 	*format = *format + ft_intlen(dir->precision);
 }
 
-void	set_length(const char *format, t_dir *dir)
+void	set_length(const char **format, t_dir *dir)
 {
-	if (*format == 'l' && *(format + 1) == 'l')
+	if (**format == 'l' && *(*format + 1) == 'l')
+	{
 		dir->length = LL;
-	if (*format == 'h' && *(format + 1) == 'h')
+		*format += 2;
+	}
+	else if (**format == 'h' && *(*format + 1) == 'h')
+	{
 		dir->length = HH;
-	if (*format == 'l')
+		*format += 2;
+	}
+	else if (**format == 'l')
+	{
 		dir->length = L;
-	if (*format == 'h')
+		*format += 1;
+	}
+	else if (**format == 'h')
+	{
 		dir->length = H;
+		*format += 1;
+	}
+	else if (**format == 'L')
+	{
+		dir->length = CAPITAL_L;
+		*format += 1;
+	}
 }

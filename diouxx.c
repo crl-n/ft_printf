@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:16:09 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 19:39:37 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 23:11:27 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*as_hex(t_dir *dir, va_list *ap)
 	prefix = FALSE;
 	if ((dir->flags & ALT) == ALT && arg != 0)
 		prefix = TRUE;
-	str = itohex(arg, letter_case, prefix);
+	str = itohex(arg, letter_case, prefix, dir);
 	if (!str)
 		exit(1);
 	return (str);

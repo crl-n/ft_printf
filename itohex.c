@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:35:02 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 14:53:51 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/01 23:36:01 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
 
 /* get_char() converts an int into a corresponding digit of its base */
 
-static size_t	uintlen_hex(unsigned long n)
+static int	uintlen_hex(unsigned long n)
 {
-	size_t	len;
+	int	len;
 
 	len = 0;
 	if (n == 0)
@@ -61,14 +61,23 @@ static void	add_prefix(char	*str, const int letter_case)
 	}
 }
 
-char	*itohex(unsigned long value, const int letter_case, const int prefix)
+char	*itohex(unsigned long value,
+				const int letter_case,
+				const int prefix,
+				t_dir *dir)
 {
 	char	*str;
-	size_t	size;
+	int		size;
 
 	size = uintlen_hex(value) + 1;
 	if (prefix == TRUE)
+	{
 		size += 2;
+		if ((dir->flags & ZERO) == ZERO
+				&& (dir->flags & MINUS) != MINUS
+				&& size < dir->width)
+			size = dir->width + 1;
+	}
 	str = (char *) malloc(size * sizeof (char));
 	if (!str)
 		return (NULL);
@@ -79,6 +88,8 @@ char	*itohex(unsigned long value, const int letter_case, const int prefix)
 		value = value / 16;
 	}
 	str[--size] = get_hex_char(value, letter_case);
+	while (--size >= 0)
+		str[size] = '0';
 	if (prefix == TRUE)
 		add_prefix(str, letter_case);
 	return (str);

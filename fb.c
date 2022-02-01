@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 18:56:23 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/01 18:57:10 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 21:47:35 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*as_float(t_dir *dir, va_list *ap)
 {
 	char	*str;
 
+	if (dir->precision == -1)
+		dir->precision = 6;
 	str = ftoa(va_arg(*ap, double), dir->precision);
 	if (!str)
 		exit(1);
