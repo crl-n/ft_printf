@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/27 23:50:01 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/01 16:05:50 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,26 @@ static void	justify(t_dir *dir, size_t n, int *ret)
 	free(str);
 }
 
-static const	t_converter dispatch_table[] = {
-	as_char,
-	as_string,
-	as_pointer,
-	as_decimal,
-	as_decimal,
-	as_octal,
-	as_unsigned,
-	as_hex,
-	as_hex,
-	as_float,
-	as_bit
-};
-
 char	*convert(t_dir *dir, va_list *ap)
 {
+	static t_converter	*dispatch_table[11];
 	char				*str;
 
 	str = NULL;
+	if (!dispatch_table[0])
+	{
+		dispatch_table[CHAR] = as_char;
+		dispatch_table[STRING] = as_string;
+		dispatch_table[POINTER] = as_pointer;
+		dispatch_table[DECIMAL] = as_decimal;
+		dispatch_table[INTEGER] = as_decimal;
+		dispatch_table[OCTAL] = as_octal;
+		dispatch_table[UNSIGNED] = as_unsigned;
+		dispatch_table[HEX_LOWER] = as_hex;
+		dispatch_table[HEX_UPPER] = as_hex;
+		dispatch_table[FLOAT] = as_float;
+		dispatch_table[BIT] = as_bit;
+	}
 	str = dispatch_table[dir->conversion](dir, ap);
 	return (str);
 }
