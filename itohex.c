@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:35:02 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 23:36:01 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 10:16:32 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,28 @@
 
 /* get_char() converts an int into a corresponding digit of its base */
 
-static int	uintlen_hex(unsigned long n)
+static int	get_size(unsigned long n, int prefix, t_dir *dir)
 {
-	int	len;
+	int	size;
 
-	len = 0;
+	size = 0;
 	if (n == 0)
-		return (1);
+		return (2);
 	while (n > 0)
 	{
 		n = n / 16;
-		len++;
+		size++;
 	}
-	return (len);
+	size++;
+	if (prefix == TRUE)
+	{
+		size += 2;
+		if ((dir->flags & ZERO) == ZERO
+				&& (dir->flags & MINUS) != MINUS
+				&& size < dir->width)
+			size = dir->width + 1;
+	}
+	return (size);
 }
 
 static char	get_hex_char(int n, const int letter_case)
@@ -69,15 +78,9 @@ char	*itohex(unsigned long value,
 	char	*str;
 	int		size;
 
-	size = uintlen_hex(value) + 1;
-	if (prefix == TRUE)
-	{
-		size += 2;
-		if ((dir->flags & ZERO) == ZERO
-				&& (dir->flags & MINUS) != MINUS
-				&& size < dir->width)
-			size = dir->width + 1;
-	}
+	if (dir->precision == 0)
+		return (ft_strdup(""));
+	size = get_size(value, prefix, dir);
 	str = (char *) malloc(size * sizeof (char));
 	if (!str)
 		return (NULL);

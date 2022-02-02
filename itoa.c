@@ -1,18 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   itoa.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/07 16:57:15 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/27 21:50:19 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/02/02 11:07:48 by carlnysten        #+#    #+#             */
+/*   Updated: 2022/02/02 11:44:10 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "ft_printf.h"
 #include <stdlib.h>
 #include <string.h>
+
+static int	get_size(long n, t_dir *dir)
+{
+	int	size;
+
+	size = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
+	{
+		n = -n;
+		size++;
+	}
+	while (n > 0)
+	{
+		n = n / 10;
+		size++;
+	}
+	if ((dir->flags & ZERO) == ZERO && size < dir->width)
+		size = dir->width + 1;
+	if (dir->precision >= 0 && size > dir->precision)
+		size = dir->precision + 1;
+	return (size + 1);
+}
 
 static int	handle_negative(int n, int *sign)
 {
@@ -24,15 +49,13 @@ static int	handle_negative(int n, int *sign)
 	return (n);
 }
 
-char	*ft_itoa(int n)
+char	*itoa(long n, t_dir *dir)
 {
 	char	*s;
-	size_t	size;
+	int		size;
 	int		sign;
 
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	size = ft_intlen(n) + 1;
+	size = get_size(n, dir);
 	sign = 1;
 	n = handle_negative(n, &sign);
 	s = (char *) malloc(size * sizeof (char));

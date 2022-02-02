@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 00:16:09 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 23:11:27 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 11:13:43 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ char	*as_decimal(t_dir *dir, va_list *ap)
 	char	*str;
 
 	if (dir->length == HH)
-		str = ft_itoa((signed char) va_arg(*ap, int));
+		str = itoa((signed char) va_arg(*ap, int), dir);
 	else if (dir->length == H)
-		str = ft_itoa((signed short int) va_arg(*ap, int));
+		str = itoa((signed short int) va_arg(*ap, int), dir);
 	else if (dir->length == L)
-		str = ft_itoa(va_arg(*ap, long int));
+		str = itoa(va_arg(*ap, long int), dir);
 	else if (dir->length == LL)
-		str = ft_itoa(va_arg(*ap, long long int));
+		str = itoa(va_arg(*ap, long long int), dir);
 	else
-		str = ft_itoa(va_arg(*ap, int));
+		str = itoa(va_arg(*ap, int), dir);
 	if (!str)
 		exit(1);
 	return (str);
@@ -44,15 +44,15 @@ char	*as_octal(t_dir *dir, va_list *ap)
 	else
 		prefix = FALSE;
 	if (dir->length == HH)
-		str = itooctal((unsigned char) va_arg(*ap, unsigned int), prefix);
+		str = itooctal((unsigned char) va_arg(*ap, unsigned int), prefix, dir);
 	else if (dir->length == H)
-		str = itooctal((unsigned short int) va_arg(*ap, unsigned int), prefix);
+		str = itooctal((unsigned short int) va_arg(*ap, unsigned int), prefix, dir);
 	else if (dir->length == L)
-		str = itooctal(va_arg(*ap, unsigned long int), prefix);
+		str = itooctal(va_arg(*ap, unsigned long int), prefix, dir);
 	else if (dir->length == LL)
-		str = itooctal(va_arg(*ap, unsigned long long int), prefix);
+		str = itooctal(va_arg(*ap, unsigned long long int), prefix, dir);
 	else
-		str = itooctal(va_arg(*ap, unsigned int), prefix);
+		str = itooctal(va_arg(*ap, unsigned int), prefix, dir);
 	if (!str)
 		exit(1);
 	return (str);

@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 23:11:46 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 11:13:19 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,10 @@ int		is_conversion(const char c);
 int		is_precision(const char c);
 int		is_length(const char c);
 
+char	*itoa(long n, t_dir *dir);
 char	*ftoa(double value, int precision);
 char	*itohex(unsigned long n, const int letter_case, const int prefix, t_dir *dir);
-char	*itooctal(unsigned long n, const int prefix);
+char	*itooctal(unsigned long n, const int prefix, t_dir *dir);
 char	*ptoa(unsigned long p);
 
 void	set_flag(const char **format, t_dir *dir, t_stage *stage);

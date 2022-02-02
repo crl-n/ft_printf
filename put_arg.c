@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 22:01:53 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/01 23:04:01 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 10:59:38 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static void	justify(t_dir *dir, size_t n, int *ret)
 static void	handle_space_flag(t_dir *dir, int *ret)
 {
 	if ((dir->flags & SPACE) == SPACE
-			&& ((dir->flags & PLUS) == 0 || dir->negative == 1)
+			&& (dir->flags & PLUS) == 0
+			&& dir->negative == 0
 			&& (dir->conversion == DECIMAL
 			|| dir->conversion == INTEGER
 			|| dir->conversion == FLOAT))
@@ -51,13 +52,11 @@ static void	handle_space_flag(t_dir *dir, int *ret)
 
 static void	handle_negative(t_dir *dir, char *str, int *ret)
 {
-	int	negative;
-
-	negative = 0;
 	if ((dir->conversion == DECIMAL
-		|| dir->conversion == INTEGER)
+		|| dir->conversion == INTEGER
+		|| dir->conversion == FLOAT)
 		&& str[0] == '-')
-		negative = 1;
+		dir->negative = 1;
 	if (dir->negative == 0 && (dir->flags & PLUS) == PLUS)
 	{
 		write(1, "+", 1);
@@ -72,10 +71,10 @@ void	put_arg(t_dir *dir, va_list *ap, int *ret)
 
 	str = convert(dir, ap);
 	len = ft_strlen(str);
+	handle_negative(dir, str, ret);
 	handle_space_flag(dir, ret);
 	if (dir->width > len - (int) dir->null_char && (dir->flags & MINUS) != MINUS)
 		justify(dir, dir->width - len + dir->null_char, ret);
-	handle_negative(dir, str, ret);
 	write(1, str, len);
 	*ret = *ret + len - dir->null_char;
 	if (dir->width > len - (int) dir->null_char && (dir->flags & MINUS) == MINUS)
