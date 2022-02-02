@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:15:14 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 17:38:33 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 20:28:39 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ void	output_hex(t_dir *dir, va_list *ap, int *ret)
 
 	str = get_str(dir, ap);
 	len = ft_strlen(str);
+	if ((dir->flags & SPACE) == SPACE)
+	{
+		write(1, " ", 1);
+		*ret += 1;
+	}
 	if ((dir->flags & MINUS) != MINUS)
 		justify(dir, dir->width - len, ret);
 	write(1, str, len);

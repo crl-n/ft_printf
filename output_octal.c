@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:14:01 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 19:38:52 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 20:17:08 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ void	output_octal(t_dir *dir, va_list *ap, int *ret)
 
 	str = get_str(dir, ap);
 	len = ft_strlen(str);
+	if ((dir->flags & SPACE) == SPACE)
+		write(1, " ", 1);
 	if ((dir->flags & MINUS) != MINUS)
 		justify(dir, dir->width - len, ret);
 	write(1, str, len);

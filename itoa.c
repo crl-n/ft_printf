@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:48 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 11:44:10 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 20:07:20 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	get_size(long n, t_dir *dir)
 	return (size + 1);
 }
 
-static int	handle_negative(int n, int *sign)
+static long	handle_negative(long n, int *sign)
 {
 	if (n < 0)
 	{
