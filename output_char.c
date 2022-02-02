@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 13:57:09 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 19:30:11 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "ft_printf.h"
 #include "../libft/libft.h"
 
-static void	justify(int	c, int n)
+static void	justify(int	c, int n, int *ret)
 {
 	char	*str;
 
@@ -26,6 +26,7 @@ static void	justify(int	c, int n)
 		exit(1);
 	ft_memset((void *)str, c, n);
 	write(1, str, n);
+	*ret += n;
 	free(str);
 }
 
@@ -35,18 +36,12 @@ void	output_char(t_dir *dir, va_list *ap, int *ret)
 
 	arg = va_arg(*ap, int);
 	if ((dir->flags & MINUS) != MINUS)
-	{
-		justify(' ', dir->width - 1);
-		*ret += dir->width - 1;
-	}
+		justify(' ', dir->width - 1, ret);
 	if (arg == 0)
 		write(1, "^@", 2);
 	else
 		write(1, &arg, 1);
+	*ret += 1;
 	if ((dir->flags & MINUS) == MINUS)
-	{
-		justify(' ', dir->width - 1);
-		*ret += dir->width - 1;
-	}
-	
+		justify(' ', dir->width - 1, ret);
 }

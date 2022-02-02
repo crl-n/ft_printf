@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:02:10 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 19:00:32 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 19:09:50 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,10 @@ void	output_string(t_dir *dir, va_list *ap, int *ret)
 	str = get_str(dir, ap);
 	len = ft_strlen(str);
 	if ((dir->flags & MINUS) != MINUS)
-	{
-		if (dir->precision == -1)
-			justify(dir->width - len, ret);
-		else if (dir->precision != -1 && dir->width <= dir->precision)
-			justify(dir->width - len, ret);
-	}
+		justify(dir->width - len, ret);
 	write(1, str, len);
 	*ret += len;
 	if ((dir->flags & MINUS) == MINUS)
-	{
-		if (dir->precision == -1)
-			justify(dir->width - len, ret);
-		else if (dir->precision != -1 && dir->width <= dir->precision)
-			justify(dir->width - len, ret);
-	}
+		justify(dir->width - len, ret);
 	free(str);
 }
