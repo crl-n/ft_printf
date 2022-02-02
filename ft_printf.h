@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/02 11:13:19 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 14:02:13 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,13 @@ typedef struct s_dir
 	int				end_i;
 }	t_dir;
 
-typedef char	*t_converter(t_dir *dir, va_list *ap);
+typedef void	t_converter(t_dir *dir, va_list *ap, int *ret);
 typedef int		t_stage;
 
 /* Prototypes */
 int		ft_printf(const char *format, ...);
 int		parse_format(const char *format, t_list **dir_list);
 void	put_arg(t_dir *dir, va_list *ap, int *ret);
-char	*convert(t_dir *dir, va_list *ap);
 
 int		is_flag(const char c);
 int		is_conversion(const char c);
@@ -106,14 +105,15 @@ void	set_width(const char **format, t_dir *dir, t_stage *stage);
 void	set_precision(const char **format, t_dir *dir);
 void	set_length(const char **format, t_dir *dir);
 
-char	*as_char(t_dir *dir, va_list *ap);
-char	*as_string(t_dir *dir, va_list *ap);
-char	*as_pointer(t_dir *dir, va_list *ap);
-char	*as_decimal(t_dir *dir, va_list *ap);
-char	*as_octal(t_dir *dir, va_list *ap);
-char	*as_unsigned(t_dir *dir, va_list *ap);
-char	*as_hex(t_dir *dir, va_list *ap);
-char	*as_float(t_dir *dir, va_list *ap);
-char	*as_bit(t_dir *dir, va_list *ap);
+void	output_char(t_dir *dir, va_list *ap, int *ret);
+void	output_string(t_dir *dir, va_list *ap, int *ret);
+void	output_pointer(t_dir *dir, va_list *ap, int *ret);
+void	output_decimal(t_dir *dir, va_list *ap, int *ret);
+void	output_octal(t_dir *dir, va_list *ap, int *ret);
+void	output_unsigned(t_dir *dir, va_list *ap, int *ret);
+void	output_hex(t_dir *dir, va_list *ap, int *ret);
+void	output_float(t_dir *dir, va_list *ap, int *ret);
+void	output_bit(t_dir *dir, va_list *ap, int *ret);
+void	output_percentage(t_dir *dir, va_list *ap, int *ret);
 
 #endif

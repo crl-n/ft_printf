@@ -1,40 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   csp.c                                              :+:      :+:    :+:   */
+/*   output_string.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/01 18:52:26 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/01 23:21:19 by carlnysten       ###   ########.fr       */
+/*   Created: 2022/02/02 12:02:10 by carlnysten        #+#    #+#             */
+/*   Updated: 2022/02/02 14:01:24 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "ft_printf.h"
 #include "../libft/libft.h"
 
-char	*as_char(t_dir *dir, va_list *ap)
+static void	justify(int n)
 {
 	char	*str;
-	int		arg;
 
-	(void) dir;
-	arg = va_arg(*ap, int);
-	if (arg == 0)
-	{
-		dir->null_char = 1;
-		return (ft_strdup("^@"));
-	}
-	str = ft_strnew(1);
+	if (n <= 0)
+		return ;
+	str = ft_strnew(n);
 	if (!str)
 		exit(1);
-	str[0] = arg;
-	return (str);
+	ft_memset((void *)str, ' ', n);
+	write(1, str, n);
+	free(str);
 }
 
-char	*as_string(t_dir *dir, va_list *ap)
+static char	*get_str(t_dir *dir, va_list *ap)
 {
 	char	*str;
 	char	*arg;
@@ -52,13 +47,23 @@ char	*as_string(t_dir *dir, va_list *ap)
 	return (str);
 }
 
-char	*as_pointer(t_dir *dir, va_list *ap)
+void	output_string(t_dir *dir, va_list *ap, int *ret)
 {
 	char	*str;
+	int		len;
 
-	(void) dir;
-	str = itohex(va_arg(*ap, unsigned long), LOWERCASE, TRUE, dir);
-	if (!str)
-		exit(1);
-	return (str);
+	str = get_str(dir, ap);
+	len = ft_strlen(str);
+	if ((dir->flags & MINUS) != MINUS && dir->width <= dir->precision)
+	{
+		justify(dir->width - len);
+	}
+	write(1, str, len);
+	*ret += len;
+	if ((dir->flags & MINUS) == MINUS && dir->width <= dir->precision)
+	{
+		justify(dir->width - len);
+		*ret += dir->width - len;
+	}
+	free(str);
 }
