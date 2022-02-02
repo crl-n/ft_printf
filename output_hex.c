@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:15:14 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 13:49:11 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 17:38:33 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,28 @@ static char	*get_str(t_dir *dir, va_list *ap)
 	return (str);
 }
 
+static void	justify(t_dir *dir, int n, int *ret)
+{
+	char	c;
+	char	*str;
+
+	if (n <= 0)
+		return ;
+	str = ft_strnew(n);
+	if (!str)
+		exit(1);
+	if ((dir->flags & ZERO) == ZERO)
+		c = '0';
+	else
+		c = ' ';
+	if ((dir->flags & SPACE) == SPACE)
+		n--;
+	ft_memset((void *)str, c, n);
+	write(1, str, n);
+	*ret += n;
+	free(str);
+}
+
 void	output_hex(t_dir *dir, va_list *ap, int *ret)
 {
 	char	*str;
@@ -51,7 +73,11 @@ void	output_hex(t_dir *dir, va_list *ap, int *ret)
 
 	str = get_str(dir, ap);
 	len = ft_strlen(str);
+	if ((dir->flags & MINUS) != MINUS)
+		justify(dir, dir->width - len, ret);
 	write(1, str, len);
 	*ret += len;
+	if ((dir->flags & MINUS) == MINUS)
+		justify(dir, dir->width - len, ret);
 	free(str);
 }

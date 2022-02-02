@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:02:10 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 14:01:24 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 19:00:32 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "ft_printf.h"
 #include "../libft/libft.h"
 
-static void	justify(int n)
+static void	justify(int n, int *ret)
 {
 	char	*str;
 
@@ -26,6 +26,7 @@ static void	justify(int n)
 		exit(1);
 	ft_memset((void *)str, ' ', n);
 	write(1, str, n);
+	*ret += n;
 	free(str);
 }
 
@@ -54,16 +55,21 @@ void	output_string(t_dir *dir, va_list *ap, int *ret)
 
 	str = get_str(dir, ap);
 	len = ft_strlen(str);
-	if ((dir->flags & MINUS) != MINUS && dir->width <= dir->precision)
+	if ((dir->flags & MINUS) != MINUS)
 	{
-		justify(dir->width - len);
+		if (dir->precision == -1)
+			justify(dir->width - len, ret);
+		else if (dir->precision != -1 && dir->width <= dir->precision)
+			justify(dir->width - len, ret);
 	}
 	write(1, str, len);
 	*ret += len;
-	if ((dir->flags & MINUS) == MINUS && dir->width <= dir->precision)
+	if ((dir->flags & MINUS) == MINUS)
 	{
-		justify(dir->width - len);
-		*ret += dir->width - len;
+		if (dir->precision == -1)
+			justify(dir->width - len, ret);
+		else if (dir->precision != -1 && dir->width <= dir->precision)
+			justify(dir->width - len, ret);
 	}
 	free(str);
 }
