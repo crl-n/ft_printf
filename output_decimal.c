@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:13:21 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 21:10:13 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 22:03:38 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,16 @@ static void	justify(t_dir *dir, int n, int *ret)
 
 static void	handle_sign(t_dir *dir, char *str, int *ret)
 {
+	(void) ret;
 	if (str[0] == '-')
 		dir->negative = 1;
+	/*
 	if (dir->negative == 0 && (dir->flags & PLUS) == PLUS)
 	{
 		write(1, "+", 1);
 		*ret += 1;
 	}
+	*/
 }
 
 void	output_decimal(t_dir *dir, va_list *ap, int *ret)

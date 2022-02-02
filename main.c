@@ -8,7 +8,7 @@ int	main(void)
 {
 	//char	str[] = "abc";
 
-	ft_printf("%05d", 42);
+	ft_printf("%0+5d", 42);
 	puts("\n");
 
 	/*

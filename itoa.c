@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:48 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 21:35:24 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 22:05:30 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,14 @@ static int	get_size(long n, t_dir *dir)
 		n = -n;
 		size++;
 	}
+	else if ((dir->flags & PLUS) == PLUS)
+		size++;
 	while (n > 0)
 	{
 		n = n / 10;
 		size++;
 	}
-	if (dir->precision >= 0 && size > dir->precision)
+	if (dir->precision >= 0 && size < dir->precision)
 		size = dir->precision;
 	else if ((dir->flags & ZERO) == ZERO && size < dir->width)
 		size = dir->width;
@@ -69,5 +71,7 @@ char	*itoa(long n, t_dir *dir)
 	}
 	if (sign == -1)
 		s[0] = '-';
+	else if ((dir->flags & PLUS) == PLUS)
+		s[0] = '+';
 	return (s);
 }
