@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:13:21 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 20:37:02 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/02 21:10:13 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	justify(t_dir *dir, int n, int *ret)
 		c = '0';
 	else
 		c = ' ';
-	if ((dir->flags & SPACE) == SPACE)
+	if ((dir->flags & (SPACE & PLUS)) == SPACE)
 		n--;
 	ft_memset((void *)str, c, n);
 	write(1, str, n);
@@ -75,7 +75,9 @@ void	output_decimal(t_dir *dir, va_list *ap, int *ret)
 	str = get_str(dir, ap);
 	len = ft_strlen(str);
 	handle_sign(dir, str, ret);
-	if ((dir->flags & SPACE) == SPACE && !dir->negative)
+	if ((dir->flags & SPACE) == SPACE 
+			&& !dir->negative
+			&& (dir->flags & PLUS) != PLUS)
 	{
 		write(1, " ", 1);
 		*ret += 1;
