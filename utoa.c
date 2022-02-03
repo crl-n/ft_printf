@@ -6,16 +6,16 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:57:15 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/22 17:10:32 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/03 15:32:11 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <string.h>
 
-static size_t	ft_uint_len(unsigned int n)
+static int	uint_len(unsigned long n)
 {
-	size_t	len;
+	int	len;
 
 	len = 0;
 	if (n == 0)
@@ -28,12 +28,12 @@ static size_t	ft_uint_len(unsigned int n)
 	return (len);
 }
 
-char	*utoa(unsigned int n)
+char	*utoa(unsigned long n)
 {
 	char	*s;
-	size_t	size;
+	int		size;
 
-	size = ft_uint_len(n) + 1;
+	size = uint_len(n) + 1;
 	s = (char *) malloc(size * sizeof (char));
 	if (!s)
 		return (NULL);
