@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:48 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/03 10:00:12 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/03 21:31:01 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-static int	get_size(long n, t_dir *dir)
+static int	get_size(long long n, t_dir *dir)
 {
 	int	size;
 
 	size = 0;
 	if (n == 0)
 		size = 1;
-	if (n < 0)
-	{
-		n = -n;
-		size++;
-	}
-	else if (dir->plus_flag)
-		size++;
 	while (n > 0)
 	{
 		n = n / 10;
@@ -37,29 +30,31 @@ static int	get_size(long n, t_dir *dir)
 	if (dir->precision >= 0 && dir->precision > size)
 		size = dir->precision;
 	else if (dir->zero_flag && size < dir->width)
+	{
 		size = dir->width;
+		if (dir->negative || (dir->plus_flag && !dir->negative))
+			size--;
+	}
 	return (size + 1);
 }
 
-static long	handle_negative(long n, int *sign)
+static long long	handle_negative(long long n, t_dir *dir)
 {
 	if (n < 0)
 	{
-		*sign = -1;
+		dir->negative = 1;
 		n = -n;
 	}
 	return (n);
 }
 
-char	*itoa(long n, t_dir *dir)
+char	*itoa(long long n, t_dir *dir)
 {
 	char	*s;
 	int		size;
-	int		sign;
 
+	n = handle_negative(n, dir);
 	size = get_size(n, dir);
-	sign = 1;
-	n = handle_negative(n, &sign);
 	s = (char *) malloc(size * sizeof (char));
 	if (!s)
 		return (NULL);
@@ -69,9 +64,5 @@ char	*itoa(long n, t_dir *dir)
 		s[--size] = '0' + (n % 10);
 		n = n / 10;
 	}
-	if (sign == -1)
-		s[0] = '-';
-	else if (dir->plus_flag)
-		s[0] = '+';
 	return (s);
 }

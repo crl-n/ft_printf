@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 20:57:20 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/03 15:33:59 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/03 16:26:06 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		ft_isdigit(int c);
 int		ft_isprint(int c);
 char	*ft_itoa(int n);
 char	*ft_itoa_base(int n, int base);
-char	*utoa(unsigned int n);
+//char	*utoa(unsigned int n);
 char	*utoa_base(int n, int base);
 void	ft_lstadd(t_list **alst, t_list *new);
 void	ft_lstadd_back(t_list **alst, t_list *new);

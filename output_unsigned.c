@@ -6,14 +6,14 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:14:42 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/03 15:30:54 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/03 16:30:57 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include "ft_printf.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 static char	*get_str(t_dir *dir, va_list *ap)
 {
@@ -24,9 +24,9 @@ static char	*get_str(t_dir *dir, va_list *ap)
 	else if (dir->length == H)
 		str = utoa((unsigned short int) va_arg(*ap, unsigned int));
 	else if (dir->length == L)
-		str = utoa(va_arg(*ap, unsigned long));
+		str = utoa(va_arg(*ap, unsigned long int));
 	else if (dir->length == LL)
-		str = utoa(va_arg(*ap, unsigned long long));
+		str = utoa(va_arg(*ap, unsigned long long int));
 	else
 		str = utoa(va_arg(*ap, unsigned int));
 	if (!str)

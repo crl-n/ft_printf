@@ -6,14 +6,14 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:57:15 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/03 15:32:11 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/03 16:26:56 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <string.h>
 
-static int	uint_len(unsigned long n)
+static int	uint_len(unsigned long int n)
 {
 	int	len;
 
@@ -28,7 +28,7 @@ static int	uint_len(unsigned long n)
 	return (len);
 }
 
-char	*utoa(unsigned long n)
+char	*utoa(unsigned long int n)
 {
 	char	*s;
 	int		size;
