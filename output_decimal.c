@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:13:21 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 22:03:38 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/03 09:48:07 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	output_decimal(t_dir *dir, va_list *ap, int *ret)
 			&& (dir->flags & PLUS) != PLUS)
 	{
 		write(1, " ", 1);
+		dir->width--;
 		*ret += 1;
 	}
 	if ((dir->flags & MINUS) != MINUS)
