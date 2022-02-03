@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:57:15 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/02 10:44:36 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/03 10:16:16 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	*itooctal(unsigned long n, const int prefix, t_dir *dir)
 	char	*str;
 	int		size;
 
-	if (dir->precision == 0 && (dir->flags & ALT) == ALT)
+	if (dir->precision == 0 && dir->alt_flag)
 		return (ft_strdup("0"));
 	if (dir->precision == 0)
 		return (ft_strdup(""));

@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 19:30:11 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/03 10:07:28 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	output_char(t_dir *dir, va_list *ap, int *ret)
 	int	arg;
 
 	arg = va_arg(*ap, int);
-	if ((dir->flags & MINUS) != MINUS)
+	if (!dir->minus_flag)
 		justify(' ', dir->width - 1, ret);
 	if (arg == 0)
 		write(1, "^@", 2);
 	else
 		write(1, &arg, 1);
 	*ret += 1;
-	if ((dir->flags & MINUS) == MINUS)
+	if (dir->minus_flag)
 		justify(' ', dir->width - 1, ret);
 }

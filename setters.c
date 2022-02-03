@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:57:05 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 23:45:56 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/03 10:19:27 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ void	set_flag(const char **format, t_dir *dir, t_stage *stage)
 
 	c = **format;
 	if (c == '#')
-		dir->flags = dir->flags | ALT;
-	else if (c == '0' && !(dir->flags & MINUS))
-		dir->flags = dir->flags | ZERO;
+		dir->alt_flag = TRUE;
+	else if (c == '0' && !dir->minus_flag)
+		dir->zero_flag = TRUE;
 	else if (c == '-')
 	{
-		dir->flags = dir->flags | MINUS;
-		if ((dir->flags & ZERO) == ZERO)
-			dir->flags = dir->flags ^ ZERO;
+		dir->minus_flag = TRUE;
+		if (dir->zero_flag)
+			dir->zero_flag = FALSE;
 	}
 	else if (c == ' ')
-		dir->flags = dir->flags | SPACE;
+		dir->space_flag = TRUE;
 	else if (c == '+')
-		dir->flags = dir->flags | PLUS;
+		dir->plus_flag = TRUE;
 	*format = *format + 1;
 	*stage = FLAG;
 }

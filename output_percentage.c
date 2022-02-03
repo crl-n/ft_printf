@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:27:11 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 14:51:51 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/03 10:07:29 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	output_percentage(t_dir *dir, va_list *ap, int *ret)
 {
 	(void) dir;
 	(void) ap;
-	if ((dir->flags & MINUS) != MINUS)
+	if (!dir->minus_flag)
 		justify(' ', dir->width - 1, ret);
 	write(1, "%", 1);
 	*ret += 1;
-	if ((dir->flags & MINUS) == MINUS)
+	if (dir->minus_flag)
 		justify(' ', dir->width - 1, ret);
 }

@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:15:14 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 20:28:39 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/03 10:16:34 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static char	*get_str(t_dir *dir, va_list *ap)
 	if (dir->conversion == HEX_UPPER)
 		letter_case = UPPERCASE;
 	prefix = FALSE;
-	if ((dir->flags & ALT) == ALT && arg != 0)
+	if (dir->alt_flag && arg != 0)
 		prefix = TRUE;
 	str = itohex(arg, letter_case, prefix, dir);
 	if (!str)
@@ -54,11 +54,11 @@ static void	justify(t_dir *dir, int n, int *ret)
 	str = ft_strnew(n);
 	if (!str)
 		exit(1);
-	if ((dir->flags & ZERO) == ZERO)
+	if (dir->zero_flag)
 		c = '0';
 	else
 		c = ' ';
-	if ((dir->flags & SPACE) == SPACE)
+	if (dir->space_flag)
 		n--;
 	ft_memset((void *)str, c, n);
 	write(1, str, n);
@@ -73,16 +73,16 @@ void	output_hex(t_dir *dir, va_list *ap, int *ret)
 
 	str = get_str(dir, ap);
 	len = ft_strlen(str);
-	if ((dir->flags & SPACE) == SPACE)
+	if (dir->space_flag)
 	{
 		write(1, " ", 1);
 		*ret += 1;
 	}
-	if ((dir->flags & MINUS) != MINUS)
+	if (!dir->minus_flag)
 		justify(dir, dir->width - len, ret);
 	write(1, str, len);
 	*ret += len;
-	if ((dir->flags & MINUS) == MINUS)
+	if (dir->minus_flag)
 		justify(dir, dir->width - len, ret);
 	free(str);
 }

@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:15:57 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 20:27:56 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/03 10:08:42 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	output_float(t_dir *dir, va_list *ap, int *ret)
 	if (!str)
 		exit(1);
 	len = ft_strlen(str);
-	if ((dir->flags & SPACE) == SPACE)
+	if (dir->space_flag)
 	{
 		write(1, " ", 1);
 		*ret += 1;

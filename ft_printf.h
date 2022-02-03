@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/02 14:02:13 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/03 10:20:54 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,6 @@
 /* Includes */
 # include "../libft/libft.h"
 # include <stdarg.h>
-
-/* Mandatory flags */
-# define ALT    0b00001
-# define ZERO   0b00010
-# define PLUS   0b00100
-# define MINUS  0b01000
-# define SPACE  0b10000
 
 /* Conversions */
 # define CHAR       0b0000
@@ -69,11 +62,14 @@
 
 typedef struct s_dir
 {
-	unsigned int	flags : 8;
+	unsigned int	alt_flag : 1;
+	unsigned int	zero_flag : 1;
+	unsigned int	plus_flag : 1;
+	unsigned int	minus_flag : 1;
+	unsigned int	space_flag : 1;
 	unsigned int	conversion : 4;
 	unsigned int	length : 3;
 	unsigned int	negative : 1;
-	unsigned int	null_char : 1;
 	int				width; // Maximum width seems to be 2147483646
 	int				precision; // Maximum precision seems to be 2147483645
 	int				start_i;

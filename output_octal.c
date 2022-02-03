@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:14:01 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 20:17:08 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/03 10:17:11 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*get_str(t_dir *dir, va_list *ap)
 	char	*str;
 	int		prefix;
 
-	if ((dir->flags & ALT) == ALT)
+	if (dir->alt_flag)
 		prefix = TRUE;
 	else
 		prefix = FALSE;
@@ -49,11 +49,11 @@ static void	justify(t_dir *dir, int n, int *ret)
 	str = ft_strnew(n);
 	if (!str)
 		exit(1);
-	if ((dir->flags & ZERO) == ZERO)
+	if (dir->zero_flag)
 		c = '0';
 	else
 		c = ' ';
-	if ((dir->flags & SPACE) == SPACE)
+	if (dir->space_flag)
 		n--;
 	ft_memset((void *)str, c, n);
 	write(1, str, n);
@@ -68,13 +68,13 @@ void	output_octal(t_dir *dir, va_list *ap, int *ret)
 
 	str = get_str(dir, ap);
 	len = ft_strlen(str);
-	if ((dir->flags & SPACE) == SPACE)
+	if (dir->space_flag)
 		write(1, " ", 1);
-	if ((dir->flags & MINUS) != MINUS)
+	if (!dir->minus_flag)
 		justify(dir, dir->width - len, ret);
 	write(1, str, len);
 	*ret += len;
-	if ((dir->flags & MINUS) == MINUS)
+	if (dir->minus_flag)
 		justify(dir, dir->width - len, ret);
 	free(str);
 }
