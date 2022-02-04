@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/03 17:59:13 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/04 09:06:58 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*ftoa(double value, int precision);
 char	*itohex(unsigned long n, const int letter_case, const int prefix, t_dir *dir);
 char	*itooctal(unsigned long n, const int prefix, t_dir *dir);
 char	*ptoa(unsigned long p);
-char	*utoa(unsigned long int n);
+char	*utoa(unsigned long int n, t_dir *dir);
 
 void	set_flag(const char **format, t_dir *dir, t_stage *stage);
 void	set_conversion(const char format, t_dir *dir);

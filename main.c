@@ -8,13 +8,11 @@ int	main(void)
 {
 	//char	str[] = "abc";
 
+	ft_printf("@moulitest: %.5u", 42);
 	ft_printf("@moulitest: %.d %.0d", 0, 0);
 	ft_printf("% 10.5d", 4242);
 	ft_printf("%lld", -9223372036854775808);
 	ft_printf("%lld", -9223372036854775807);
-	ft_printf("%lu", 4294967296);
-	ft_printf("%lu", 4294967295);
-	ft_printf("%lu", 4294967297);
 	puts("\n");
 
 	/*

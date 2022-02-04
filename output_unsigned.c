@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:14:42 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/03 16:30:57 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/04 09:06:43 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ static char	*get_str(t_dir *dir, va_list *ap)
 	char	*str;
 
 	if (dir->length == HH)
-		str = utoa((unsigned char) va_arg(*ap, unsigned int));
+		str = utoa((unsigned char) va_arg(*ap, unsigned int), dir);
 	else if (dir->length == H)
-		str = utoa((unsigned short int) va_arg(*ap, unsigned int));
+		str = utoa((unsigned short int) va_arg(*ap, unsigned int), dir);
 	else if (dir->length == L)
-		str = utoa(va_arg(*ap, unsigned long int));
+		str = utoa(va_arg(*ap, unsigned long int), dir);
 	else if (dir->length == LL)
-		str = utoa(va_arg(*ap, unsigned long long int));
+		str = utoa(va_arg(*ap, unsigned long long int), dir);
 	else
-		str = utoa(va_arg(*ap, unsigned int));
+		str = utoa(va_arg(*ap, unsigned int), dir);
 	if (!str)
 		exit(1);
 	return (str);
@@ -63,8 +63,6 @@ void	output_unsigned(t_dir *dir, va_list *ap, int *ret)
 
 	str = get_str(dir, ap);
 	len = ft_strlen(str);
-	if (dir->space_flag)
-		write(1, " ", 1);
 	if (!dir->minus_flag)
 		justify(dir, dir->width - len, ret);
 	write(1, str, len);

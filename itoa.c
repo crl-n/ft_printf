@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:48 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/03 21:31:01 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/04 09:39:22 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ char	*itoa(long long n, t_dir *dir)
 	char	*s;
 	int		size;
 
+	if (dir->precision == 0 && n == 0)
+		return (ft_strdup(""));
+	if (n < -9223372036854775807LL)
+		return ft_strdup("-9223372036854775808");
 	n = handle_negative(n, dir);
 	size = get_size(n, dir);
 	s = (char *) malloc(size * sizeof (char));

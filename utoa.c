@@ -6,14 +6,15 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:57:15 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/03 16:26:56 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/04 09:07:16 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <string.h>
+#include "ft_printf.h"
 
-static int	uint_len(unsigned long int n)
+static int	uint_len(unsigned long int n, t_dir *dir)
 {
 	int	len;
 
@@ -25,15 +26,17 @@ static int	uint_len(unsigned long int n)
 		n = n / 10;
 		len++;
 	}
+	if (dir->precision >= 0 && dir->precision > len)
+		len = dir->precision;
 	return (len);
 }
 
-char	*utoa(unsigned long int n)
+char	*utoa(unsigned long int n, t_dir *dir)
 {
 	char	*s;
 	int		size;
 
-	size = uint_len(n) + 1;
+	size = uint_len(n, dir) + 1;
 	s = (char *) malloc(size * sizeof (char));
 	if (!s)
 		return (NULL);
