@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/02 13:56:30 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/08 09:55:52 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,26 @@
 #include <stdlib.h>
 #include "../libft/libft.h"
 
+static const t_converter	g_dispatch_table[12] = {
+	output_char,
+	output_string,
+	output_pointer,
+	output_decimal,
+	output_decimal,
+	output_octal,
+	output_unsigned,
+	output_hex,
+	output_hex,
+	output_float,
+	output_bit,
+	output_percentage
+};
+
 /*	dispatch_dir() sends each directive to its corresponding handler */
 
 static void	dispatch_dir(t_dir *dir, va_list *ap, int *ret)
 {
-	static t_converter	*dispatch_table[12];
-
-	if (!dispatch_table[0])
-	{
-		dispatch_table[CHAR] = output_char;
-		dispatch_table[STRING] = output_string;
-		dispatch_table[POINTER] = output_pointer;
-		dispatch_table[DECIMAL] = output_decimal;
-		dispatch_table[INTEGER] = output_decimal;
-		dispatch_table[OCTAL] = output_octal;
-		dispatch_table[UNSIGNED] = output_unsigned;
-		dispatch_table[HEX_LOWER] = output_hex;
-		dispatch_table[HEX_UPPER] = output_hex;
-		dispatch_table[FLOAT] = output_float;
-		dispatch_table[BIT] = output_bit;
-		dispatch_table[PERCENTAGE] = output_percentage;
-	}
-	dispatch_table[dir->conversion](dir, ap, ret);
+	g_dispatch_table[dir->conversion](dir, ap, ret);
 	free(dir);
 }
 

@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:13:21 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/03 21:27:16 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/04 09:45:14 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	justify(t_dir *dir, int n, int *ret)
 	free(str);
 }
 
-static void	handle_sign(t_dir *dir, char *str, int *ret)
+static void	handle_sign(t_dir *dir, int *ret)
 {
 	if (dir->negative)
 	{
@@ -88,7 +88,7 @@ void	output_decimal(t_dir *dir, va_list *ap, int *ret)
 	len = ft_strlen(str);
 	if (!dir->minus_flag)
 		justify(dir, dir->width - len, ret);
-	handle_sign(dir, str, ret);
+	handle_sign(dir, ret);
 	write(1, str, len);
 	*ret += len;
 	if (dir->minus_flag)
