@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/02/03 16:31:22 by carlnysten       ###   ########.fr        #
+#    Updated: 2022/02/09 14:49:59 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ NAME = libftprintf.a
 
 SRCS = ft_printf.c \
 	   parser.c boolean.c setters.c\
+	   output_none.c \
 	   output_char.c output_string.c output_pointer.c \
 	   output_decimal.c output_octal.c output_unsigned.c output_hex.c \
 	   output_float.c \

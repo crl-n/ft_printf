@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/08 09:55:40 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/09 14:49:15 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,19 @@
 # include <stdarg.h>
 
 /* Conversions */
-# define CHAR       0b0000
-# define STRING     0b0001
-# define POINTER    0b0010
-# define DECIMAL    0b0011
-# define INTEGER    0b0100
-# define OCTAL      0b0101
-# define UNSIGNED   0b0110
-# define HEX_LOWER  0b0111
-# define HEX_UPPER  0b1000
-# define FLOAT      0b1001
-# define BIT        0b1010
-# define PERCENTAGE 0b1011
-# define NONE       0b1111
+# define NONE       0b0000
+# define CHAR       0b0001
+# define STRING     0b0010
+# define POINTER    0b0011
+# define DECIMAL    0b0100
+# define INTEGER    0b0101
+# define OCTAL      0b0110
+# define UNSIGNED   0b0111
+# define HEX_LOWER  0b1000
+# define HEX_UPPER  0b1001
+# define FLOAT      0b1010
+# define BIT        0b1011
+# define PERCENTAGE 0b1100
 
 /* Lengths */
 # define L         0b001
@@ -103,6 +103,7 @@ void	set_width(const char **format, t_dir *dir, t_stage *stage);
 void	set_precision(const char **format, t_dir *dir);
 void	set_length(const char **format, t_dir *dir);
 
+void	output_none(t_dir *dir, va_list *ap, int *ret);
 void	output_char(t_dir *dir, va_list *ap, int *ret);
 void	output_string(t_dir *dir, va_list *ap, int *ret);
 void	output_pointer(t_dir *dir, va_list *ap, int *ret);

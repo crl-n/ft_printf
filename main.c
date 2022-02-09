@@ -7,5 +7,6 @@ int	ft_printf(const char *format, ...);
 int	main(void)
 {
 
+	ft_printf("%");
 	return (0);
 }

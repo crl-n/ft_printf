@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:46:53 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 21:46:57 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/09 13:55:30 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ double	bankers_rounding(int precision)
 		rounding *= 0.1;
 	return (rounding);
 }
+
+//TODO nan, inf, -inf, -0
 
 char	*ftoa(double value, int precision)
 {
