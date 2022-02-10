@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/09 15:18:32 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/10 13:11:35 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static void	print_formatted(const char *format,
 			dir = ft_lstpop_left(dir_list);
 			if (dir->conversion)
 			{
+				format++;
 				while (!is_conversion(*format))
 					format++;
 				start = format + 1;

@@ -7,6 +7,6 @@ int	ft_printf(const char *format, ...);
 int	main(void)
 {
 
-	ft_printf("%");
+	ft_printf("abc %s ghi", "def");
 	return (0);
 }
