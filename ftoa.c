@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:46:53 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/09 13:55:30 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/11 20:14:53 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	integer_part(int value, char *str, int negative, int int_len)
 	str[int_len] = '0' + value;
 }
 
-static void	fraction_part(double fraction, char *str, int start, int precision)
+static void	fraction_part(long double fraction, char *str, int start, int precision)
 {
 	int	i;
 
@@ -83,13 +83,13 @@ double	bankers_rounding(int precision)
 
 //TODO nan, inf, -inf, -0
 
-char	*ftoa(double value, int precision)
+char	*ftoa(long double value, int precision)
 {
 	char	*str;
 	int		int_len;
 	int		total_len;
 	int		negative;
-	double	fraction;
+	long double	fraction;
 
 	int_len = ft_intlen((int) value);
 	if (((unsigned int) value & SIGN_32) == SIGN_32)

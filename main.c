@@ -7,7 +7,6 @@ int	ft_printf(const char *format, ...);
 
 int	main(void)
 {
-	ft_printf("%#.o, %#.0o", 0, 0);
-	//ft_printf("%#.o", 42);
+	ft_printf("{%f}{%lf}{%Lf}", 1.42, 1.42, 1.42l);
 	return (0);
 }
