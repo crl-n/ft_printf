@@ -6,14 +6,14 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:16:31 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/02 13:40:50 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/11 16:54:02 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include "ft_printf.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 void	output_bit(t_dir *dir, va_list *ap, int *ret)
 {

@@ -6,14 +6,14 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:14:01 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/03 10:17:11 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/11 18:50:31 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include "ft_printf.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 static char	*get_str(t_dir *dir, va_list *ap)
 {

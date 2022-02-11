@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/01 22:01:53 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/03 10:09:27 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/11 16:56:29 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include "../libft/libft.h"
+#include "libft.h"
 
 static void	justify(t_dir *dir, size_t n, int *ret)
 {

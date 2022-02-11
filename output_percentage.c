@@ -6,14 +6,14 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:27:11 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/10 13:18:16 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/11 16:55:12 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include "ft_printf.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 static void	justify(int n, int *ret, t_dir *dir)
 {

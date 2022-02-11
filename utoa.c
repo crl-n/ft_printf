@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:57:15 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/04 09:07:16 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/11 19:15:56 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ char	*utoa(unsigned long int n, t_dir *dir)
 	char	*s;
 	int		size;
 
+	if (dir->precision == 0 && n == 0)
+		return (ft_strdup(""));
 	size = uint_len(n, dir) + 1;
 	s = (char *) malloc(size * sizeof (char));
 	if (!s)

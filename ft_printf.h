@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/09 14:49:15 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/11 16:59:05 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 
 /* Includes */
-# include "libft.h"
+# include "./libft/libft.h"
 # include <stdarg.h>
 
 /* Conversions */
@@ -67,6 +67,8 @@ typedef struct s_dir
 	unsigned int	plus_flag : 1;
 	unsigned int	minus_flag : 1;
 	unsigned int	space_flag : 1;
+	unsigned int	width_from_arg : 1;
+	unsigned int	precision_from_arg : 1;
 	unsigned int	conversion : 4;
 	unsigned int	length : 3;
 	unsigned int	negative : 1;
@@ -86,6 +88,7 @@ int		parse_format(const char *format, t_list **dir_list);
 void	put_arg(t_dir *dir, va_list *ap, int *ret);
 
 int		is_flag(const char c);
+int		is_width(const char c);
 int		is_conversion(const char c);
 int		is_precision(const char c);
 int		is_length(const char c);

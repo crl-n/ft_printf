@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/02/09 14:49:59 by cnysten          ###   ########.fr        #
+#    Updated: 2022/02/11 17:24:37 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ CC = gcc
 FLAGS = -Wall -Wextra -g # FIX THIS
 
 NAME = libftprintf.a
+
+INCL = -I. -I./libft/
 
 SRCS = ft_printf.c \
 	   parser.c boolean.c setters.c\
@@ -44,7 +46,7 @@ LIBOBJS = $(LIBSRCS:%.c=%.o)
 all: $(NAME)
 
 $(OBJS): $(SRCS)
-	$(CC) $(FLAGS) -c -I./libft/ $(SRCS)
+	$(CC) $(FLAGS) -c $(INCL) $(SRCS)
 
 $(LIBOBJS): $(LIBSRCS)
 	make -C ./libft/
@@ -54,15 +56,18 @@ $(NAME): $(OBJS) $(LIBOBJS)
 	ranlib $(NAME)
 
 debug: $(SRCS)
-	$(CC) $(FLAGS) -I./libft/ main.c $(SRCS) $(LIBSRCS)
+	$(CC) $(FLAGS) $(INCL) main.c $(SRCS) $(LIBSRCS)
+
+lib: $(SRCS)
+	$(CC) $(FLAGS) $(INCL) main.c $(SRCS) $(LIBSRCS)
 
 clean:
-	rm -f $(OBJS) $(LIBOBJS)
+	-rm -f $(OBJS) $(LIBOBJS)
 
 fclean: clean
-	rm -f $(NAME)
-	rm -f a.out
-	rm -rf a.out.dSYM
+	-rm -f $(NAME)
+	-rm -f a.out
+	-rm -rf a.out.dSYM
 
 re: fclean all
 

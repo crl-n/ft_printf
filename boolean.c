@@ -6,15 +6,23 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 09:53:56 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/01 21:31:07 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/11 17:00:55 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "./libft/libft.h"
 
 /* Boolean functions used in parsing the format string */
 
 int	is_flag(const char c)
 {
 	if (c == '#' || c == '0' || c == '-' || c == ' ' || c == '+' || c == '\'')
+		return (1);
+	return (0);
+}
+
+int	is_width(const char c) {
+	if (c == '*' || ft_isdigit(c))
 		return (1);
 	return (0);
 }
@@ -29,8 +37,7 @@ int	is_conversion(const char c)
 	return (0);
 }
 
-int	is_precision(const char c)
-{
+int	is_precision(const char c) {
 	if (c == '.')
 		return (1);
 	return (0);

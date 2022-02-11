@@ -6,11 +6,11 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:35:02 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/03 10:15:58 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/11 19:50:16 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 #include "ft_printf.h"
 #include <string.h>
 #include <stdlib.h>
@@ -23,13 +23,15 @@ static int	get_size(unsigned long n, int prefix, t_dir *dir)
 
 	size = 0;
 	if (n == 0)
-		return (2);
+		size = 1;
 	while (n > 0)
 	{
 		n = n / 16;
 		size++;
 	}
 	size++;
+	if (dir->precision >= 0 && dir->precision > size)
+		size = dir->precision + 1;
 	if (prefix == TRUE)
 	{
 		size += 2;
@@ -76,6 +78,8 @@ char	*itohex(unsigned long value,
 	char	*str;
 	int		size;
 
+	if (dir->precision == 0 && dir->conversion == POINTER)
+		return (ft_strdup("0x"));
 	if (dir->precision == 0)
 		return (ft_strdup(""));
 	size = get_size(value, prefix, dir);

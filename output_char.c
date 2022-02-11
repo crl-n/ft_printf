@@ -6,14 +6,14 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/10 13:31:17 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/11 18:45:50 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include "ft_printf.h"
-#include "../libft/libft.h"
+#include "libft.h"
 
 static void	justify(int	c, int n, int *ret)
 {
@@ -37,10 +37,7 @@ void	output_char(t_dir *dir, va_list *ap, int *ret)
 	arg = va_arg(*ap, int);
 	if (!dir->minus_flag)
 		justify(' ', dir->width - 1, ret);
-	if (arg == 0)
-		write(1, "^@", 2);
-	else
-		write(1, &arg, 1);
+	write(1, &arg, 1);
 	*ret += 1;
 	if (dir->minus_flag)
 		justify(' ', dir->width - 1, ret);

@@ -6,21 +6,24 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:57:15 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/03 10:16:16 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/11 20:10:10 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <string.h>
 #include "ft_printf.h"
+#include "libft.h"
 
-static size_t	octal_len(unsigned int n, t_dir *dir)
+static size_t	octal_len(unsigned long n, t_dir *dir, const int prefix)
 {
 	int	len;
 
 	len = 0;
 	if (n == 0)
-		return (1);
+		len = 1;
+	if (prefix && n != 0)
+		len++;
 	while (n > 0)
 	{
 		n = n / 8;
@@ -36,13 +39,13 @@ char	*itooctal(unsigned long n, const int prefix, t_dir *dir)
 	char	*str;
 	int		size;
 
-	if (dir->precision == 0 && dir->alt_flag)
-		return (ft_strdup("0"));
+	if (n == 0 && dir->precision == 0 && dir->alt_flag)
+		dir->precision = 1;
+	else if (dir->precision == 0 && dir->alt_flag)
+		dir->precision = ft_intlen_base(n, 8) + 1;
 	if (dir->precision == 0)
 		return (ft_strdup(""));
-	size = octal_len(n, dir) + 1;
-	if (prefix)
-		size++;
+	size = octal_len(n, dir, prefix) + 1;
 	str = (char *) malloc(size * sizeof (char));
 	if (!str)
 		return (NULL);

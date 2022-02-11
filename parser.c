@@ -6,11 +6,11 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 09:50:19 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/09 15:05:11 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/11 16:56:17 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft/libft.h"
+#include "libft.h"
 #include "ft_printf.h"
 #include <stdlib.h>
 
@@ -43,7 +43,7 @@ static void	parse_directions(const char **format_adr,
 			set_flag(&format, dir, stage);
 			continue ;
 		}
-		if (*stage <= WIDTH && ft_isdigit(*format))
+		if (*stage <= WIDTH && is_width(*format))
 			set_width(&format, dir, stage);
 		if (*stage <= PRECISION && is_precision(*format))
 			set_precision(&format, dir);

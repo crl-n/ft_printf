@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/10 13:11:35 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/11 17:40:47 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include "../libft/libft.h"
+#include "libft.h"
 
 static const t_converter	g_dispatch_table[13] = {
 	output_none,
@@ -87,6 +87,8 @@ static void	print_formatted(const char *format,
 					format++;
 				start = format + 1;
 			}
+			else
+				start = format + 1;
 			dispatch_dir(dir, ap, ret);
 		}
 		format++;
