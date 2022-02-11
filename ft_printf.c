@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/11 17:40:47 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/11 22:25:56 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ static const t_converter	g_dispatch_table[13] = {
 
 static void	dispatch_dir(t_dir *dir, va_list *ap, int *ret)
 {
+	if (dir->width_from_arg)
+	{
+		if (dir->width == -1)
+			dir->width = va_arg(*ap, int);
+		else
+			va_arg(*ap, int);
+	}
+	if (dir->precision_from_arg)
+		dir->precision = va_arg(*ap, int);
 	g_dispatch_table[dir->conversion](dir, ap, ret);
 	free(dir);
 }

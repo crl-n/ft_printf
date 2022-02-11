@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:46:53 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/11 20:14:53 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/11 23:08:26 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,11 @@ static const double	rounding[] = {
 };
 */
 
-static void	integer_part(int value, char *str, int negative, int int_len)
+static void	integer_part(long value, char *str, int negative, int int_len)
 {
 	if (negative)
 		str[0] = '-';
-	else
-		int_len--;
+	int_len--;
 	while (value > 9)
 	{
 		str[int_len--] = '0' + value % 10;
@@ -91,22 +90,25 @@ char	*ftoa(long double value, int precision)
 	int		negative;
 	long double	fraction;
 
-	int_len = ft_intlen((int) value);
-	if (((unsigned int) value & SIGN_32) == SIGN_32)
+	int_len = ft_intlen((long) value);
+	if (value < 0.0)
+	{
 		negative = 1;
+		value = -value;
+	}
 	else
 		negative = 0;
-	total_len = int_len + precision + negative;
+	total_len = int_len + precision;
 	if (precision > 0)
 		total_len++;
 	str = (char *) malloc(total_len + 1 * sizeof (char));
 	if (!str)
 		return (NULL);
 	str[total_len] = '\0';
-	integer_part((int) value, str, negative, int_len);
+	integer_part((long) value, str, negative, int_len);
 	if (precision == 0)
 		return (str);
-	fraction = value - (int) value + bankers_rounding(precision);
-	fraction_part(fraction, str, int_len + negative + 1, precision);
+	fraction = value - (long) value + bankers_rounding(precision);
+	fraction_part(fraction, str, int_len + 1, precision);
 	return (str);
 }

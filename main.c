@@ -7,6 +7,6 @@ int	ft_printf(const char *format, ...);
 
 int	main(void)
 {
-	ft_printf("{%f}{%lf}{%Lf}", 1.42, 1.42, 1.42l);
+	ft_printf("{%f}{%lf}{%Lf}", 1444565444646.6465424242242, 1444565444646.6465424242242, 1444565444646.6465424242242l);
 	return (0);
 }
