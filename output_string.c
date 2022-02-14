@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:02:10 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/14 14:36:23 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/14 15:30:16 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,12 @@ static char	*get_str(t_dir *dir, va_list *ap)
 
 	arg = va_arg(*ap, char *);
 	if (arg == NULL)
-		str = ft_strdup("(null)");
+	{
+		if (dir->precision != -1)
+			str = ft_strndup("(null)", dir->precision);
+		else
+			str = ft_strdup("(null)");
+	}
 	else if (dir->precision != -1)
 		str = ft_strndup(arg, dir->precision);
 	else

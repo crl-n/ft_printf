@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 09:50:19 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/11 16:56:17 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/14 15:03:40 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	parse_directions(const char **format_adr,
 		if (*stage <= WIDTH && is_width(*format))
 			set_width(&format, dir, stage);
 		if (*stage <= PRECISION && is_precision(*format))
-			set_precision(&format, dir);
+			set_precision(&format, dir, stage);
 		if (*stage <= LENGTH && is_length(*format))
 			set_length(&format, dir);
 		if (is_conversion(*format))

@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:57:15 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/11 19:15:56 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/14 15:40:30 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	uint_len(unsigned long int n, t_dir *dir)
 
 	len = 0;
 	if (n == 0)
-		return (1);
+		len = 1;
 	while (n > 0)
 	{
 		n = n / 10;

@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/14 14:16:54 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/14 15:04:12 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	*utoa(unsigned long int n, t_dir *dir);
 void	set_flag(const char **format, t_dir *dir, t_stage *stage);
 void	set_conversion(const char format, t_dir *dir);
 void	set_width(const char **format, t_dir *dir, t_stage *stage);
-void	set_precision(const char **format, t_dir *dir);
+void	set_precision(const char **format, t_dir *dir, t_stage *stage);
 void	set_length(const char **format, t_dir *dir);
 
 void	output_none(t_dir *dir, va_list *ap, int *ret);

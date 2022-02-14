@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:57:05 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/14 14:24:52 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/14 15:05:45 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	set_width(const char **format, t_dir *dir, t_stage *stage)
 	*format = *format + ft_intlen(dir->width);
 }
 
-void	set_precision(const char **format, t_dir *dir)
+void	set_precision(const char **format, t_dir *dir, t_stage *stage)
 {
 	if (*(*format + 1) == '*')
 	{
@@ -103,6 +103,7 @@ void	set_precision(const char **format, t_dir *dir)
 		dir->precision = ft_atoi(*format + 1);
 		*format = *format + ft_intlen(dir->precision);
 	}
+	*stage = PRECISION;
 }
 
 void	set_length(const char **format, t_dir *dir)
