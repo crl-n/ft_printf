@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/14 15:04:12 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/14 21:45:08 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ typedef struct s_dir
 	unsigned int	plus_flag : 1;
 	unsigned int	minus_flag : 1;
 	unsigned int	space_flag : 1;
-	unsigned int	width_from_arg : 1;
 	unsigned int	width_set : 1;
+	unsigned int	width_from_arg : 1;
 	unsigned int	precision_from_arg : 1;
-	unsigned int	conversion : 4;
 	unsigned int	length : 3;
+	unsigned int	conversion : 4;
 	unsigned int	negative : 1;
-	int				width; // Maximum width seems to be 2147483646
-	int				precision; // Maximum precision seems to be 2147483645
+	int				width;
+	int				precision;
 	int				start_i;
 	int				end_i;
 }	t_dir;
@@ -95,8 +95,11 @@ int		is_precision(const char c);
 int		is_length(const char c);
 
 char	*itoa(long long n, t_dir *dir);
-char	*ftoa(long double value, int precision);
-char	*itohex(unsigned long n, const int letter_case, const int prefix, t_dir *dir);
+char	*ftoa(long double value, int precision, t_dir *dir);
+char	*itohex(unsigned long n,
+			const int letter_case,
+			const int prefix,
+			t_dir *dir);
 char	*itooctal(unsigned long n, const int prefix, t_dir *dir);
 char	*ptoa(unsigned long p);
 char	*utoa(unsigned long int n, t_dir *dir);

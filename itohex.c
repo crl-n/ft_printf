@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:35:02 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/14 21:08:11 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/14 21:39:26 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ static int	get_size(unsigned long n, int prefix, t_dir *dir)
 		size = dir->precision + 1;
 	if (prefix == TRUE)
 		size += 2;
-	if (dir->zero_flag && !dir->minus_flag && size < dir->width && dir->precision == -1)
+	if (dir->zero_flag
+		&& !dir->minus_flag
+		&& size < dir->width
+		&& dir->precision == -1)
 		size = dir->width + 1;
 	return (size);
 }

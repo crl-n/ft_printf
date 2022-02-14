@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 09:53:56 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/11 17:00:55 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/14 21:25:24 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	is_flag(const char c)
 	return (0);
 }
 
-int	is_width(const char c) {
+int	is_width(const char c)
+{
 	if (c == '*' || ft_isdigit(c))
 		return (1);
 	return (0);
@@ -37,7 +38,8 @@ int	is_conversion(const char c)
 	return (0);
 }
 
-int	is_precision(const char c) {
+int	is_precision(const char c)
+{
 	if (c == '.')
 		return (1);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 11:07:48 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/14 15:36:30 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/14 21:24:46 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static int	get_size(long long n, t_dir *dir)
 	else if (dir->zero_flag && size < dir->width && dir->precision == -1)
 	{
 		size = dir->width;
-		if (dir->negative || ((dir->plus_flag || dir->space_flag) && !dir->negative))
+		if (dir->negative
+			|| ((dir->plus_flag || dir->space_flag) && !dir->negative))
 			size--;
 	}
 	return (size + 1);
@@ -56,7 +57,7 @@ char	*itoa(long long n, t_dir *dir)
 	if (dir->precision == 0 && n == 0)
 		return (ft_strdup(""));
 	if (n < -9223372036854775807LL)
-		return ft_strdup("-9223372036854775808");
+		return (ft_strdup("-9223372036854775808"));
 	n = handle_negative(n, dir);
 	size = get_size(n, dir);
 	s = (char *) malloc(size * sizeof (char));

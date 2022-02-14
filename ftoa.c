@@ -6,40 +6,12 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:46:53 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/11 23:08:26 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/14 21:43:49 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdlib.h>
-
-/*
-static const double	rounding[] = {
-	0.5,
-	0.05,
-	0.005,
-	0.0005,
-	0.00005,
-	0.000005,
-	0.0000005,
-	0.00000005,
-	0.000000005,
-	0.0000000005,
-	0.00000000005,
-	0.000000000005,
-	0.0000000000005,
-	0.00000000000005,
-	0.000000000000005,
-	0.0000000000000005,
-	0.00000000000000005,
-	0.000000000000000005,
-	0.0000000000000000005,
-	0.00000000000000000005,
-	0.000000000000000000005,
-	0.0000000000000000000005,
-	0.00000000000000000000005
-};
-*/
 
 static void	integer_part(long value, char *str, int negative, int int_len)
 {
@@ -54,7 +26,10 @@ static void	integer_part(long value, char *str, int negative, int int_len)
 	str[int_len] = '0' + value;
 }
 
-static void	fraction_part(long double fraction, char *str, int start, int precision)
+static void	fraction_part(long double fraction,
+							char *str,
+							int start,
+							int precision)
 {
 	int	i;
 
@@ -82,22 +57,19 @@ double	bankers_rounding(int precision)
 
 //TODO nan, inf, -inf, -0
 
-char	*ftoa(long double value, int precision)
+char	*ftoa(long double value, int precision, t_dir *dir)
 {
-	char	*str;
-	int		int_len;
-	int		total_len;
-	int		negative;
+	char		*str;
+	int			int_len;
+	int			total_len;
 	long double	fraction;
 
 	int_len = ft_intlen((long) value);
 	if (value < 0.0)
 	{
-		negative = 1;
+		dir->negative = 1;
 		value = -value;
 	}
-	else
-		negative = 0;
 	total_len = int_len + precision;
 	if (precision > 0)
 		total_len++;
@@ -105,7 +77,7 @@ char	*ftoa(long double value, int precision)
 	if (!str)
 		return (NULL);
 	str[total_len] = '\0';
-	integer_part((long) value, str, negative, int_len);
+	integer_part((long) value, str, dir->negative, int_len);
 	if (precision == 0)
 		return (str);
 	fraction = value - (long) value + bankers_rounding(precision);

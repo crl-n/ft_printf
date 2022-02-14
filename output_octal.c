@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:14:01 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/11 18:50:31 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/14 21:36:53 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,28 @@
 
 static char	*get_str(t_dir *dir, va_list *ap)
 {
-	char	*str;
-	int		prefix;
+	int				prefix;
+	unsigned int	value;
 
+	prefix = FALSE;
 	if (dir->alt_flag)
 		prefix = TRUE;
-	else
-		prefix = FALSE;
 	if (dir->length == HH)
-		str = itooctal((unsigned char) va_arg(*ap, unsigned int), prefix, dir);
+	{
+		value = va_arg(*ap, unsigned int);
+		return (itooctal((unsigned char) value, prefix, dir));
+	}
 	else if (dir->length == H)
-		str = itooctal((unsigned short int) va_arg(*ap, unsigned int), prefix, dir);
+	{
+		value = va_arg(*ap, unsigned int);
+		return (itooctal((unsigned short int) value, prefix, dir));
+	}
 	else if (dir->length == L)
-		str = itooctal(va_arg(*ap, unsigned long int), prefix, dir);
+		return (itooctal(va_arg(*ap, unsigned long int), prefix, dir));
 	else if (dir->length == LL)
-		str = itooctal(va_arg(*ap, unsigned long long int), prefix, dir);
+		return (itooctal(va_arg(*ap, unsigned long long int), prefix, dir));
 	else
-		str = itooctal(va_arg(*ap, unsigned int), prefix, dir);
-	if (!str)
-		exit(1);
-	return (str);
+		return (itooctal(va_arg(*ap, unsigned int), prefix, dir));
 }
 
 static void	justify(t_dir *dir, int n, int *ret)
@@ -78,4 +80,3 @@ void	output_octal(t_dir *dir, va_list *ap, int *ret)
 		justify(dir, dir->width - len, ret);
 	free(str);
 }
-

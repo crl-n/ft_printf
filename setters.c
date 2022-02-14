@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:57:05 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/14 15:05:45 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/14 21:25:57 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	set_width(const char **format, t_dir *dir, t_stage *stage)
 	{
 		dir->width_from_arg = TRUE;
 		*stage = WIDTH;
-		//*format = *format + 1;
 		return ;
 	}
 	width = ft_atoi(*format);

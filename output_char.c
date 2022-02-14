@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/11 18:45:50 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/14 21:26:43 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-static void	justify(int	c, int n, int *ret)
+static void	justify(int c, int n, int *ret)
 {
 	char	*str;
 
