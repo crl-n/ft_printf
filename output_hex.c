@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:15:14 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/11 16:54:50 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/14 20:55:18 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,9 @@ static void	justify(t_dir *dir, int n, int *ret)
 	str = ft_strnew(n);
 	if (!str)
 		exit(1);
-	if (dir->zero_flag)
-		c = '0';
-	else
-		c = ' ';
 	if (dir->space_flag)
 		n--;
+	c = ' ';
 	ft_memset((void *)str, c, n);
 	write(1, str, n);
 	*ret += n;

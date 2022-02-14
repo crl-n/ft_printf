@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/14 14:32:52 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/14 21:13:44 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,18 @@ static void	dispatch_dir(t_dir *dir, va_list *ap, int *ret)
 			{
 				dir->width = -dir->width;
 				dir->minus_flag = TRUE;
+				dir->zero_flag = FALSE;
 			}
 		}
 		else
 			va_arg(*ap, int);
 	}
 	if (dir->precision_from_arg)
+	{
 		dir->precision = va_arg(*ap, int);
+		if (dir->precision < 0)
+			dir->precision = -1;
+	}
 	g_dispatch_table[dir->conversion](dir, ap, ret);
 	free(dir);
 }

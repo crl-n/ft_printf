@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:57:15 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/14 15:40:30 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/14 20:38:59 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ static int	uint_len(unsigned long int n, t_dir *dir)
 	}
 	if (dir->precision >= 0 && dir->precision > len)
 		len = dir->precision;
+	else if (dir->zero_flag && len < dir->width && dir->precision == -1)
+	{
+		len = dir->width;
+		if (dir->plus_flag || dir->space_flag)
+			len--;
+	}
 	return (len);
 }
 

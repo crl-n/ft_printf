@@ -7,8 +7,8 @@ int	ft_printf(const char *format, ...);
 
 int	main(void)
 {
-	printf("%08.5u", 34);
+	ft_printf("%0*i", -7, -54);
 	printf("\n");
-	ft_printf("%08.5u", 34);
+	printf("%0*i", -7, -54);
 	return (0);
 }
