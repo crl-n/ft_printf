@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/11 22:24:55 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/14 14:16:54 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_dir
 	unsigned int	minus_flag : 1;
 	unsigned int	space_flag : 1;
 	unsigned int	width_from_arg : 1;
+	unsigned int	width_set : 1;
 	unsigned int	precision_from_arg : 1;
 	unsigned int	conversion : 4;
 	unsigned int	length : 3;

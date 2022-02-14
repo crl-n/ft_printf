@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:57:05 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/11 22:10:27 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/14 14:24:52 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,17 @@ void	set_width(const char **format, t_dir *dir, t_stage *stage)
 	if (**format == '*')
 	{
 		dir->width_from_arg = TRUE;
-		*format = *format;
 		*stage = WIDTH;
+		//*format = *format + 1;
+		return ;
 	}
 	width = ft_atoi(*format);
 	if (width == 0)
 		return ;
 	dir->width = width;
-	*format = *format + ft_intlen(dir->width);
+	dir->width_set = TRUE;
 	*stage = WIDTH;
+	*format = *format + ft_intlen(dir->width);
 }
 
 void	set_precision(const char **format, t_dir *dir)

@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/11 22:25:56 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/14 14:32:52 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,15 @@ static void	dispatch_dir(t_dir *dir, va_list *ap, int *ret)
 {
 	if (dir->width_from_arg)
 	{
-		if (dir->width == -1)
+		if (!dir->width_set)
+		{
 			dir->width = va_arg(*ap, int);
+			if (dir->width < 0)
+			{
+				dir->width = -dir->width;
+				dir->minus_flag = TRUE;
+			}
+		}
 		else
 			va_arg(*ap, int);
 	}
