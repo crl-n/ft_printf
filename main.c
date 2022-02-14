@@ -7,8 +7,6 @@ int	ft_printf(const char *format, ...);
 
 int	main(void)
 {
-	ft_printf("%12f", 1.234);
-	printf("\n");
-	printf("%12f", 1.234);
+	printf("%.f %.f %.f", 0.5, 1.5, 2.5);
 	return (0);
 }
