@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/14 21:45:08 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/14 21:52:23 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@
 # define LENGTH     3
 # define CONVERSION 4
 
-/* Floating point */
-# define SIGN_32 0x80000000
-
 /* Other */
 # define LOWERCASE 0
 # define UPPERCASE 1
@@ -75,8 +72,6 @@ typedef struct s_dir
 	unsigned int	negative : 1;
 	int				width;
 	int				precision;
-	int				start_i;
-	int				end_i;
 }	t_dir;
 
 typedef void	(*t_converter)(t_dir *dir, va_list *ap, int *ret);
