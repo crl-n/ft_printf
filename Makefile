@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/02/16 16:25:15 by cnysten          ###   ########.fr        #
+#    Updated: 2022/02/16 17:25:13 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -g
+FLAGS = -Wall -Wextra -Werror
 
 NAME = libftprintf.a
 
@@ -54,12 +54,6 @@ $(LIBOBJS): $(LIBSRCS)
 $(NAME): $(OBJS) $(LIBOBJS)
 	ar rc $(NAME) $(OBJS) $(LIBOBJS)
 	ranlib $(NAME)
-
-debug: $(SRCS)
-	$(CC) $(FLAGS) $(INCL) main.c $(SRCS) $(LIBSRCS)
-
-lib: $(SRCS)
-	$(CC) $(FLAGS) $(INCL) main.c $(SRCS) $(LIBSRCS)
 
 clean:
 	-rm -f $(OBJS) $(LIBOBJS)
