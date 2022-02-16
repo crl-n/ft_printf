@@ -6,11 +6,11 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 09:53:56 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/14 21:25:24 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/16 17:33:55 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./libft/libft.h"
+#include "libft.h"
 
 /* Boolean functions used in parsing the format string */
 

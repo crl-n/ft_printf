@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/14 21:52:23 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/16 17:33:36 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FT_PRINTF_H
 
 /* Includes */
-# include "./libft/libft.h"
+# include "libft.h"
 # include <stdarg.h>
 
 /* Conversions */

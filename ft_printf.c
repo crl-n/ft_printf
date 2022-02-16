@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/14 21:13:44 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/16 17:44:21 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include "libft.h"
+
+/* g_dispatch_table dispatches each formatted argument to its handler */
 
 static const t_converter	g_dispatch_table[13] = {
 	output_none,
@@ -60,31 +62,6 @@ static void	dispatch_dir(t_dir *dir, va_list *ap, int *ret)
 	g_dispatch_table[dir->conversion](dir, ap, ret);
 	free(dir);
 }
-
-/*
-static void	print_formatted(const char *format,
-								t_list **dir_list,
-								va_list *ap,
-								int *ret)
-{
-	t_dir	*dir;
-
-	while (*dir_list)
-	{
-		dir = ft_lstpopleft(dir_list);
-		write(1, start, (size_t)(format - start - 1));
-			*ret += (format - start - 1);
-			dispatch_dir(dir, ap, ret);
-			while (!is_conversion(*format))
-				format++;
-			start = format + 1;
-		}
-		format++;
-	}
-	write(1, start, (size_t)(format - start));
-	*ret += (format - start);
-}
-*/
 
 static void	print_formatted(const char *format,
 								t_list **dir_list,

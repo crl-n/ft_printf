@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:46:53 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/16 15:59:23 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/16 17:45:09 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ static double	rounding(int precision)
 		rounding *= 0.1;
 	return (rounding);
 }
-
-//TODO nan, inf, -inf, -0
 
 char	*ftoa(long double value, int precision, t_dir *dir)
 {

@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 09:50:19 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/14 21:54:20 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/16 17:45:01 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static void	parse_directions(const char **format_adr,
  * parse_format() parses the format string and extracts the contained directive.
  */
 
-//TODO: test with width AND precision
 int	parse_format(const char *format, t_list **dir_list)
 {
 	t_dir		*dir;
