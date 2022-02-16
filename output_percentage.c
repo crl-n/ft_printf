@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:27:11 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/11 16:55:12 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/16 16:18:36 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	justify(int n, int *ret, t_dir *dir)
 
 void	output_percentage(t_dir *dir, va_list *ap, int *ret)
 {
-	(void) dir;
 	(void) ap;
 	if (!dir->minus_flag)
 		justify(dir->width - 1, ret, dir);

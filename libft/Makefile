@@ -6,11 +6,11 @@
 #    By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/27 10:39:36 by cnysten           #+#    #+#              #
-#    Updated: 2022/02/02 11:05:02 by carlnysten       ###   ########.fr        #
+#    Updated: 2022/02/16 16:15:10 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# NAME = # IS NAME NEEDED HERE?
+NAME = libft.a
 
 CFLAGS = -Wall -Wextra -Werror -c
 

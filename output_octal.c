@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:14:01 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/14 21:36:53 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/16 17:02:05 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ static void	justify(t_dir *dir, int n, int *ret)
 		c = '0';
 	else
 		c = ' ';
-	if (dir->space_flag)
-		n--;
 	ft_memset((void *)str, c, n);
 	write(1, str, n);
 	*ret += n;
@@ -70,8 +68,6 @@ void	output_octal(t_dir *dir, va_list *ap, int *ret)
 
 	str = get_str(dir, ap);
 	len = ft_strlen(str);
-	if (dir->space_flag)
-		write(1, " ", 1);
 	if (!dir->minus_flag)
 		justify(dir, dir->width - len, ret);
 	write(1, str, len);

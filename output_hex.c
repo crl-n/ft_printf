@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:15:14 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/14 20:55:18 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/16 17:07:55 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ static char	*get_str(t_dir *dir, va_list *ap)
 	return (str);
 }
 
-static void	justify(t_dir *dir, int n, int *ret)
+static void	justify(int n, int *ret)
 {
-	char	c;
 	char	*str;
 
 	if (n <= 0)
@@ -54,10 +53,7 @@ static void	justify(t_dir *dir, int n, int *ret)
 	str = ft_strnew(n);
 	if (!str)
 		exit(1);
-	if (dir->space_flag)
-		n--;
-	c = ' ';
-	ft_memset((void *)str, c, n);
+	ft_memset((void *)str, ' ', n);
 	write(1, str, n);
 	*ret += n;
 	free(str);
@@ -70,16 +66,11 @@ void	output_hex(t_dir *dir, va_list *ap, int *ret)
 
 	str = get_str(dir, ap);
 	len = ft_strlen(str);
-	if (dir->space_flag)
-	{
-		write(1, " ", 1);
-		*ret += 1;
-	}
 	if (!dir->minus_flag)
-		justify(dir, dir->width - len, ret);
+		justify(dir->width - len, ret);
 	write(1, str, len);
 	*ret += len;
 	if (dir->minus_flag)
-		justify(dir, dir->width - len, ret);
+		justify(dir->width - len, ret);
 	free(str);
 }

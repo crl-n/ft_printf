@@ -7,6 +7,12 @@ int	ft_printf(const char *format, ...);
 
 int	main(void)
 {
-	printf("%.f %.f %.f", 0.5, 1.5, 2.5);
+	int	a;
+	int	b;
+
+	a = ft_printf("%0123p\n", 123);
+	b = printf("%0123p\n", 123);
+	printf("%d, %d", a, b);
+	//ft_printf("%#b\n", 5);
 	return (0);
 }

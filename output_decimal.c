@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:13:21 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/04 09:45:14 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/16 15:38:24 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static char	*get_str(t_dir *dir, va_list *ap)
 
 static void	justify(t_dir *dir, int n, int *ret)
 {
-	char	c;
 	char	*str;
 
 	if (n <= 0)
@@ -44,17 +43,13 @@ static void	justify(t_dir *dir, int n, int *ret)
 	str = ft_strnew(n);
 	if (!str)
 		exit(1);
-	if (dir->zero_flag && dir->precision == -1)
-		c = '0';
-	else
-		c = ' ';
 	if (dir->negative)
 		n--;
 	else if (dir->plus_flag)
 		n--;
 	else if (dir->space_flag && !dir->negative && !dir->plus_flag)
 		n--;
-	ft_memset((void *)str, c, n);
+	ft_memset((void *)str, ' ', n);
 	write(1, str, n);
 	*ret += n;
 	free(str);
