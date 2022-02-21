@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 20:57:05 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/14 21:25:57 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/21 19:02:35 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ void	set_flag(const char **format, t_dir *dir, t_stage *stage)
 
 	c = **format;
 	if (c == '#')
-		dir->alt_flag = TRUE;
+		dir->alt_flag = true;
 	else if (c == '0' && !dir->minus_flag)
-		dir->zero_flag = TRUE;
+		dir->zero_flag = true;
 	else if (c == '-')
 	{
-		dir->minus_flag = TRUE;
+		dir->minus_flag = true;
 		if (dir->zero_flag)
-			dir->zero_flag = FALSE;
+			dir->zero_flag = false;
 	}
 	else if (c == ' ')
-		dir->space_flag = TRUE;
+		dir->space_flag = true;
 	else if (c == '+')
-		dir->plus_flag = TRUE;
+		dir->plus_flag = true;
 	*format = *format + 1;
-	*stage = FLAG;
+	*stage = flag;
 }
 
 /*
@@ -46,47 +46,47 @@ void	set_flag(const char **format, t_dir *dir, t_stage *stage)
 void	set_conversion(const char format, t_dir *dir)
 {
 	if (format == 'c')
-		dir->conversion = CHAR;
+		dir->conversion = character;
 	else if (format == 's')
-		dir->conversion = STRING;
+		dir->conversion = string;
 	else if (format == 'p')
-		dir->conversion = POINTER;
+		dir->conversion = pointer;
 	else if (format == 'd')
-		dir->conversion = DECIMAL;
+		dir->conversion = decimal;
 	else if (format == 'i')
-		dir->conversion = INTEGER;
+		dir->conversion = integer;
 	else if (format == 'o')
-		dir->conversion = OCTAL;
+		dir->conversion = octal;
 	else if (format == 'u')
-		dir->conversion = UNSIGNED;
+		dir->conversion = uinteger;
 	else if (format == 'x')
-		dir->conversion = HEX_LOWER;
+		dir->conversion = hex_lower;
 	else if (format == 'X')
-		dir->conversion = HEX_UPPER;
+		dir->conversion = hex_upper;
 	else if (format == 'f')
-		dir->conversion = FLOAT;
+		dir->conversion = floating;
 	else if (format == 'b')
-		dir->conversion = BIT;
+		dir->conversion = bit;
 	else if (format == '%')
-		dir->conversion = PERCENTAGE;
+		dir->conversion = percentage;
 }
 
 void	set_width(const char **format, t_dir *dir, t_stage *stage)
 {
-	int	width;
+	int	n;
 
 	if (**format == '*')
 	{
-		dir->width_from_arg = TRUE;
-		*stage = WIDTH;
+		dir->width_from_arg = true;
+		*stage = width;
 		return ;
 	}
-	width = ft_atoi(*format);
-	if (width == 0)
+	n = ft_atoi(*format);
+	if (n == 0)
 		return ;
-	dir->width = width;
-	dir->width_set = TRUE;
-	*stage = WIDTH;
+	dir->width = n;
+	dir->width_set = true;
+	*stage = width;
 	*format = *format + ft_intlen(dir->width);
 }
 
@@ -94,7 +94,7 @@ void	set_precision(const char **format, t_dir *dir, t_stage *stage)
 {
 	if (*(*format + 1) == '*')
 	{
-		dir->precision_from_arg = TRUE;
+		dir->precision_from_arg = true;
 		*format = *format + 2;
 	}
 	else
@@ -102,34 +102,34 @@ void	set_precision(const char **format, t_dir *dir, t_stage *stage)
 		dir->precision = ft_atoi(*format + 1);
 		*format = *format + ft_intlen(dir->precision);
 	}
-	*stage = PRECISION;
+	*stage = precision;
 }
 
 void	set_length(const char **format, t_dir *dir)
 {
 	if (**format == 'l' && *(*format + 1) == 'l')
 	{
-		dir->length = LL;
+		dir->length = ll;
 		*format += 2;
 	}
 	else if (**format == 'h' && *(*format + 1) == 'h')
 	{
-		dir->length = HH;
+		dir->length = hh;
 		*format += 2;
 	}
 	else if (**format == 'l')
 	{
-		dir->length = L;
+		dir->length = l;
 		*format += 1;
 	}
 	else if (**format == 'h')
 	{
-		dir->length = H;
+		dir->length = h;
 		*format += 1;
 	}
 	else if (**format == 'L')
 	{
-		dir->length = CAPITAL_L;
+		dir->length = L;
 		*format += 1;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:02:41 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/16 17:08:10 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/21 18:51:47 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	output_pointer(t_dir *dir, va_list *ap, int *ret)
 	int		len;
 
 	(void) dir;
-	str = itohex(va_arg(*ap, unsigned long), LOWERCASE, TRUE, dir);
+	str = itohex(va_arg(*ap, unsigned long), lower, true, dir);
 	if (!str)
 		exit(1);
 	len = ft_strlen(str);

@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:14:42 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/14 15:45:29 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/21 19:11:15 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static char	*get_str(t_dir *dir, va_list *ap)
 {
 	char	*str;
 
-	if (dir->length == HH)
+	if (dir->length == hh)
 		str = utoa((unsigned char) va_arg(*ap, unsigned int), dir);
-	else if (dir->length == H)
+	else if (dir->length == h)
 		str = utoa((unsigned short int) va_arg(*ap, unsigned int), dir);
-	else if (dir->length == L)
+	else if (dir->length == l)
 		str = utoa(va_arg(*ap, unsigned long int), dir);
-	else if (dir->length == LL)
+	else if (dir->length == ll)
 		str = utoa(va_arg(*ap, unsigned long long int), dir);
 	else
 		str = utoa(va_arg(*ap, unsigned int), dir);

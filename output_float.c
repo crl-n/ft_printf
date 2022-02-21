@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:15:57 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/16 16:01:33 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/21 19:11:27 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	output_float(t_dir *dir, va_list *ap, int *ret)
 
 	if (dir->precision == -1 && !dir->precision_from_arg)
 		dir->precision = 6;
-	if (dir->length == CAPITAL_L)
+	if (dir->length == L)
 		str = ftoa(va_arg(*ap, long double), dir->precision, dir);
 	else
 		str = ftoa(va_arg(*ap, double), dir->precision, dir);

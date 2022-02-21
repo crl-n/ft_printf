@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/16 17:33:36 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/21 19:15:59 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,40 +17,58 @@
 # include "libft.h"
 # include <stdarg.h>
 
-/* Conversions */
-# define NONE       0b0000
-# define CHAR       0b0001
-# define STRING     0b0010
-# define POINTER    0b0011
-# define DECIMAL    0b0100
-# define INTEGER    0b0101
-# define OCTAL      0b0110
-# define UNSIGNED   0b0111
-# define HEX_LOWER  0b1000
-# define HEX_UPPER  0b1001
-# define FLOAT      0b1010
-# define BIT        0b1011
-# define PERCENTAGE 0b1100
+/* Conversion enum*/
+enum	e_conv	
+{
+	no_conv,
+	character,
+	string,
+	pointer,
+	decimal,
+	integer,
+	octal,
+	uinteger,
+	hex_lower,
+	hex_upper,
+	floating,
+	bit,
+	percentage
+};
 
-/* Lengths */
-# define L         0b001
-# define LL        0b010
-# define H         0b011
-# define HH        0b100
-# define CAPITAL_L 0b101
+/* Length enum */
+enum e_len
+{
+	no_len,
+	l,
+	ll,
+	h,
+	hh,
+	L
+};
 
-/* Parser stage */
-# define FLAG       0
-# define WIDTH      1
-# define PRECISION  2
-# define LENGTH     3
-# define CONVERSION 4
+/* Parser stage enum */
+typedef enum e_stage
+{
+	flag,
+	width,
+	precision,
+	length,
+	conversion
+}	t_stage;
 
-/* Other */
-# define LOWERCASE 0
-# define UPPERCASE 1
-# define FALSE 0
-# define TRUE 1
+/* Case enum*/
+enum e_case
+{
+	lower,
+	upper
+};
+
+/* Boolean enum */
+enum e_bool
+{
+	false,
+	true
+};
 
 /* Typedefs and structs */
 /* t_dir/s_dir: Struct for directives contained in the format string */
@@ -67,16 +85,15 @@ typedef struct s_dir
 	unsigned int	width_set : 1;
 	unsigned int	width_from_arg : 1;
 	unsigned int	precision_from_arg : 1;
-	unsigned int	length : 3;
-	unsigned int	conversion : 4;
-	unsigned int	negative : 1;
+	enum e_len		length : 3;
+	enum e_conv		conversion : 4;
+	enum e_bool		negative : 1;
 	int				width;
 	int				precision;
 }	t_dir;
 
+/* Typedef for dispatch table */
 typedef void	(*t_converter)(t_dir *dir, va_list *ap, int *ret);
-
-typedef int		t_stage;
 
 /* Prototypes */
 int		ft_printf(const char *format, ...);

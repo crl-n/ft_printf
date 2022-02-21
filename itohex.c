@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:35:02 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/14 21:39:26 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/02/21 18:53:32 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	get_size(unsigned long n, int prefix, t_dir *dir)
 	size++;
 	if (dir->precision >= 0 && dir->precision > size)
 		size = dir->precision + 1;
-	if (prefix == TRUE)
+	if (prefix == true)
 		size += 2;
 	if (dir->zero_flag
 		&& !dir->minus_flag
@@ -49,7 +49,7 @@ static char	get_hex_char(int n, const int letter_case)
 	c = (char) n + '0';
 	if (c > '9')
 	{
-		if (letter_case == UPPERCASE)
+		if (letter_case == upper)
 			c += 7;
 		else
 			c += 39;
@@ -59,7 +59,7 @@ static char	get_hex_char(int n, const int letter_case)
 
 static void	add_prefix(char	*str, const int letter_case)
 {
-	if (letter_case == UPPERCASE)
+	if (letter_case == upper)
 	{
 		str[0] = '0';
 		str[1] = 'X';
@@ -79,7 +79,7 @@ char	*itohex(unsigned long value,
 	char	*str;
 	int		size;
 
-	if (dir->precision == 0 && dir->conversion == POINTER)
+	if (dir->precision == 0 && dir->conversion == pointer)
 		return (ft_strdup("0x"));
 	if (dir->precision == 0)
 		return (ft_strdup(""));
@@ -96,7 +96,7 @@ char	*itohex(unsigned long value,
 	str[--size] = get_hex_char(value, letter_case);
 	while (--size >= 0)
 		str[size] = '0';
-	if (prefix == TRUE)
+	if (prefix == true)
 		add_prefix(str, letter_case);
 	return (str);
 }

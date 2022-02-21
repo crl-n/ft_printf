@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:15:14 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/16 17:07:55 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/21 18:50:35 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,22 @@ static char	*get_str(t_dir *dir, va_list *ap)
 	int				prefix;
 	unsigned long	arg;
 
-	if (dir->length == HH)
+	if (dir->length == hh)
 		arg = (unsigned char) va_arg(*ap, unsigned int);
-	else if (dir->length == H)
+	else if (dir->length == h)
 		arg = (unsigned short int) va_arg(*ap, unsigned int);
-	else if (dir->length == L)
+	else if (dir->length == l)
 		arg = va_arg(*ap, unsigned long int);
-	else if (dir->length == LL)
+	else if (dir->length == ll)
 		arg = va_arg(*ap, unsigned long long int);
 	else
 		arg = va_arg(*ap, unsigned int);
-	letter_case = LOWERCASE;
-	if (dir->conversion == HEX_UPPER)
-		letter_case = UPPERCASE;
-	prefix = FALSE;
+	letter_case = lower;
+	if (dir->conversion == hex_upper)
+		letter_case = upper;
+	prefix = false;
 	if (dir->alt_flag && arg != 0)
-		prefix = TRUE;
+		prefix = true;
 	str = itohex(arg, letter_case, prefix, dir);
 	if (!str)
 		exit(1);

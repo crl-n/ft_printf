@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:14:01 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/16 17:02:05 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/21 18:49:13 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,22 @@ static char	*get_str(t_dir *dir, va_list *ap)
 	int				prefix;
 	unsigned int	value;
 
-	prefix = FALSE;
+	prefix = false;
 	if (dir->alt_flag)
-		prefix = TRUE;
-	if (dir->length == HH)
+		prefix = true;
+	if (dir->length == hh)
 	{
 		value = va_arg(*ap, unsigned int);
 		return (itooctal((unsigned char) value, prefix, dir));
 	}
-	else if (dir->length == H)
+	else if (dir->length == h)
 	{
 		value = va_arg(*ap, unsigned int);
 		return (itooctal((unsigned short int) value, prefix, dir));
 	}
-	else if (dir->length == L)
+	else if (dir->length == l)
 		return (itooctal(va_arg(*ap, unsigned long int), prefix, dir));
-	else if (dir->length == LL)
+	else if (dir->length == ll)
 		return (itooctal(va_arg(*ap, unsigned long long int), prefix, dir));
 	else
 		return (itooctal(va_arg(*ap, unsigned int), prefix, dir));

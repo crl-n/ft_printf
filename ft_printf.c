@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/16 17:44:21 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/02/21 19:29:21 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static void	dispatch_dir(t_dir *dir, va_list *ap, int *ret)
 			if (dir->width < 0)
 			{
 				dir->width = -dir->width;
-				dir->minus_flag = TRUE;
-				dir->zero_flag = FALSE;
+				dir->minus_flag = true;
+				dir->zero_flag = false;
 			}
 		}
 		else
@@ -95,9 +95,6 @@ static void	print_formatted(const char *format,
 }
 
 /*
-*	The prototype for the standard printf is:
-*			int	printf(const char * restrict format, ...);
-*
 *	First the format string is parsed for directives. Then,
 *	the format string is printed with formatted arguments.
 */
