@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/02/21 19:23:23 by cnysten          ###   ########.fr        #
+#    Updated: 2022/02/21 19:33:58 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,16 +55,11 @@ $(NAME): $(OBJS) $(LIBOBJS)
 	ar rc $(NAME) $(OBJS) $(LIBOBJS)
 	ranlib $(NAME)
 
-debug:
-	gcc -g main.c $(SRCS) $(LIBSRCS) $(INCL)
-
 clean:
 	-rm -f $(OBJS) $(LIBOBJS)
 
 fclean: clean
 	-rm -f $(NAME)
-	-rm -f a.out
-	-rm -rf a.out.dSYM
 
 re: fclean all
 

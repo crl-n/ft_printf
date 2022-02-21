@@ -6,7 +6,7 @@
 #    By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/27 10:39:36 by cnysten           #+#    #+#              #
-#    Updated: 2022/02/16 16:15:10 by cnysten          ###   ########.fr        #
+#    Updated: 2022/02/21 19:34:26 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ $(OBJS):
 	gcc $(CFLAGS) $(SRCS)
 
 clean:
-	rm -f $(OBJS)
+	-rm -f $(OBJS)
 
 fclean: clean
 
