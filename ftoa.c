@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:46:53 by cnysten           #+#    #+#             */
-/*   Updated: 2022/03/28 20:58:48 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/03/28 21:57:24 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-static size_t	get_intlen(long n)
+static void	get_lengths(long n, int precision, int *int_len, int *total_len)
 {
 	size_t	len;
 
@@ -26,7 +26,8 @@ static size_t	get_intlen(long n)
 		n = n / 10;
 		len++;
 	}
-	return (len);
+	*total_len = len + precision + (precision > 0);
+	*int_len = len;
 }
 
 static void	integer_part(long value, char *str, int negative, int int_len)
@@ -96,17 +97,18 @@ char	*ftoa(long double value, int precision, t_dir *dir, char *str)
 	if (value == -1.0 / 0.0)
 		return (ft_strdup("-inf"));
 	if (value != value)
+		dir->is_nan = 1;
+	if (value != value)
 		return (ft_strdup("nan"));
 	dir->negative = (value < 0.0);
 	if (value < 0.0)
 		value = -value;
-	int_len = get_intlen((long) value);
-	total_len = int_len + precision + (precision > 0);
+	value = value + rounding(value, precision);
+	get_lengths((long) value, precision, &int_len, &total_len);
 	str = (char *) malloc(total_len + 1 * sizeof (char));
 	if (!str)
 		return (NULL);
 	str[total_len] = '\0';
-	value = value + rounding(value, precision);
 	integer_part((long) value, str, dir->negative, int_len);
 	if (precision == 0)
 		return (str);

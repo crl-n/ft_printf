@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:15:57 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/21 19:11:27 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/03/28 22:00:02 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,13 @@ static void	handle_sign(t_dir *dir, int *ret)
 		write(1, "-", 1);
 		*ret += 1;
 	}
-	else if (dir->plus_flag)
+	else if (dir->plus_flag && !dir->is_nan)
 	{
 		write(1, "+", 1);
 		*ret += 1;
 	}
-	else if (dir->space_flag && !dir->negative && !dir->plus_flag)
+	else if (dir->space_flag && !dir->negative
+		&& !dir->plus_flag && !dir->is_nan)
 	{
 		write(1, " ", 1);
 		*ret += 1;
@@ -63,20 +64,15 @@ void	output_float(t_dir *dir, va_list *ap, int *ret)
 	if (dir->precision == -1 && !dir->precision_from_arg)
 		dir->precision = 6;
 	if (dir->length == L)
-		str = ftoa(va_arg(*ap, long double), dir->precision, dir);
+		str = ftoa(va_arg(*ap, long double), dir->precision, dir, NULL);
 	else
-		str = ftoa(va_arg(*ap, double), dir->precision, dir);
+		str = ftoa(va_arg(*ap, double), dir->precision, dir, NULL);
 	if (!str)
 		exit(1);
 	len = ft_strlen(str);
 	if (!dir->minus_flag)
 		justify(dir, dir->width - len, ret);
 	handle_sign(dir, ret);
-	if (dir->space_flag)
-	{
-		write(1, " ", 1);
-		*ret += 1;
-	}
 	write(1, str, len);
 	*ret += len;
 	if (dir->minus_flag)

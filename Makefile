@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/02/21 19:33:58 by cnysten          ###   ########.fr        #
+#    Updated: 2022/03/28 23:46:40 by carlnysten       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 NAME = libftprintf.a
 
@@ -41,12 +41,14 @@ LIBSRCS = libft/ft_atoi.c libft/ft_bzero.c \
 
 OBJS = $(SRCS:%.c=%.o)
 
+TEST = main.c
+
 LIBOBJS = $(LIBSRCS:%.c=%.o)
 
 all: $(NAME)
 
 $(OBJS): $(SRCS)
-	$(CC) $(FLAGS) -c $(INCL) $(SRCS)
+	$(CC) $(CFLAGS) -c $(INCL) $(SRCS) -g
 
 $(LIBOBJS): $(LIBSRCS)
 	make -C ./libft/
@@ -55,8 +57,11 @@ $(NAME): $(OBJS) $(LIBOBJS)
 	ar rc $(NAME) $(OBJS) $(LIBOBJS)
 	ranlib $(NAME)
 
+test: $(OBJS) $(LIBOBJS) $(TEST)
+	$(CC) $(CFLAGS) -g -o test $(INCL) main.c $(OBJS) $(LIBOBJS)
+
 clean:
-	-rm -f $(OBJS) $(LIBOBJS)
+	-rm -f $(OBJS) $(LIBOBJS) test
 
 fclean: clean
 	-rm -f $(NAME)
