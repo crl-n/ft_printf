@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:46:53 by cnysten           #+#    #+#             */
-/*   Updated: 2022/03/28 20:24:52 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/03/28 20:58:48 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,21 @@ static void	integer_part(long value, char *str, int negative, int int_len)
 	str[int_len] = '0' + value;
 }
 
-static void	fraction_part(long double fraction,
+static void	fraction_part(long double value,
 							char *str,
 							int start,
 							int precision)
 {
-	int	i;
+	int			i;
+	long double	fraction;
 
 	if (precision == 0)
 		return ;
+	fraction = value - (long) value;
 	i = 0;
 	str[start - 1] = '.';
 	while (i < precision)
 	{
-		if (i == precision - 1)
-			fraction += 0.5;
 		fraction *= 10;
 		str[start + i++] = '0' + ((int) fraction % 10);
 		fraction -= (int) fraction;
@@ -86,31 +86,30 @@ static double	rounding(double value, int precision)
 	return (rounding);
 }
 
-char	*ftoa(long double value, int precision, t_dir *dir)
+char	*ftoa(long double value, int precision, t_dir *dir, char *str)
 {
-	char		*str;
-	int			int_len;
-	int			total_len;
-	long double	fraction;
+	int	int_len;
+	int	total_len;
 
+	if (value == 1.0 / 0.0)
+		return (ft_strdup("inf"));
+	if (value == -1.0 / 0.0)
+		return (ft_strdup("-inf"));
+	if (value != value)
+		return (ft_strdup("nan"));
+	dir->negative = (value < 0.0);
 	if (value < 0.0)
-	{
-		dir->negative = 1;
 		value = -value;
-	}
 	int_len = get_intlen((long) value);
-	total_len = int_len + precision;
-	if (precision > 0)
-		total_len++;
+	total_len = int_len + precision + (precision > 0);
 	str = (char *) malloc(total_len + 1 * sizeof (char));
 	if (!str)
 		return (NULL);
 	str[total_len] = '\0';
-	integer_part((long) value, str, dir->negative, int_len);
 	value = value + rounding(value, precision);
+	integer_part((long) value, str, dir->negative, int_len);
 	if (precision == 0)
 		return (str);
-	fraction = value - (long) value;
-	fraction_part(fraction, str, int_len + 1, precision);
+	fraction_part(value, str, int_len + 1, precision);
 	return (str);
 }
