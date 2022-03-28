@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:46:53 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/16 17:45:09 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/03/28 20:24:52 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,34 @@ static void	fraction_part(long double fraction,
 	str[start - 1] = '.';
 	while (i < precision)
 	{
+		if (i == precision - 1)
+			fraction += 0.5;
 		fraction *= 10;
 		str[start + i++] = '0' + ((int) fraction % 10);
 		fraction -= (int) fraction;
 	}
 }
 
-static double	rounding(int precision)
+static double	rounding(double value, int precision)
 {
+	int		least;
+	int		i;
 	double	rounding;
 
+	i = 0;
+	while (i++ < precision)
+	{
+		value = value - (long) value;
+		value *= 10;
+	}
+	least = (int) value;
+	value = value - (int) value;
+	value *= 10;
 	rounding = 0.5;
 	while (precision--)
 		rounding *= 0.1;
+	if ((int) value == 5 && least % 2 == 0)
+		return (0.0);
 	return (rounding);
 }
 
@@ -92,7 +107,7 @@ char	*ftoa(long double value, int precision, t_dir *dir)
 		return (NULL);
 	str[total_len] = '\0';
 	integer_part((long) value, str, dir->negative, int_len);
-	value = value + rounding(precision);
+	value = value + rounding(value, precision);
 	if (precision == 0)
 		return (str);
 	fraction = value - (long) value;
