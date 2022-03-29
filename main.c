@@ -1,12 +1,43 @@
 #include "ft_printf.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-#define TEST(fmt, ...) printf("%-10sOrig: {", fmt); printf("}%20d\n", printf(fmt, ##__VA_ARGS__)); printf("%10sYour: {", ""); fflush(stdout); printf("}%20d\n", ft_printf(fmt, ##__VA_ARGS__))
+#define SRCLINE strstr(src_code[__LINE__], "TEST")
+#define TEST(fmt, ...) printf("%-30sOrig: {", SRCLINE); printf("}%20d\n", printf(fmt, ##__VA_ARGS__)); printf("%-30sYour: {", ""); fflush(stdout); printf("}%20d\n", ft_printf(fmt, ##__VA_ARGS__))
+#define LABELS printf("%-30s%13s%25s\n", "Format", "Output", "Return")
+
+static const char	filename[] = "main.c";
 
 int	main(void)
 {
-	printf("%-10s%13s%25s\n", "Format", "Output", "Return");
+	FILE	*file = fopen(filename, "r");
+	char	*src_code[256];
+	char	*line = NULL;
+	size_t	linecap = 0;
+	int		i = 1;
+
+	if (!file)
+		exit(1);
+
+	while (getline(&line, &linecap, file) > 0)
+	{
+		char	*semicolon;
+		src_code[i] = line;
+
+		semicolon = strrchr(src_code[i], ';');
+		if (semicolon)
+			*semicolon = '\0';
+		i++;
+		line = NULL;
+	}
+
+	fclose(file);
+
+
+	LABELS;
 	TEST("%s", "Hello");
+
+
 	//int	ret;
 	//ret = ft_printf("%.0f\n", 99.5);
 	//printf("ret %d\n", ret);
