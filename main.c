@@ -3,8 +3,14 @@
 #include <stdlib.h>
 
 #define SRCLINE strstr(src_code[__LINE__], "TEST")
-#define TEST(fmt, ...) printf("%-30sOrig: {", SRCLINE); printf("}%20d\n", printf(fmt, ##__VA_ARGS__)); printf("%-30sYour: {", ""); fflush(stdout); printf("}%20d\n", ft_printf(fmt, ##__VA_ARGS__))
-#define LABELS printf("%-30s%13s%25s\n", "Format", "Output", "Return")
+
+#define TEST(fmt, ...) printf("%-30sOrig: {", SRCLINE);\
+					   printf("}{%d}\n", printf(fmt, ##__VA_ARGS__));\
+					   printf("%-30sYour: {", "");\
+					   fflush(stdout);\
+					   printf("}{%d}\n", ft_printf(fmt, ##__VA_ARGS__))
+
+#define LABELS printf("\033[1m%-30s%13s\n\033[0m", "Format", "Output / Return")
 
 static const char	filename[] = "main.c";
 
@@ -17,7 +23,10 @@ int	main(void)
 	int		i = 1;
 
 	if (!file)
+	{
+		perror("ERROR: Couldn't open file.");
 		exit(1);
+	}
 
 	while (getline(&line, &linecap, file) > 0)
 	{
@@ -28,6 +37,12 @@ int	main(void)
 		if (semicolon)
 			*semicolon = '\0';
 		i++;
+		if (i == 256)
+		{
+			perror("Error: Source code array ran out of space.");
+			fclose(file);
+			exit(1);
+		}
 		line = NULL;
 	}
 
@@ -36,6 +51,7 @@ int	main(void)
 
 	LABELS;
 	TEST("%s", "Hello");
+	TEST("%010f", 0.0 / 0.0);
 
 
 	//int	ret;
@@ -83,18 +99,5 @@ int	main(void)
 	//printf("ret %d\n", ret);
 	//ret = printf("%010f\n", 0.0 / 0.0);
 	//printf("ret %d\n", ret);
-	//printf("%f\n", 0.0 / 0.0);
-	//printf("%f\n", 1.3000001);
-	//printf("%f\n", 1.3000002);
-	//printf("%f\n", 1.3000003);
-	//printf("%f\n", 1.3000004);
-	//printf("%f\n", 1.3000005);
-	//printf("%f\n", 1.3000006);
-	//printf("%f\n", 1.3000009);
-	//printf("%.1f\n", 1.251);
-	//printf("%.1f\n", 1.3);
-	//printf("%.1f\n", 1.4);
-	//printf("%.1f\n", 1.5);
-	//ft_printf("%f\n", -1.0/0);
 	return (0);
 }
