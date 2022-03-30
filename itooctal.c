@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/07 16:57:15 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/11 20:10:10 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/03/31 00:20:02 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ static size_t	octal_len(unsigned long n, t_dir *dir, const int prefix)
 	}
 	if (len < dir->precision)
 		len = dir->precision;
+	else if (dir->zero_flag && len < dir->width && dir->precision == -1)
+	{
+		len = dir->width;
+		if (dir->plus_flag || dir->space_flag)
+			len--;
+	}
 	return (len);
 }
 
@@ -43,7 +49,7 @@ char	*itooctal(unsigned long n, const int prefix, t_dir *dir)
 		dir->precision = 1;
 	else if (dir->precision == 0 && dir->alt_flag)
 		dir->precision = ft_intlen_base(n, 8) + 1;
-	if (dir->precision == 0)
+	if (dir->precision == 0 && n == 0)
 		return (ft_strdup(""));
 	size = octal_len(n, dir, prefix) + 1;
 	str = (char *) malloc(size * sizeof (char));
