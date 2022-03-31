@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:46:53 by cnysten           #+#    #+#             */
-/*   Updated: 2022/03/28 21:57:24 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/03/31 12:45:51 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ static void	fraction_part(long double value,
 	}
 }
 
-static double	rounding(double value, int precision)
+static long double	rounding(long double value, int precision)
 {
-	int		least;
-	int		i;
-	double	rounding;
+	int			least;
+	int			i;
+	long double	rounding;
 
 	i = 0;
 	while (i++ < precision)
@@ -78,11 +78,11 @@ static double	rounding(double value, int precision)
 	}
 	least = (int) value;
 	value = value - (int) value;
-	value *= 10;
+	//value *= 10;
 	rounding = 0.5;
 	while (precision--)
 		rounding *= 0.1;
-	if ((int) value == 5 && least % 2 == 0)
+	if ((int) value * 10 == 5 && value - (long double)((int) value) == 0.0 && least % 2 == 0)
 		return (0.0);
 	return (rounding);
 }
