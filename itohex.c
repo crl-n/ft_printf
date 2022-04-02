@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 16:35:02 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/21 18:53:32 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/02 21:58:41 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "ft_printf.h"
 #include <string.h>
 #include <stdlib.h>
-
-/* get_char() converts an int into a corresponding digit of its base */
 
 static int	get_size(unsigned long n, int prefix, t_dir *dir)
 {
@@ -29,17 +27,16 @@ static int	get_size(unsigned long n, int prefix, t_dir *dir)
 		n = n / 16;
 		size++;
 	}
-	size++;
-	if (dir->precision >= 0 && dir->precision > size)
-		size = dir->precision + 1;
-	if (prefix == true)
-		size += 2;
-	if (dir->zero_flag
+	if (size < dir->precision)
+		size = dir->precision;
+	else if (dir->zero_flag
 		&& !dir->minus_flag
 		&& size < dir->width
 		&& dir->precision == -1)
-		size = dir->width + 1;
-	return (size);
+		size = dir->width;
+	if (prefix == true)
+		size += 2;
+	return (size + 1);
 }
 
 static char	get_hex_char(int n, const int letter_case)
@@ -81,7 +78,7 @@ char	*itohex(unsigned long value,
 
 	if (dir->precision == 0 && dir->conversion == pointer)
 		return (ft_strdup("0x"));
-	if (dir->precision == 0)
+	if (dir->precision == 0 && value == 0)
 		return (ft_strdup(""));
 	size = get_size(value, prefix, dir);
 	str = (char *) malloc(size * sizeof (char));
