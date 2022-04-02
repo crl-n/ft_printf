@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 19:46:53 by cnysten           #+#    #+#             */
-/*   Updated: 2022/03/31 12:52:58 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/02 11:28:16 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,15 @@ char	*ftoa(long double value, int precision, t_dir *dir, char *str)
 	int	int_len;
 	int	total_len;
 
+	dir->negative = (value < 0.0 || (value == -0.0 && 1 / value < 0.0));
+	if (value < 0.0 || (value == -0.0 && 1 / value < 0.0))
+		value = -value;
 	if (value == 1.0 / 0.0)
 		return (ft_strdup("inf"));
-	if (value == -1.0 / 0.0)
-		return (ft_strdup("-inf"));
 	if (value != value)
 		dir->is_nan = 1;
 	if (value != value)
 		return (ft_strdup("nan"));
-	dir->negative = (value < 0.0);
-	if (value < 0.0)
-		value = -value;
 	value = value + rounding(value, precision);
 	get_lengths((long) value, precision, &int_len, &total_len);
 	str = (char *) malloc(total_len + 1 * sizeof (char));
