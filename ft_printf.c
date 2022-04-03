@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/21 19:29:21 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/03 22:26:41 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include "libft.h"
-
-/* g_dispatch_table dispatches each formatted argument to its handler */
 
 static const t_converter	g_dispatch_table[13] = {
 	output_none,
@@ -33,8 +31,6 @@ static const t_converter	g_dispatch_table[13] = {
 	output_bit,
 	output_percentage
 };
-
-/*	dispatch_dir() sends each directive to its corresponding handler */
 
 static void	dispatch_dir(t_dir *dir, va_list *ap, int *ret)
 {
@@ -94,11 +90,6 @@ static void	print_formatted(const char *format,
 	*ret += write(1, start, (size_t)(format - start));
 }
 
-/*
-*	First the format string is parsed for directives. Then,
-*	the format string is printed with formatted arguments.
-*/
-
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
@@ -107,8 +98,7 @@ int	ft_printf(const char *format, ...)
 
 	ret = 0;
 	dir_list = NULL;
-	if (parse_format(format, &dir_list) < 0)
-		return (-1);
+	parse_format(format, &dir_list);
 	va_start(ap, format);
 	print_formatted(format, &dir_list, &ap, &ret);
 	va_end(ap);
