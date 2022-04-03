@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/03/28 23:46:40 by carlnysten       ###   ########.fr        #
+#    Updated: 2022/04/03 22:54:33 by carlnysten       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,27 +41,22 @@ LIBSRCS = libft/ft_atoi.c libft/ft_bzero.c \
 
 OBJS = $(SRCS:%.c=%.o)
 
-TEST = main.c
-
 LIBOBJS = $(LIBSRCS:%.c=%.o)
 
 all: $(NAME)
 
 $(OBJS): $(SRCS)
-	$(CC) $(CFLAGS) -c $(INCL) $(SRCS) -g
+	$(CC) $(CFLAGS) -c $(INCL) $(SRCS)
 
 $(LIBOBJS): $(LIBSRCS)
-	make -C ./libft/
+	-make -C ./libft/
 
 $(NAME): $(OBJS) $(LIBOBJS)
 	ar rc $(NAME) $(OBJS) $(LIBOBJS)
 	ranlib $(NAME)
 
-test: $(OBJS) $(LIBOBJS) $(TEST)
-	$(CC) $(CFLAGS) -g -o test $(INCL) main.c $(OBJS) $(LIBOBJS)
-
 clean:
-	-rm -f $(OBJS) $(LIBOBJS) test
+	-rm -f $(OBJS) $(LIBOBJS)
 
 fclean: clean
 	-rm -f $(NAME)
