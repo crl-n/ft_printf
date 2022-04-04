@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:27:11 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/16 16:18:36 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/04 22:52:41 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	justify(int n, int *ret, t_dir *dir)
 	else
 		c = ' ';
 	ft_memset((void *)str, c, n);
-	write(1, str, n);
+	write(fd, str, n);
 	*ret += n;
 	free(str);
 }
@@ -40,7 +40,7 @@ void	output_percentage(t_dir *dir, va_list *ap, int *ret)
 	(void) ap;
 	if (!dir->minus_flag)
 		justify(dir->width - 1, ret, dir);
-	write(1, "%", 1);
+	write(fd, "%", 1);
 	*ret += 1;
 	if (dir->minus_flag)
 		justify(dir->width - 1, ret, dir);

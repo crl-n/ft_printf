@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:14:42 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/21 19:11:15 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/04 22:52:42 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	justify(t_dir *dir, int n, int *ret)
 	if (dir->space_flag)
 		n--;
 	ft_memset((void *)str, c, n);
-	write(1, str, n);
+	write(fd, str, n);
 	*ret += n;
 	free(str);
 }
@@ -62,7 +62,7 @@ void	output_unsigned(t_dir *dir, va_list *ap, int *ret)
 	len = ft_strlen(str);
 	if (!dir->minus_flag)
 		justify(dir, dir->width - len, ret);
-	write(1, str, len);
+	write(fd, str, len);
 	*ret += len;
 	if (dir->minus_flag)
 		justify(dir, dir->width - len, ret);

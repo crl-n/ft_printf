@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/04 16:33:08 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/04 22:48:52 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void	print_formatted(const char *format,
 	{
 		if (*format == '%')
 		{
-			*ret += write(1, start, (size_t)(format - start));
+			*ret += write(fd, start, (size_t)(format - start));
 			dir = ft_lstpop_left(dir_list);
 			if (dir->conversion)
 			{
@@ -92,7 +92,7 @@ static void	print_formatted(const char *format,
 		}
 		format++;
 	}
-	*ret += write(1, start, (size_t)(format - start));
+	*ret += write(fd, start, (size_t)(format - start));
 }
 
 int	ft_printf(const char *format, ...)

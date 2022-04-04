@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:13:21 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/21 19:11:52 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/04 22:52:41 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	justify(t_dir *dir, int n, int *ret)
 	else if (dir->space_flag && !dir->negative && !dir->plus_flag)
 		n--;
 	ft_memset((void *)str, ' ', n);
-	write(1, str, n);
+	write(fd, str, n);
 	*ret += n;
 	free(str);
 }
@@ -59,17 +59,17 @@ static void	handle_sign(t_dir *dir, int *ret)
 {
 	if (dir->negative)
 	{
-		write(1, "-", 1);
+		write(fd, "-", 1);
 		*ret += 1;
 	}
 	else if (dir->plus_flag)
 	{
-		write(1, "+", 1);
+		write(fd, "+", 1);
 		*ret += 1;
 	}
 	else if (dir->space_flag && !dir->negative && !dir->plus_flag)
 	{
-		write(1, " ", 1);
+		write(fd, " ", 1);
 		*ret += 1;
 	}
 }
@@ -84,7 +84,7 @@ void	output_decimal(t_dir *dir, va_list *ap, int *ret)
 	if (!dir->minus_flag)
 		justify(dir, dir->width - len, ret);
 	handle_sign(dir, ret);
-	write(1, str, len);
+	write(fd, str, len);
 	*ret += len;
 	if (dir->minus_flag)
 		justify(dir, dir->width - len, ret);

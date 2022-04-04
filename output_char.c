@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/02/14 21:26:43 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/04/04 22:49:20 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	justify(int c, int n, int *ret)
 	if (!str)
 		exit(1);
 	ft_memset((void *)str, c, n);
-	write(1, str, n);
+	write(fd, str, n);
 	*ret += n;
 	free(str);
 }
@@ -37,7 +37,7 @@ void	output_char(t_dir *dir, va_list *ap, int *ret)
 	arg = va_arg(*ap, int);
 	if (!dir->minus_flag)
 		justify(' ', dir->width - 1, ret);
-	write(1, &arg, 1);
+	write(fd, &arg, 1);
 	*ret += 1;
 	if (dir->minus_flag)
 		justify(' ', dir->width - 1, ret);
