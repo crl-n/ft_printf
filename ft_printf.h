@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/03 22:27:59 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/04/04 16:34:53 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,9 @@ typedef void	(*t_converter)(t_dir *dir, va_list *ap, int *ret);
 
 /* Prototypes */
 int		ft_printf(const char *format, ...);
+int		ft_dprintf(int fd, const char *format, ...);
+int		ft_sprintf(char *str, const char *format, ...);
+
 void	parse_format(const char *format, t_list **dir_list);
 void	put_arg(t_dir *dir, va_list *ap, int *ret);
 

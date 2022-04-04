@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/03 22:26:41 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/04/04 16:33:08 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include "libft.h"
+
+static void	die(void)
+{
+	//TODO
+}
 
 static const t_converter	g_dispatch_table[13] = {
 	output_none,
@@ -91,6 +96,36 @@ static void	print_formatted(const char *format,
 }
 
 int	ft_printf(const char *format, ...)
+{
+	va_list	ap;
+	int		ret;
+	t_list	*dir_list;
+
+	ret = 0;
+	dir_list = NULL;
+	parse_format(format, &dir_list);
+	va_start(ap, format);
+	print_formatted(format, &dir_list, &ap, &ret);
+	va_end(ap);
+	return (ret);
+}
+
+int	ft_dprintf(int fd, const char *format, ...)
+{
+	va_list	ap;
+	int		ret;
+	t_list	*dir_list;
+
+	ret = 0;
+	dir_list = NULL;
+	parse_format(format, &dir_list);
+	va_start(ap, format);
+	print_formatted(format, &dir_list, &ap, &ret);
+	va_end(ap);
+	return (ret);
+}
+
+int	ft_sprintf(char *str, const char *format, ...)
 {
 	va_list	ap;
 	int		ret;

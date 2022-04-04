@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/04/03 22:54:33 by carlnysten       ###   ########.fr        #
+#    Updated: 2022/04/04 16:30:53 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 NAME = libftprintf.a
+
+LIB = -L./libft/ -lft
 
 INCL = -I. -I./libft/
 
@@ -30,30 +32,20 @@ SRCS = ft_printf.c \
 	   output_bit.c\
 	   ftoa.c utoa.c itooctal.c itohex.c itoa.c \
 
-LIBSRCS = libft/ft_atoi.c libft/ft_bzero.c \
-		  libft/ft_intlen.c libft/ft_intlen_base.c \
-		  libft/ft_isdigit.c \
-		  libft/ft_itoa_base.c \
-		  libft/ft_memcpy.c libft/ft_memset.c \
-		  libft/ft_lstnew.c libft/ft_lstadd_back.c libft/ft_lstpop_left.c \
-		  libft/ft_strdup.c libft/ft_strlen.c libft/ft_strnew.c \
-		  libft/ft_strndup.c libft/ft_strncpy.c 
-
 OBJS = $(SRCS:%.c=%.o)
-
-LIBOBJS = $(LIBSRCS:%.c=%.o)
 
 all: $(NAME)
 
 $(OBJS): $(SRCS)
-	$(CC) $(CFLAGS) -c $(INCL) $(SRCS)
-
-$(LIBOBJS): $(LIBSRCS)
-	-make -C ./libft/
+	$(CC) $(CFLAGS) -c $(INCL) $(SRCS) $(LIB)
 
 $(NAME): $(OBJS) $(LIBOBJS)
 	ar rc $(NAME) $(OBJS) $(LIBOBJS)
 	ranlib $(NAME)
+
+leaks:
+
+test:
 
 clean:
 	-rm -f $(OBJS) $(LIBOBJS)

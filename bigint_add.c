@@ -1,28 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   bigint_add.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/03 13:16:40 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/13 20:50:13 by cnysten          ###   ########.fr       */
+/*   Created: 2022/04/04 16:38:20 by cnysten           #+#    #+#             */
+/*   Updated: 2022/04/04 16:38:24 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 
-char	*ft_strncpy(char *dst, const char *src, size_t len)
-{
-	size_t	i;
-
-	i = 0;
-	while (i < len && src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	while (i < len)
-		dst[i++] = '\0';
-	return (dst);
-}

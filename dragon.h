@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   dragon.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/02 12:42:37 by cnysten           #+#    #+#             */
-/*   Updated: 2022/01/24 21:58:40 by cnysten          ###   ########.fr       */
+/*   Created: 2022/04/04 16:35:04 by cnysten           #+#    #+#             */
+/*   Updated: 2022/04/04 16:37:58 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
+#ifndef DRAGON_H
+# define DRAGON_H
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+# define MAX_BLOCKS 1030
+
+typedef struct s_bigint
 {
-	size_t				i;
+	unsigned int	len;
+	unsigned int	blocks[MAX_BLOCKS];
+}	t_bigint;
 
-	if (!dst && !src)
-		return (NULL);
-	i = 0;
-	while (i < n)
-	{
-		((unsigned char *) dst)[i] = ((const unsigned char *) src)[i];
-		i++;
-	}
-	return (dst);
-}
+#endif
