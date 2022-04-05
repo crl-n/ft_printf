@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/05 17:49:45 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/05 18:11:25 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int		is_conversion(const char c);
 int		is_precision(const char c);
 int		is_length(const char c);
 
+void	append(t_str *str, const char *src);
 t_str	*new_str(size_t	capacity);
 void	free_str(t_str	*str);
 

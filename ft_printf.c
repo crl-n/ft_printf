@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/05 17:51:28 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/05 18:13:15 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,15 @@ static char	*format_output(const char *format, va_list *ap)
 	const char	*start;
 	t_str		*output;
 
+	output = new_str(ft_strlen(format));
+	if (!output)
+		exit(0);
 	start = format;
 	while (*format)
 	{
 		if (*format == '%')
 		{
-			ft_memcpy(output, start, (size_t)(format - start));
+			append(output, start, (size_t)(format - start));
 			dispatch(format, ap, ret);
 			while (!is_conversion(*format))
 				format++;

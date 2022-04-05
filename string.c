@@ -6,7 +6,7 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 17:40:25 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/05 17:49:18 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/05 18:14:17 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,30 @@ t_str	*new_str(size_t	capacity)
 	return (str);
 }
 
-void	free_str(t_str	*str)
+void	append(t_str *str, const char *src, size_t n)
+{
+	size_t	available;
+	size_t	new_size;
+	size_t	srclen;
+
+	if (!str || !src)
+		return ;
+	available = str->capacity - str->len - 1;
+	srclen = ft_strlen(src);
+	if (available < srclen)
+	{
+		new_size = str->capacity + str->capacity / 2;
+		if (new_size - str->capacity < srclen - available)
+			new_size += srclen - available;
+		ft_realloc(str->data, new_size);
+		if (!str->data)
+			exit(0);
+	}
+	ft_strncat(str->data, src, n);
+	str->len += n;
+}
+
+void	free_str(t_str *str)
 {
 	if (!str)
 		return ;
