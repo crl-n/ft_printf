@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/04 22:48:52 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/04/05 09:32:54 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	dispatch_dir(t_dir *dir, va_list *ap, int *ret)
 	free(dir);
 }
 
-static void	print_formatted(const char *format,
+static void	format_output(const char *format,
 								t_list **dir_list,
 								va_list *ap,
 								int *ret)
@@ -99,13 +99,12 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	int		ret;
-	t_list	*dir_list;
+	char	*output;
 
 	ret = 0;
-	dir_list = NULL;
-	parse_format(format, &dir_list);
 	va_start(ap, format);
-	print_formatted(format, &dir_list, &ap, &ret);
+	output = format_output(format, &ap);
+	ret = write(1, output, ft_strlen(output));
 	va_end(ap);
 	return (ret);
 }
@@ -114,13 +113,12 @@ int	ft_dprintf(int fd, const char *format, ...)
 {
 	va_list	ap;
 	int		ret;
-	t_list	*dir_list;
+	char	*output;
 
 	ret = 0;
-	dir_list = NULL;
-	parse_format(format, &dir_list);
 	va_start(ap, format);
-	print_formatted(format, &dir_list, &ap, &ret);
+	output = format_output(format, &ap);
+	ret = write(fd, output, ft_strlen(output));
 	va_end(ap);
 	return (ret);
 }
@@ -129,13 +127,13 @@ int	ft_sprintf(char *str, const char *format, ...)
 {
 	va_list	ap;
 	int		ret;
-	t_list	*dir_list;
+	char	*output;
 
 	ret = 0;
-	dir_list = NULL;
-	parse_format(format, &dir_list);
 	va_start(ap, format);
-	print_formatted(format, &dir_list, &ap, &ret);
+	output = format_output(format, &ap);
+	ret = ft_strlen(output);
+	ft_memcpy(str, output, ret);
 	va_end(ap);
 	return (ret);
 }
