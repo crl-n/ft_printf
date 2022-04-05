@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/04/05 17:36:00 by cnysten          ###   ########.fr        #
+#    Updated: 2022/04/05 21:46:57 by carlnysten       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ SRCS = ft_printf.c \
 	   output_float.c \
 	   output_percentage.c \
 	   output_bit.c\
-	   ftoa.c utoa.c itooctal.c itohex.c itoa.c \
 
 OBJS = $(SRCS:%.c=%.o)
 

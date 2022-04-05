@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/05 21:39:13 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/04/05 22:15:19 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct	s_fmt
 }
 
 /* Typedef for dispatch table */
-typedef void	(*t_converter)(const char *format, va_list *ap);
+typedef void	(*t_converter)(t_str *output, t_fmt fmt, va_list *ap);
 
 /* Prototypes */
 int		ft_printf(const char *format, ...);
@@ -102,16 +102,16 @@ void	append(t_str *str, const char *src);
 t_str	*new_str(size_t	capacity);
 void	free_str(t_str	*str);
 
-void	output_none(char *format, va_list *ap);
-void	output_char(char *format, va_list *ap);
-void	output_string(char *format, va_list *ap);
-void	output_pointer(char *format, va_list *ap);
-void	output_decimal(char *format, va_list *ap);
-void	output_octal(char *format, va_list *ap);
-void	output_unsigned(char *format, va_list *ap);
-void	output_hex(char *format, va_list *ap);
-void	output_float(char *format, va_list *ap);
-void	output_bit(char *format, va_list *ap);
-void	output_percentage(char *format, va_list *ap);
+void	output_none(t_str *output, t_fmt fmt, va_list *ap);
+void	output_char(t_str *output, t_fmt fmt, va_list *ap);
+void	output_string(t_str *output, t_fmt fmt, va_list *ap);
+void	output_pointer(t_str *output, t_fmt fmt, va_list *ap);
+void	output_decimal(t_str *output, t_fmt fmt, va_list *ap);
+void	output_octal(t_str *output, t_fmt fmt, va_list *ap);
+void	output_unsigned(t_str *output, t_fmt fmt, va_list *ap);
+void	output_hex(t_str *output, t_fmt fmt, va_list *ap);
+void	output_float(t_str *output, t_fmt fmt, va_list *ap);
+void	output_bit(t_str *output, t_fmt fmt, va_list *ap);
+void	output_percentage(t_str *output, t_fmt fmt, va_list *ap);
 
 #endif
