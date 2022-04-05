@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/05 18:13:15 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/05 20:43:33 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,38 @@ static const t_converter	g_dispatch_table[13] = {
 	output_percentage
 };
 
-static void	dispatch(const char *format, va_list *ap)
+static void	set_flag(t_fmt *fmt, char c)
 {
-	/*
-	if (dir->width_from_arg)
+	if (c == '#')
+		fmt->alt = 1;
+	if (c == '0')
+		fmt->zero = 1;
+	if (c == '-')
+		fmt->dash = 1;
+	if (c == ' ')
+		fmt->space = 1;
+	if (c == '+')
+		fmt->plus = 1;
+}
+
+static void	dispatch(const char *format, va_list *ap, t_str *output)
+{
+	t_fmt	fmt;
+
+	ft_bzero(&fmt, sizeof (t_fmt));
+	while (is_flag(*format))
 	{
-		if (!dir->width_set)
-		{
-			dir->width = va_arg(*ap, int);
-			if (dir->width < 0)
-			{
-				dir->width = -dir->width;
-				dir->minus_flag = true;
-				dir->zero_flag = false;
-			}
-		}
-		else
-			va_arg(*ap, int);
-	}
-	if (dir->precision_from_arg)
-	{
-		dir->precision = va_arg(*ap, int);
-		if (dir->precision < 0)
-			dir->precision = -1;
-	}
-	*/
-	while (*format && !is_conversion(*format))
-	{
-		
+		set_flag(&fmt, *format);
 		format++;
 	}
-	g_dispatch_table[dir->conversion](format, ap, ret);
+	if (is_width(*format))
+		set_width(&fmt, &format)
+	if (is_precision(*format))
+		set_precision(&fmt, &format);
+	if (is_length(*format))
+		set_length(&fmt, &format);
+	set_conversion(*format);
+	g_dispatch_table[dir->conversion](output, fmt, ap);
 }
 
 static char	*format_output(const char *format, va_list *ap)
@@ -79,7 +80,7 @@ static char	*format_output(const char *format, va_list *ap)
 		if (*format == '%')
 		{
 			append(output, start, (size_t)(format - start));
-			dispatch(format, ap, ret);
+			dispatch(format, ap, output);
 			while (!is_conversion(*format))
 				format++;
 			start = format + 1;

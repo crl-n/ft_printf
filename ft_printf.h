@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/05 18:11:25 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/05 20:22:54 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ typedef struct	s_str
 	size_t	len;
 	size_t	capacity;
 }	t_str;
+
+/* Format struct */
+typedef struct	s_fmt
+{
+	unsigned int	alt : 1;
+	unsigned int	zero : 1;
+	unsigned int	dash : 1;
+	unsigned int	space : 1;
+	unsigned int	plus : 1;
+	int				precision;
+	int				width;
+}
 
 /* Conversion enum*/
 enum	e_conv	
