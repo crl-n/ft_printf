@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/05 20:22:54 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/04/05 21:39:13 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,6 @@
 /* Includes */
 # include "libft.h"
 # include <stdarg.h>
-
-/* String struct */
-typedef struct	s_str
-{
-	char	*data;
-	size_t	len;
-	size_t	capacity;
-}	t_str;
-
-/* Format struct */
-typedef struct	s_fmt
-{
-	unsigned int	alt : 1;
-	unsigned int	zero : 1;
-	unsigned int	dash : 1;
-	unsigned int	space : 1;
-	unsigned int	plus : 1;
-	int				precision;
-	int				width;
-}
 
 /* Conversion enum*/
 enum	e_conv	
@@ -80,6 +60,28 @@ enum e_bool
 	true
 };
 
+/* String struct */
+typedef struct	s_str
+{
+	char	*data;
+	size_t	len;
+	size_t	capacity;
+}	t_str;
+
+/* Format struct */
+typedef struct	s_fmt
+{
+	unsigned int	alt : 1;
+	unsigned int	zero : 1;
+	unsigned int	dash : 1;
+	unsigned int	space : 1;
+	unsigned int	plus : 1;
+	int				precision;
+	int				width;
+	enum e_len		len;
+	enum e_conv		conversion;
+}
+
 /* Typedef for dispatch table */
 typedef void	(*t_converter)(const char *format, va_list *ap);
 
@@ -94,21 +96,11 @@ int		is_conversion(const char c);
 int		is_precision(const char c);
 int		is_length(const char c);
 
+t_fmt	get_fmt(const char *format);
+
 void	append(t_str *str, const char *src);
 t_str	*new_str(size_t	capacity);
 void	free_str(t_str	*str);
-
-/*
-char	*itoa(long long n, t_dir *dir);
-char	*ftoa(long double value, int precision, t_dir *dir, char *str);
-char	*itohex(unsigned long n,
-			const int letter_case,
-			const int prefix,
-			t_dir *dir);
-char	*itooctal(unsigned long n, const int prefix, t_dir *dir);
-char	*ptoa(unsigned long p);
-char	*utoa(unsigned long int n, t_dir *dir);
-*/
 
 void	output_none(char *format, va_list *ap);
 void	output_char(char *format, va_list *ap);
