@@ -6,15 +6,14 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 14:48:25 by cnysten           #+#    #+#             */
-/*   Updated: 2022/02/09 14:48:47 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/05 17:36:30 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	output_none(t_dir *dir, va_list *ap, int *ret)
+void	output_none(const char *format, va_list *ap)
 {
-	(void) ret;
+	(void) format;
 	(void) ap;
-	(void) dir;
 }

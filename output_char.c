@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/04/04 22:49:20 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/04/05 17:36:53 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	justify(int c, int n, int *ret)
 	free(str);
 }
 
-void	output_char(t_dir *dir, va_list *ap, int *ret)
+void	output_char(const char *format, va_list *ap)
 {
 	int	arg;
 

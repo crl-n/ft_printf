@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:16:31 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/04/04 22:49:08 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/04/05 17:32:56 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@ static void	justify(int n, int *ret)
 	free(str);
 }
 
-void	output_bit(t_dir *dir, va_list *ap, int *ret)
+void	output_bit(const char *format, va_list *ap)
 {
-	char	*str;
+	char	*nbr;
 	int		len;
 
-	str = ft_itoa_base(va_arg(*ap, long), 2);
-	if (!str)
-		exit(1);
-	len = ft_strlen(str);
+	nbr = ft_itoa_base(va_arg(*ap, long), 2);
+	if (!nbr)
+		exit(1); // Die here
+	len = ft_strlen(nbr);
 	if (!dir->minus_flag)
 		justify(dir->width - len, ret);
 	write(fd, "0b", 2);

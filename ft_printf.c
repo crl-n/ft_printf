@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/05 17:30:46 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/05 17:51:28 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,18 @@ static void	dispatch(const char *format, va_list *ap)
 			dir->precision = -1;
 	}
 	*/
+	while (*format && !is_conversion(*format))
+	{
+		
+		format++;
+	}
 	g_dispatch_table[dir->conversion](format, ap, ret);
 }
 
 static char	*format_output(const char *format, va_list *ap)
 {
 	const char	*start;
+	t_str		*output;
 
 	start = format;
 	while (*format)

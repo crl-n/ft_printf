@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/05 17:29:52 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/05 17:49:45 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 /* Includes */
 # include "libft.h"
 # include <stdarg.h>
+
+/* String struct */
+typedef struct	s_str
+{
+	char	*data;
+	size_t	len;
+	size_t	capacity;
+}	t_str;
 
 /* Conversion enum*/
 enum	e_conv	
@@ -73,6 +81,9 @@ int		is_width(const char c);
 int		is_conversion(const char c);
 int		is_precision(const char c);
 int		is_length(const char c);
+
+t_str	*new_str(size_t	capacity);
+void	free_str(t_str	*str);
 
 /*
 char	*itoa(long long n, t_dir *dir);

@@ -6,7 +6,7 @@
 #    By: cnysten <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 15:18:20 by cnysten           #+#    #+#              #
-#    Updated: 2022/04/04 16:30:53 by cnysten          ###   ########.fr        #
+#    Updated: 2022/04/05 17:36:00 by cnysten          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIB = -L./libft/ -lft
 INCL = -I. -I./libft/
 
 SRCS = ft_printf.c \
-	   parser.c boolean.c setters.c\
+	   boolean.c\
 	   output_none.c \
 	   output_char.c output_string.c output_pointer.c \
 	   output_decimal.c output_octal.c output_unsigned.c output_hex.c \
