@@ -6,17 +6,18 @@
 /*   By: cnysten <cnysten@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 17:40:25 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/05 18:14:17 by cnysten          ###   ########.fr       */
+/*   Updated: 2022/04/05 22:59:01 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdlib.h>
 
 t_str	*new_str(size_t	capacity)
 {
 	t_str	*str;
 
-	str = (t_dir *) malloc(sizeof (t_str));
+	str = (t_str *) malloc(sizeof (t_str));
 	if (!str)
 		return (NULL);
 	ft_bzero(str, sizeof (t_str));
@@ -48,7 +49,7 @@ void	append(t_str *str, const char *src, size_t n)
 		new_size = str->capacity + str->capacity / 2;
 		if (new_size - str->capacity < srclen - available)
 			new_size += srclen - available;
-		ft_realloc(str->data, new_size);
+		str->data = realloc(str->data, new_size); // Create ft_realloc
 		if (!str->data)
 			exit(0);
 	}

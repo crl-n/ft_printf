@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/05 21:45:40 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/04/05 22:47:44 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static void	format_argument(const char *format, va_list *ap, t_str *output)
 	t_fmt	fmt;
 
 	fmt = get_fmt(format);
-	g_dispatch_table[dir->conversion](output, fmt, ap);
+	g_dispatch_table[fmt.conversion](output, fmt, ap);
 }
 
-static char	*format_output(const char *format, va_list *ap)
+static t_str	*format_output(const char *format, va_list *ap)
 {
 	const char	*start;
 	t_str		*output;
@@ -62,18 +62,19 @@ static char	*format_output(const char *format, va_list *ap)
 		format++;
 	}
 	append(output, start, (size_t)(format - start));
+	return (output);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	int		ret;
-	char	*output;
+	t_str	*output;
 
 	ret = 0;
 	va_start(ap, format);
 	output = format_output(format, &ap);
-	ret = write(1, output, ft_strlen(output));
+	ret = write(1, output->data, ft_strlen(output->data));
 	va_end(ap);
 	return (ret);
 }
@@ -82,12 +83,12 @@ int	ft_dprintf(int fd, const char *format, ...)
 {
 	va_list	ap;
 	int		ret;
-	char	*output;
+	t_str	*output;
 
 	ret = 0;
 	va_start(ap, format);
 	output = format_output(format, &ap);
-	ret = write(fd, output, ft_strlen(output));
+	ret = write(fd, output->data, ft_strlen(output->data));
 	va_end(ap);
 	return (ret);
 }
@@ -96,13 +97,13 @@ int	ft_sprintf(char *str, const char *format, ...)
 {
 	va_list	ap;
 	int		ret;
-	char	*output;
+	t_str	*output;
 
 	ret = 0;
 	va_start(ap, format);
 	output = format_output(format, &ap);
-	ret = ft_strlen(output);
-	ft_memcpy(str, output, ret);
+	ret = ft_strlen(output->data);
+	ft_memcpy(str, output->data, ret);
 	va_end(ap);
 	return (ret);
 }

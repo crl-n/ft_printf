@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:02:10 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/04/04 22:52:42 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/04/05 22:40:38 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,55 +15,9 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-static void	justify(int n, int *ret)
+void	output_string(t_str *output, t_fmt fmt, va_list *ap)
 {
-	char	*str;
-
-	if (n <= 0)
-		return ;
-	str = ft_strnew(n);
-	if (!str)
-		exit(1);
-	ft_memset((void *)str, ' ', n);
-	write(fd, str, n);
-	*ret += n;
-	free(str);
-}
-
-static char	*get_str(t_dir *dir, va_list *ap)
-{
-	char	*str;
-	char	*arg;
-
-	arg = va_arg(*ap, char *);
-	if (arg == NULL)
-	{
-		if (dir->precision != -1)
-			str = ft_strndup("(null)", dir->precision);
-		else
-			str = ft_strdup("(null)");
-	}
-	else if (dir->precision != -1)
-		str = ft_strndup(arg, dir->precision);
-	else
-		str = ft_strdup(arg);
-	if (!str)
-		exit(1);
-	return (str);
-}
-
-void	output_string(t_dir *dir, va_list *ap, int *ret)
-{
-	char	*str;
-	int		len;
-
-	str = get_str(dir, ap);
-	len = ft_strlen(str);
-	if (!dir->minus_flag)
-		justify(dir->width - len, ret);
-	write(fd, str, len);
-	*ret += len;
-	if (dir->minus_flag)
-		justify(dir->width - len, ret);
-	free(str);
+	(void) output;
+	(void) fmt;
+	(void) ap;
 }

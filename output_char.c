@@ -6,7 +6,7 @@
 /*   By: carlnysten <cnysten@student.hive.fi>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/02 12:01:32 by carlnysten        #+#    #+#             */
-/*   Updated: 2022/04/05 22:12:39 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/04/05 22:43:18 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,9 @@
 
 void	output_char(t_str *output, t_fmt fmt, va_list *ap)
 {
-	int	c;
+	char	c;
 
+	(void) fmt;
 	c = va_arg(*ap, int);
-	/*
-	if (!fmt->minus_flag)
-		justify(' ', dir->width - 1, ret);
-	*/
 	append(output, &c, 1);
-	/*
-	if (dir->minus_flag)
-		justify(' ', dir->width - 1, ret);
-	*/
 }

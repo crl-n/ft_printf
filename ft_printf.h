@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:48:48 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/05 22:15:19 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/04/05 22:52:23 by carlnysten       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ typedef struct	s_fmt
 	unsigned int	plus : 1;
 	int				precision;
 	int				width;
-	enum e_len		len;
+	enum e_len		length;
 	enum e_conv		conversion;
-}
+}	t_fmt;
 
 /* Typedef for dispatch table */
 typedef void	(*t_converter)(t_str *output, t_fmt fmt, va_list *ap);
@@ -98,7 +98,7 @@ int		is_length(const char c);
 
 t_fmt	get_fmt(const char *format);
 
-void	append(t_str *str, const char *src);
+void	append(t_str *str, const char *src, size_t n);
 t_str	*new_str(size_t	capacity);
 void	free_str(t_str	*str);
 
