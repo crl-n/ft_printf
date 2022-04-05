@@ -6,7 +6,7 @@
 /*   By: cnysten <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:29:44 by cnysten           #+#    #+#             */
-/*   Updated: 2022/04/05 09:32:54 by carlnysten       ###   ########.fr       */
+/*   Updated: 2022/04/05 17:30:46 by cnysten          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,6 @@
 #include <stdarg.h>
 #include <stdlib.h>
 #include "libft.h"
-
-static void	die(void)
-{
-	//TODO
-}
 
 static const t_converter	g_dispatch_table[13] = {
 	output_none,
@@ -37,8 +32,9 @@ static const t_converter	g_dispatch_table[13] = {
 	output_percentage
 };
 
-static void	dispatch_dir(t_dir *dir, va_list *ap, int *ret)
+static void	dispatch(const char *format, va_list *ap)
 {
+	/*
 	if (dir->width_from_arg)
 	{
 		if (!dir->width_set)
@@ -60,39 +56,28 @@ static void	dispatch_dir(t_dir *dir, va_list *ap, int *ret)
 		if (dir->precision < 0)
 			dir->precision = -1;
 	}
-	g_dispatch_table[dir->conversion](dir, ap, ret);
-	free(dir);
+	*/
+	g_dispatch_table[dir->conversion](format, ap, ret);
 }
 
-static void	format_output(const char *format,
-								t_list **dir_list,
-								va_list *ap,
-								int *ret)
+static char	*format_output(const char *format, va_list *ap)
 {
 	const char	*start;
-	t_dir		*dir;
 
 	start = format;
 	while (*format)
 	{
 		if (*format == '%')
 		{
-			*ret += write(fd, start, (size_t)(format - start));
-			dir = ft_lstpop_left(dir_list);
-			if (dir->conversion)
-			{
+			ft_memcpy(output, start, (size_t)(format - start));
+			dispatch(format, ap, ret);
+			while (!is_conversion(*format))
 				format++;
-				while (!is_conversion(*format))
-					format++;
-				start = format + 1;
-			}
-			else
-				start = format + 1;
-			dispatch_dir(dir, ap, ret);
+			start = format + 1;
 		}
 		format++;
 	}
-	*ret += write(fd, start, (size_t)(format - start));
+	ft_memcpy(output, start, (size_t)(format - start));
 }
 
 int	ft_printf(const char *format, ...)
